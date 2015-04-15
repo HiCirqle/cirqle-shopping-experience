@@ -1,0 +1,49 @@
+<script>
+var _cq = _cq || [];
+
+_cq.push(["cirqle_init", "d4b17420-020c-11e4-886d-9b22b8485f08"]);
+
+(function(){
+    this.cirqle_init = function(){
+      console.log('cirqle_init');
+    }
+
+    // this.cirqle_init.apply(this);
+
+    var self = this;
+    _cq = _cq || [];
+    while(_cq.length) {
+        var params = _cq.shift();   // remove the first item from the queue
+        var method = params.shift();    // remove the method from the first item
+        console.log(params);
+        console.log(method);
+        console.log(self);
+        self[method].apply(self, params);
+    }
+
+    _cq.push = function(params) {
+        var method = params.shift();    // remove the method from the first item
+
+        self[method].apply(self, params);
+    }
+})();
+
+// (function(url){
+// // Section 1
+//   var iframe = document.createElement('iframe');
+//   iframe.src = "javascript:false";
+//   (iframe.frameElement || iframe).style.cssText = "width: 0; height: 0; border: 0";
+//   var where = document.getElementsByTagName('script');
+//   where = where[where.length - 1];
+//   where.parentNode.insertBefore(iframe, where);
+ 
+// // Section 2
+//   var doc = iframe.contentWindow.document;
+//   doc.open().write('<body onload="'+
+//     'var js = document.createElement(\'script\');'+
+//     'js.id = \'js-iframe-async\';'+
+//     'js.src = \''+ url +'\';'+
+//     'document.body.appendChild(js);">');
+//   doc.close();
+// })('http://cdn.cirqle.nl/button1/cirqle-on-tumblr.js');
+</script>
