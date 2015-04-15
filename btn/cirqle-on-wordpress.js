@@ -1,6 +1,6 @@
 var dataset = require('./modules/dataset');
 var GATrack = require('./modules/track');
-var b = require('./modules/buttonsingleton');
+// var b = require('./modules/buttonsingleton');
 
 (function(){
   // var css_url = "http://cdn.cirqle.nl/button1/wordpress-buttonv1.0.0-black.css";

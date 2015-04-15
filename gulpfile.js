@@ -1,21 +1,21 @@
 var gulp = require('gulp'),
     // sass = require('gulp-ruby-sass'),
     // autoprefixer = require('gulp-autoprefixer'),
-    minifycss = require('gulp-minify-css'),
+    // imagemin = require('gulp-imagemin'),
+    // source = require('vinyl-source-stream'),
+    // buffer = require('vinyl-buffer'),
+    // livereload = require('gulp-livereload'),
+    // minifycss = require('gulp-minify-css'),
+    // concat = require('gulp-concat'),
+    // cache = require('gulp-cache'),
+    rename = require('gulp-rename'),
     jshint = require('gulp-jshint'),
     uglify = require('gulp-uglify'),
-    // imagemin = require('gulp-imagemin'),
-    rename = require('gulp-rename'),
-    concat = require('gulp-concat'),
     notify = require('gulp-notify'),
-    cache = require('gulp-cache'),
-    livereload = require('gulp-livereload'),
     del = require('del'),
     changed = require('gulp-changed'),
     browserify = require('browserify'),
     transform = require('vinyl-transform'), // vinyl-source-stream + vinyl-buffer
-    // source = require('vinyl-source-stream'),
-    // buffer = require('vinyl-buffer'),
     sourcemaps = require('gulp-sourcemaps'),
     gls = require('gulp-live-server');
 
@@ -45,8 +45,7 @@ gulp.task('browserify', function () {
     // Add transformation tasks ends
     // .pipe(uglify())
     .pipe(sourcemaps.write('./map'))
-    .pipe(gulp.dest('./dist'))
-    // .pipe(livereload())
+    .pipe(gulp.dest('./dist'));
     // .pipe(notify({ message: 'Scripts task complete' }));
 
   return bundle;
@@ -59,15 +58,20 @@ gulp.task('live-reload-server', function(){
 });
 
 gulp.task('clean', function(cb) {
-    del(['dist', 'processed'], cb);
+    del(['dist'], cb);
 });
 
 gulp.task('watch', function() {
     var server = gls.static('./test', 8888);
     server.start();
-    gulp.watch(['./btn/cirqle-on-*.js', './test/*'], ['browserify'], server.notify);
+    gulp.watch('./btn/cirqle-on-*.js', ['browserify'])
+    .on('change', function(event){
+      console.log('Changed', event.path);
+      server.notify(event);
+    });
+    gulp.watch('./test/*.html', function(event){
+      server.notify(event);
+    });
 });
 
-gulp.task('default', ['clean', 'browserify', 'watch'], function() {
-  	// gulp.start('browserify');
-});
+gulp.task('default', ['clean', 'browserify', 'watch']);
