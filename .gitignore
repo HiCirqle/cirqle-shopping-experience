@@ -2,3 +2,4 @@ node_modules
 dist
 test/reports/*
 test/lib/*
+test/selenium-debug.log

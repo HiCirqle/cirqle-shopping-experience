@@ -33,6 +33,7 @@
     "lodash": "^3.6.0",
     "nightwatch": "^0.6.3",
     "q": "^1.2.0",
+    "selenium-server-standalone-jar": "^2.45.0",
     "vinyl-transform": "0.0.1"
   },
   "scripts": {

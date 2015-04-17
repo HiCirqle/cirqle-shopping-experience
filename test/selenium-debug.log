@@ -1,42 +1,42 @@
-21:38:42.513 INFO - Launching a standalone server
+01:09:59.639 INFO - Launching a standalone server
 Setting system property webdriver.chrome.driver to ./lib/chromedriver
 Setting system property webdriver.ie.driver to ./lib/IEDriverServer.exe
-21:38:42.547 INFO - Java: Oracle Corporation 25.31-b07
-21:38:42.547 INFO - OS: Mac OS X 10.10.3 x86_64
-21:38:42.554 INFO - v2.45.0, with Core v2.45.0. Built from revision 5017cb8
-21:38:42.621 INFO - Default driver org.openqa.selenium.ie.InternetExplorerDriver registration is skipped: registration capabilities Capabilities [{ensureCleanSession=true, browserName=internet explorer, version=, platform=WINDOWS}] does not match with current platform: MAC
-21:38:42.650 INFO - RemoteWebDriver instances should connect to: http://127.0.0.1:4444/wd/hub
-21:38:42.651 INFO - Version Jetty/5.1.x
-21:38:42.652 INFO - Started HttpContext[/selenium-server,/selenium-server]
-21:38:42.671 INFO - Started org.openqa.jetty.jetty.servlet.ServletHandler@16c0663d
-21:38:42.671 INFO - Started HttpContext[/wd,/wd]
-21:38:42.671 INFO - Started HttpContext[/selenium-server/driver,/selenium-server/driver]
-21:38:42.671 INFO - Started HttpContext[/,/]
-21:38:42.674 INFO - Started SocketListener on 0.0.0.0:4444
-21:38:42.675 INFO - Started org.openqa.jetty.jetty.Server@30dae81
-21:38:42.964 INFO - Executing: [new session: Capabilities [{acceptSslCerts=true, name=Wordpress, browserName=firefox, javascriptEnabled=true, platform=ANY}]])
-21:38:42.972 INFO - Creating a new session for Capabilities [{acceptSslCerts=true, name=Wordpress, browserName=firefox, javascriptEnabled=true, platform=ANY}]
-21:38:45.806 INFO - Done: [new session: Capabilities [{acceptSslCerts=true, name=Wordpress, browserName=firefox, javascriptEnabled=true, platform=ANY}]]
-21:38:45.814 INFO - Executing: [get: http://localhost:8888/wordpress.html])
-21:38:52.791 INFO - Done: [get: http://localhost:8888/wordpress.html]
-21:38:52.796 INFO - Executing: [find element: By.cssSelector: body])
-21:38:52.899 INFO - Done: [find element: By.cssSelector: body]
-21:38:52.903 INFO - Executing: [is displayed: 0 [[FirefoxDriver: firefox on MAC (941065d8-57bc-8a47-9929-96554bd8a4f3)] -> css selector: body]])
-21:38:52.942 INFO - Done: [is displayed: 0 [[FirefoxDriver: firefox on MAC (941065d8-57bc-8a47-9929-96554bd8a4f3)] -> css selector: body]]
-21:38:52.946 INFO - Executing: [find element: By.cssSelector: img[class=mockimage]])
-21:38:52.982 INFO - Done: [find element: By.cssSelector: img[class=mockimage]]
-21:38:52.986 INFO - Executing: [find element: By.cssSelector: div[class=cirqle-outer-button]])
-21:38:53.026 INFO - Done: [find element: By.cssSelector: div[class=cirqle-outer-button]]
-21:38:53.029 INFO - Executing: [is displayed: 2 [[FirefoxDriver: firefox on MAC (941065d8-57bc-8a47-9929-96554bd8a4f3)] -> css selector: div[class=cirqle-outer-button]]])
-21:38:53.069 INFO - Done: [is displayed: 2 [[FirefoxDriver: firefox on MAC (941065d8-57bc-8a47-9929-96554bd8a4f3)] -> css selector: div[class=cirqle-outer-button]]]
-21:38:53.073 INFO - Executing: [find element: By.cssSelector: div[class=cirqle-outer-button]])
-21:38:53.113 INFO - Done: [find element: By.cssSelector: div[class=cirqle-outer-button]]
-21:38:53.116 INFO - Executing: [click: 2 [[FirefoxDriver: firefox on MAC (941065d8-57bc-8a47-9929-96554bd8a4f3)] -> css selector: div[class=cirqle-outer-button]]])
-21:38:53.233 INFO - Done: [click: 2 [[FirefoxDriver: firefox on MAC (941065d8-57bc-8a47-9929-96554bd8a4f3)] -> css selector: div[class=cirqle-outer-button]]]
-21:38:54.143 INFO - Executing: [find element: By.cssSelector: div[id=cq-shopwindow]])
-21:38:54.152 INFO - Done: [find element: By.cssSelector: div[id=cq-shopwindow]]
-21:38:54.155 INFO - Executing: [is displayed: 3 [[FirefoxDriver: firefox on MAC (941065d8-57bc-8a47-9929-96554bd8a4f3)] -> css selector: div[id=cq-shopwindow]]])
-21:38:54.202 INFO - Done: [is displayed: 3 [[FirefoxDriver: firefox on MAC (941065d8-57bc-8a47-9929-96554bd8a4f3)] -> css selector: div[id=cq-shopwindow]]]
-21:38:57.207 INFO - Executing: [delete session: abaaf9a0-46fc-4dc2-bd9d-0dc51b9e3486])
-21:38:57.306 INFO - Done: [delete session: abaaf9a0-46fc-4dc2-bd9d-0dc51b9e3486]
-21:38:57.334 INFO - Shutting down...
+01:09:59.693 INFO - Java: Oracle Corporation 25.31-b07
+01:09:59.693 INFO - OS: Mac OS X 10.10.3 x86_64
+01:09:59.707 INFO - v2.45.0, with Core v2.45.0. Built from revision 5017cb8
+01:09:59.791 INFO - Default driver org.openqa.selenium.ie.InternetExplorerDriver registration is skipped: registration capabilities Capabilities [{ensureCleanSession=true, browserName=internet explorer, version=, platform=WINDOWS}] does not match with current platform: MAC
+01:09:59.824 INFO - RemoteWebDriver instances should connect to: http://127.0.0.1:4444/wd/hub
+01:09:59.825 INFO - Version Jetty/5.1.x
+01:09:59.826 INFO - Started HttpContext[/selenium-server,/selenium-server]
+01:09:59.874 INFO - Started org.openqa.jetty.jetty.servlet.ServletHandler@16c0663d
+01:09:59.875 INFO - Started HttpContext[/wd,/wd]
+01:09:59.875 INFO - Started HttpContext[/selenium-server/driver,/selenium-server/driver]
+01:09:59.875 INFO - Started HttpContext[/,/]
+01:09:59.880 INFO - Started SocketListener on 0.0.0.0:4444
+01:09:59.881 INFO - Started org.openqa.jetty.jetty.Server@30dae81
+01:10:00.205 INFO - Executing: [new session: Capabilities [{acceptSslCerts=true, name=Wordpress, browserName=firefox, javascriptEnabled=true, platform=ANY}]])
+01:10:00.218 INFO - Creating a new session for Capabilities [{acceptSslCerts=true, name=Wordpress, browserName=firefox, javascriptEnabled=true, platform=ANY}]
+01:10:03.112 INFO - Done: [new session: Capabilities [{acceptSslCerts=true, name=Wordpress, browserName=firefox, javascriptEnabled=true, platform=ANY}]]
+01:10:03.120 INFO - Executing: [get: http://localhost:8888/wordpress.html])
+01:10:10.016 INFO - Done: [get: http://localhost:8888/wordpress.html]
+01:10:10.026 INFO - Executing: [find element: By.cssSelector: body])
+01:10:10.137 INFO - Done: [find element: By.cssSelector: body]
+01:10:10.141 INFO - Executing: [is displayed: 0 [[FirefoxDriver: firefox on MAC (df300125-d10d-d540-af12-9f2a315dc510)] -> css selector: body]])
+01:10:10.180 INFO - Done: [is displayed: 0 [[FirefoxDriver: firefox on MAC (df300125-d10d-d540-af12-9f2a315dc510)] -> css selector: body]]
+01:10:10.184 INFO - Executing: [find element: By.cssSelector: img[class=mockimage]])
+01:10:10.218 INFO - Done: [find element: By.cssSelector: img[class=mockimage]]
+01:10:10.222 INFO - Executing: [find element: By.cssSelector: div[class=cirqle-outer-button]])
+01:10:10.259 INFO - Done: [find element: By.cssSelector: div[class=cirqle-outer-button]]
+01:10:10.262 INFO - Executing: [is displayed: 2 [[FirefoxDriver: firefox on MAC (df300125-d10d-d540-af12-9f2a315dc510)] -> css selector: div[class=cirqle-outer-button]]])
+01:10:10.299 INFO - Done: [is displayed: 2 [[FirefoxDriver: firefox on MAC (df300125-d10d-d540-af12-9f2a315dc510)] -> css selector: div[class=cirqle-outer-button]]]
+01:10:10.302 INFO - Executing: [find element: By.cssSelector: div[class=cirqle-outer-button]])
+01:10:10.348 INFO - Done: [find element: By.cssSelector: div[class=cirqle-outer-button]]
+01:10:10.351 INFO - Executing: [click: 2 [[FirefoxDriver: firefox on MAC (df300125-d10d-d540-af12-9f2a315dc510)] -> css selector: div[class=cirqle-outer-button]]])
+01:10:10.477 INFO - Done: [click: 2 [[FirefoxDriver: firefox on MAC (df300125-d10d-d540-af12-9f2a315dc510)] -> css selector: div[class=cirqle-outer-button]]]
+01:10:11.384 INFO - Executing: [find element: By.cssSelector: div[id=cq-shopwindow]])
+01:10:11.392 INFO - Done: [find element: By.cssSelector: div[id=cq-shopwindow]]
+01:10:11.395 INFO - Executing: [is displayed: 3 [[FirefoxDriver: firefox on MAC (df300125-d10d-d540-af12-9f2a315dc510)] -> css selector: div[id=cq-shopwindow]]])
+01:10:11.599 INFO - Done: [is displayed: 3 [[FirefoxDriver: firefox on MAC (df300125-d10d-d540-af12-9f2a315dc510)] -> css selector: div[id=cq-shopwindow]]]
+01:10:14.605 INFO - Executing: [delete session: a9bc0896-ac49-43fa-bf53-f76c88b8af03])
+01:10:14.737 INFO - Done: [delete session: a9bc0896-ac49-43fa-bf53-f76c88b8af03]
+01:10:14.770 INFO - Shutting down...
