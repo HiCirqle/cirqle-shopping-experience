@@ -1,8 +1,16 @@
 var dataset = require('./modules/dataset');
 var GATrack = require('./modules/track');
-// var b = require('./modules/buttonsingleton');
+var cqjq = require('jquery');
+var mockbutton = require('./modules/mockbutton');
+var buttonCache = require('./modules/buttoncache');
+var analytics = require('./modules/segmentio');
+analytics.init('nfllvg24aq', window); // (id, window, disabled)
+analytics.identity();
+require('./modules/webPolyfill')(window);
 
-(function(){
+
+
+// (function(){
   // var css_url = "http://cdn.cirqle.nl/button1/wordpress-buttonv1.0.0-black.css";
   var css_url = "http://cdn.cirqle.nl/button1/cirqle-style-general.css";
   var iframe_origin = "https://cdn.cirqle.nl"; // domain name of iframecontent.html
@@ -17,11 +25,11 @@ var GATrack = require('./modules/track');
   var apiDomain = "https://api.cirqle.nl:8443"; //live
   // var apiDomain = "http://54.217.202.215:8080"; //live
   var segmentIOSwitch = true;
-  var cqjq;
+  // var cqjq;
   var isButtonLoaded = false;
   var buttonText = "Shop this post";
 
-  setSegmentIo();
+  // setSegmentIo();
 
   try{
     GATrack.blacklistUrl('www.elle.nl');
@@ -29,124 +37,132 @@ var GATrack = require('./modules/track');
     GATrack.trackView();
   }catch(e){}
 
-  if(typeof MutationObserver == 'undefined'){
-    var theNewScript = document.createElement("script");
-    theNewScript.type = "text/javascript";
-    theNewScript.src = web_component_cdn;
-    document.getElementsByTagName("head")[0].appendChild(theNewScript);
-  }
+  // if(typeof MutationObserver == 'undefined'){
+  //   console.log('no MutationObserver');
+  //   var theNewScript = document.createElement("script");
+  //   theNewScript.type = "text/javascript";
+  //   theNewScript.src = web_component_cdn;
+  //   document.getElementsByTagName("head")[0].appendChild(theNewScript);
+  // }
 
   // when jquery is ready, load data from API immediately
   // load jquery if not loaded
-  if(typeof jQuery == "undefined"){
-    var theNewScript = document.createElement("script");
-    theNewScript.onload = function(){}; // when jquery is ready
-    theNewScript.type = "text/javascript";
-    theNewScript.src = jquery_cdn;
-    document.getElementsByTagName("head")[0].appendChild(theNewScript);
-  }
-  else{
-    loadJqueryIfNotLoaded(function(){
-      buttonSingleton.getTaggedImg();
-    });
-  }
+  // if(typeof jQuery == "undefined"){
+  //   var theNewScript = document.createElement("script");
+  //   theNewScript.onload = function(){}; // when jquery is ready
+  //   theNewScript.type = "text/javascript";
+  //   theNewScript.src = jquery_cdn;
+  //   document.getElementsByTagName("head")[0].appendChild(theNewScript);
+  // }
+  // else{
+  //   loadJqueryIfNotLoaded(function(){
+  //     buttonSingleton.getTaggedImg();
+  //   });
+  // }
 
   function loadJqueryIfNotLoaded(cb){
-    // return cb();
+    return cb();
     // jQuery MAY OR MAY NOT be loaded at this stage
-    var previous$;
-    if(typeof $ !== 'undefined'){
-      previous$ = $;
-    }
-
-    var jQueryInjected = false;
-
-    var waitForLoad = function () {
-      if (typeof jQuery != "undefined") {
-        if(jQuery.fn.jquery != "1.11.1"){
-          if(!jQueryInjected){
-            var theNewScript = document.createElement("script");
-            theNewScript.type = "text/javascript";
-            theNewScript.src = jquery_cdn;
-            document.getElementsByTagName("head")[0].appendChild(theNewScript);
-            jQueryInjected = true;
-          }
-          window.setTimeout(waitForLoad, 50);
-        }
-        else{
-          // do not overwrite any usage depending on $
-          cqjq = jQuery.noConflict();
-          $ = previous$;
-          console.log(cqjq.fn.jquery);
-          console.log($);
-          cb();
-        }
-
-      } else {
-        window.setTimeout(waitForLoad, 50);
-      }
-    };
-    window.setTimeout(waitForLoad, 50);
+    // var previous$;
+    // if(typeof $ !== 'undefined'){
+    //   previous$ = $;
+    // }
+    //
+    // var jQueryInjected = false;
+    //
+    // var waitForLoad = function () {
+    //   if (typeof jQuery != "undefined") {
+    //     if(jQuery.fn.jquery != "1.11.1"){
+    //       if(!jQueryInjected){
+    //         var theNewScript = document.createElement("script");
+    //         theNewScript.type = "text/javascript";
+    //         theNewScript.src = jquery_cdn;
+    //         document.getElementsByTagName("head")[0].appendChild(theNewScript);
+    //         jQueryInjected = true;
+    //       }
+    //       window.setTimeout(waitForLoad, 50);
+    //     }
+    //     else{
+    //       // do not overwrite any usage depending on $
+    //       cqjq = jQuery.noConflict();
+    //       $ = previous$;
+    //       console.log(cqjq.fn.jquery);
+    //       console.log($);
+    //       cb();
+    //     }
+    //
+    //   } else {
+    //     window.setTimeout(waitForLoad, 50);
+    //   }
+    // };
+    // window.setTimeout(waitForLoad, 50);
   }
 
   function webComponentReady(cb){
-    var waitForLoad = function () {
-      if (typeof MutationObserver == 'undefined') {
-        window.setTimeout(waitForLoad, 50);
-      } else {
-        cb();
-      }
-    };
-    window.setTimeout(waitForLoad, 50);
+    return cb();
+    // var waitForLoad = function () {
+    //   if (typeof MutationObserver == 'undefined') {
+    //     window.setTimeout(waitForLoad, 50);
+    //   } else {
+    //     cb();
+    //   }
+    // };
+    // window.setTimeout(waitForLoad, 50);
   }
 
-  buttonSingleton = (function(){
-    var btns = [];
-    var taggedImgs;
-    var requesting = false;
-    var requestPromise;
-
-    function saveButton(btn){
-      btns.push(btn);
-    }
-
-    function getAllButtons(){
-      return btns;
-    }
-
-    function getTaggedImg(){
-      requesting = true;
-      return getTaggedImgFromApi().then(function(data){
-        requesting = false;
-        return data;
-      });
-    }
-
-    return {
-      getTaggedImg:function(){
-        if(taggedImgs){
-          var defer = jQuery.Deferred();
-          return defer.resolve(taggedImgs);
-        }
-
-        if(!requesting){
-          requestPromise = getTaggedImg().then(function(data){
-            taggedImgs = data;
-            return taggedImgs;
-          })
-        }
-        return requestPromise;
-      },
-      saveButton:saveButton,
-      getAllButtons:getAllButtons
-    };
-
-  })();
+  // buttonSingleton = (function(){
+  //   var btns = [];
+  //   var taggedImgs;
+  //   var requesting = false;
+  //   var requestPromise;
+  //
+  //   function saveButton(btn){
+  //     btns.push(btn);
+  //   }
+  //
+  //   function getAllButtons(){
+  //     return btns;
+  //   }
+  //
+  //   function getTaggedImg(){
+  //     requesting = true;
+  //     return getTaggedImgFromApi().then(function(data){
+  //       requesting = false;
+  //       return data;
+  //     });
+  //   }
+  //
+  //   return {
+  //     getTaggedImg:function(){
+  //       if(taggedImgs){
+  //         var defer = jQuery.Deferred();
+  //         return defer.resolve(taggedImgs);
+  //       }
+  //
+  //       if(!requesting){
+  //         requestPromise = getTaggedImg().then(function(data){
+  //           taggedImgs = data;
+  //           return taggedImgs;
+  //         })
+  //       }
+  //       return requestPromise;
+  //     },
+  //     saveButton:saveButton,
+  //     getAllButtons:getAllButtons
+  //   };
+  //
+  // })();
 
   // buttonSingleton.getTaggedImg();
 
+
   function buttonActivated(){
     dataset(document.getElementsByTagName("body")[0], "cpButtonActivated", true);
+  }
+
+  this.cirqle_mockbutton = function(b_id){
+    console.log('mockbutton');
+    mockbutton(b_id);
   }
 
   this.cirqle_init = function(b_id, config){
@@ -164,6 +180,10 @@ var GATrack = require('./modules/track');
     cirqle_getPostid_by_blogid_url = apiDomain + "/api/1/posts/blog/"+blog_id;
     cirqle_getpost_by_postid_url = apiDomain + "/api/1/posts/{post_id}/blog/"+blog_id+"/photos?tagged=true";
 
+    buttonSingleton =  buttonCache;
+    buttonSingleton.init(cirqle_getpost_by_url);
+    buttonSingleton.getTaggedImg();
+
     loadJqueryIfNotLoaded(function(){
 
       if(cq_config.buttonText && typeof cq_config.buttonText === "string"){
@@ -177,18 +197,16 @@ var GATrack = require('./modules/track');
       setCirqleCss(document, css_url);
 
       // segment IO identify user, anonymous in this case
-      window.onload = function(){
-        identity();
-      };
+      // window.onload = function(){
+      //   identity();
+      // };
 
       // send tracking of blog view with cirqle button embedded
-      track("blogView", {
+      analytics.track("blogView", {
         blogId: blog_id
       });
 
-      // findPostImage
-      embedButtonOnLoad(document);
-
+      // iniitalize observer first, for element loaded after page is laoded
       var body = document.getElementsByTagName('body')[0];
       var id;
 
@@ -204,169 +222,167 @@ var GATrack = require('./modules/track');
             var type = mutation.type;
 
             for(var j=0; j < addedNodes.length; j++){
-              if(!addedNodes[j].querySelectorAll){continue;}
-
-                var img = addedNodes[j].querySelectorAll('img');
-                if(img.length > 0){
-                  mutated = true;
-                  break;
-                }
-              }
-
-              try{
-                var img = target.querySelectorAll('img');
-                if(img.length > 0){
-                  mutated = true;
-                }
-              }catch(e){}
-
-              if(mutated){
+              if(!addedNodes[j].querySelectorAll) continue;
+              var img = addedNodes[j].querySelectorAll('img');
+              if(img.length > 0){
+                mutated = true;
                 break;
               }
             }
 
+            try{
+              var img = target.querySelectorAll('img');
+              if(img.length > 0){
+                mutated = true;
+              }
+            }catch(e){}
+
             if(mutated){
-              clearTimeout(id);
-              id = setTimeout(doneChanging, 1000);
+              break;
             }
-          });
-
-          // configuration of the observer:
-          var config = { attributes: true, childList: true, characterData: true, subtree: true };
-
-          // pass in the target node, as well as the observer options
-          observer.observe(body, config);
-
-        });
-
-        function doneChanging(){
-          repositionButton();
-        }
-
-        function iframelistener(event){
-          if ( event.origin !== iframe_origin ){
-            return;
           }
 
-          var message = event.data;
-          try{
-            message = JSON.parse(message);
-          }catch(e){}
-          if(message instanceof Object){
-            if(message.action == 'productView'){
-              track("productView", {
-                blogId: blog_id,
-                postId: message.postId,
-                productId: message.productId
-              });
-            }
-            console.log(message);
-            if(message.action == 'affiliateClick'){
-              // GA
-              if(message.blogDomain && message.productId && message.postUrl)
-                GATrack.trackEvent('affiliateLink', 'click', message.blogDomain, {productId:message.productId, postUrl:message.postUrl})
-            }
-
-          }
-        }
-
-        if (window.addEventListener){
-          attachHandler(window, "message", iframelistener);
-        } else {
-          attachHandler(window, "onmessage", iframelistener);
-        }
-
-        // Handle post that show up after on load. eg. lazy loading
-        document.getElementsByTagName("body")[0].addEventListener("DOMNodeInserted", function(e) {
-          var inserted = e.target;
-          if(!inserted.querySelectorAll){return;}
-            var image = inserted.querySelectorAll('img');
-            var iframe = inserted.querySelectorAll("iframe[src*='"+document.domain+"/post']");
-
-            if(image.length > 0 || iframe.length > 0){
-              //Handle post that show up on load
-              embedButtonOnLoad(inserted);
-            }
-          });
-
-          var id;
-          cqjq(window).resize(function() {
-            // touch screen trigger resize, only fadeout when not device
+          if(mutated){
             clearTimeout(id);
-            id = setTimeout(doneResizing, 500);
-          });
+            id = setTimeout(doneChanging, 1000);
+          }
+        });
 
-          function doneResizing(){
-            repositionButton(); // some theme doesn't fire mutation event on viewport change, we have to manually forse reposition upon resizing
+        // configuration of the observer:
+        var config = { attributes: true, childList: true, characterData: true, subtree: true };
+
+        // pass in the target node, as well as the observer options
+        observer.observe(body, config);
+      });
+
+      function doneChanging(){
+        repositionButton();
+      }
+
+      function iframelistener(event){
+        if ( event.origin !== iframe_origin ){
+          return;
+        }
+
+        var message = event.data;
+        try{
+          message = JSON.parse(message);
+        }catch(e){}
+        if(message instanceof Object){
+          if(message.action == 'productView'){
+            analytics.track("productView", {
+              blogId: blog_id,
+              postId: message.postId,
+              productId: message.productId
+            });
+          }
+          console.log(message);
+          if(message.action == 'affiliateClick'){
+            // GA
+            if(message.blogDomain && message.productId && message.postUrl)
+              GATrack.trackEvent('affiliateLink', 'click', message.blogDomain, {productId:message.productId, postUrl:message.postUrl})
           }
 
-          // });
+        }
+      }
 
-        });
-      };
+      if (window.addEventListener){
+        attachHandler(window, "message", iframelistener);
+      } else {
+        attachHandler(window, "onmessage", iframelistener);
+      }
+
+      // Handle post that show up after on load. eg. lazy loading
+      document.getElementsByTagName("body")[0].addEventListener("DOMNodeInserted", function(e) {
+        var inserted = e.target;
+        if(!inserted.querySelectorAll) return;
+        var image = inserted.querySelectorAll('img');
+        var iframe = inserted.querySelectorAll("iframe[src*='"+document.domain+"/post']");
+
+        if(image.length > 0 || iframe.length > 0){
+          //Handle post that show up on load
+          embedButtonOnLoad(inserted);
+        }
+      });
+
+      var id;
+      cqjq(window).resize(function() {
+        // touch screen trigger resize, only fadeout when not device
+        clearTimeout(id);
+        id = setTimeout(doneResizing, 500);
+      });
+
+      function doneResizing(){
+        repositionButton(); // some theme doesn't fire mutation event on viewport change, we have to manually forse reposition upon resizing
+      }
+
+      // findPostImage
+      embedButtonOnLoad(document);
+    });
+  };
 
   function repositionButton(){
     var buttons = buttonSingleton.getAllButtons();
     if(buttons.length === 0){return;};
 
-      for(var i=0; i < buttons.length; i++){
-        btnObj = buttons[i];
-        if(btnObj.btn.style.position == "relative"){
-          continue; // exclude button posistioned by relative
-        }
-        else if(isHidden(btnObj.img)){
-          cqjq(btnObj.btn).hide();
-          continue;
-        }
-        else{
-          // if(isMoved(btnObj.img) || isMoved(btnObj.btn)){
-          positionButtonAbsolute(btnObj.img, btnObj.btn);
-          // }
-        }
+    for(var i=0; i < buttons.length; i++){
+      btnObj = buttons[i];
+      if(btnObj.btn.style.position == "relative"){
+        continue; // exclude button posistioned by relative
+      }
+      else if(isHidden(btnObj.img)){
+        cqjq(btnObj.btn).hide();
+        continue;
+      }
+      else{
+        // if(isMoved(btnObj.img) || isMoved(btnObj.btn)){
+        positionButtonAbsolute(btnObj.img, btnObj.btn);
+        // }
       }
     }
+  }
 
   function isMoved(el){
     var offset = getNodePosition(el);
     return (Math.abs(offset[0] - el.absoluteTop) > 0) || (Math.abs(offset[1] - el.absoluteLeft) > 0) || (Math.abs(el.height - el.previousHeight) > 0) || (Math.abs(el.width - el.previousWidth) > 0);
   }
 
-  function setSegmentIo(){
-    if(segmentIOSwitch){
-      try{
-        if(!window.analytics){
-          window.analytics=window.analytics||[],window.analytics.methods=["identify","group","track","page","pageview","alias","ready","on","once","off","trackLink","trackForm","trackClick","trackSubmit"],window.analytics.factory=function(t){return function(){var a=Array.prototype.slice.call(arguments);return a.unshift(t),window.analytics.push(a),window.analytics}};for(var i=0;i<window.analytics.methods.length;i++){var key=window.analytics.methods[i];window.analytics[key]=window.analytics.factory(key)}window.analytics.load=function(t){if(!document.getElementById("analytics-js")){var a=document.createElement("script");a.type="text/javascript",a.id="analytics-js",a.async=!0,a.src=("https:"===document.location.protocol?"https://":"http://")+"cdn.segment.io/analytics.js/v1/"+t+"/analytics.min.js";var n=document.getElementsByTagName("script")[0];n.parentNode.insertBefore(a,n)}},window.analytics.SNIPPET_VERSION="2.0.9",
-          window.analytics.load("nfllvg24aq");
-        }
-
-      }catch(e){}
-      // window.analytics.page();
-    }
-  }
-
-  function identity(){
-    if(segmentIOSwitch){
-      analytics.identify({
-        integrations: {
-          'All': false,
-          'Webhooks': true
-        }
-      }, function(){
-      });
-    }
-  }
-
-  function track(action, traits){
-    if(segmentIOSwitch){
-      analytics.track(action, traits, {
-        integrations: {
-          'All': false,
-          'Webhooks': true
-        }
-      }, function(){
-      });
-    }
-  }
+  // function setSegmentIo(){
+  //   if(segmentIOSwitch){
+  //     try{
+  //       if(!window.analytics){
+  //         window.analytics=window.analytics||[],window.analytics.methods=["identify","group","track","page","pageview","alias","ready","on","once","off","trackLink","trackForm","trackClick","trackSubmit"],window.analytics.factory=function(t){return function(){var a=Array.prototype.slice.call(arguments);return a.unshift(t),window.analytics.push(a),window.analytics}};for(var i=0;i<window.analytics.methods.length;i++){var key=window.analytics.methods[i];window.analytics[key]=window.analytics.factory(key)}window.analytics.load=function(t){if(!document.getElementById("analytics-js")){var a=document.createElement("script");a.type="text/javascript",a.id="analytics-js",a.async=!0,a.src=("https:"===document.location.protocol?"https://":"http://")+"cdn.segment.io/analytics.js/v1/"+t+"/analytics.min.js";var n=document.getElementsByTagName("script")[0];n.parentNode.insertBefore(a,n)}},window.analytics.SNIPPET_VERSION="2.0.9",
+  //         window.analytics.load("nfllvg24aq");
+  //       }
+  //
+  //     }catch(e){}
+  //     // window.analytics.page();
+  //   }
+  // }
+  //
+  // function identity(){
+  //   if(segmentIOSwitch){
+  //     analytics.identify({
+  //       integrations: {
+  //         'All': false,
+  //         'Webhooks': true
+  //       }
+  //     }, function(){
+  //     });
+  //   }
+  // }
+  //
+  // function track(action, traits){
+  //   if(segmentIOSwitch){
+  //     analytics.track(action, traits, {
+  //       integrations: {
+  //         'All': false,
+  //         'Webhooks': true
+  //       }
+  //     }, function(){
+  //     });
+  //   }
+  // }
 
   function setCirqleCss(scope, css){
     var s = scope.createElement('link');
@@ -377,9 +393,9 @@ var GATrack = require('./modules/track');
     scope.head.appendChild(s);
   }
 
-  function getTaggedImgFromApi(){
-    return cqjq.getJSON(cirqle_getpost_by_url);
-  }
+  // function getTaggedImgFromApi(){
+  //   return cqjq.getJSON(cirqle_getpost_by_url);
+  // }
 
   function embedButtonOnLoad(content){
     try{
@@ -416,6 +432,7 @@ var GATrack = require('./modules/track');
 
   /*imgIdentifyMethods.page = true*/
   function findPostImage(scope){
+    console.log('finding post image ...');
     var domain  = document.domain;
     var postImagesNodeAndURL = [];
 
@@ -433,6 +450,12 @@ var GATrack = require('./modules/track');
       for(var i = imgUrls.length-1; i >=0; i--){
         var selector = "img[src*='"+removeUrlParam(imgUrls[i])+"'],img[data-img*='"+removeUrlParam(imgUrls[i])+"'],img[src*='"+removeUrlDomain(imgUrls[i])+"']";
         var imgElms = scope.querySelectorAll(selector);
+        if(imgElms.length && imgElms.length > 0){
+          console.log('found');
+          console.log(scope);
+          console.log(selector);
+          console.log(imgElms);
+        }
         imgElms = Object.keys(imgElms).map(function (key) {return imgElms[key]});
         if(imgElms.concat) imgElms = imgElms.concat(backgroundImgElms);
 
@@ -587,9 +610,9 @@ var GATrack = require('./modules/track');
 
     var current = parseInt(cqjq(btnNode).css("z-index"), 10);
     var zIndex = highestZIndex(0, btnNode)+100;
-    console.log(btnNode);
-    console.log(zIndex);
-    console.log(current);
+    // console.log(btnNode);
+    // console.log(zIndex);
+    // console.log(current);
     btnNode.style.zIndex = zIndex;
     // if(isNaN(current)){
     // }
@@ -665,7 +688,7 @@ var GATrack = require('./modules/track');
                   imageUrl: imgObj.url
                 };
                 var traits = cqjq.extend({}, trackTraits, {duration: duration});
-                track("postImageHover", traits);
+                analytics.track("postImageHover", traits);
               }
             });
           });
@@ -699,7 +722,7 @@ var GATrack = require('./modules/track');
           //show positioned iframe
           tooglePurchaseDialog(timer, trackTraits);
           // track clicked rate through segment IO
-          track("shopbuttonClicked", trackTraits);
+          analytics.track("shopbuttonClicked", trackTraits);
         }
       });
 
@@ -857,7 +880,7 @@ var GATrack = require('./modules/track');
       if(timer instanceof Timer){
         timer.end(function(duration){
           var traits = cqjq.extend({}, trackTraits, {duration: duration});
-          track("shopwindowOpen", traits);
+          analytics.track("shopwindowOpen", traits);
         });
       }
     }
@@ -924,7 +947,7 @@ var GATrack = require('./modules/track');
     // return (style.display === 'none' || style.visibility == 'hidden')
   }
 
-function highestZIndex(defaultIndex, btn){
+  function highestZIndex(defaultIndex, btn){
     var highest = defaultIndex;
     if(!highest){highest = 8;} // becasue blogger image slider is 10
 
@@ -952,9 +975,9 @@ function highestZIndex(defaultIndex, btn){
     }));
 
     return highest;
-}
+  }
 
-function findIntersectors(targetSelector, intersectorsSelector) {
+  function findIntersectors(targetSelector, intersectorsSelector) {
     var intersectors = [];
 
     var $target = cqjq(targetSelector);
@@ -975,9 +998,9 @@ function findIntersectors(targetSelector, intersectorsSelector) {
 
     });
     return intersectors;
-}
+  }
 
-function getNodePosition(node) {
+  function getNodePosition(node) {
     var offset = cqjq(node).offset();
     var top = parseInt(offset.top);
     var left = parseInt(offset.left);
@@ -1130,4 +1153,4 @@ function getNodePosition(node) {
 
     self[method].apply(self, params);
   }
-})();
+// })();

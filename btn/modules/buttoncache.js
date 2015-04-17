@@ -1,8 +1,9 @@
-// module.exports=track;
 var jQuery = require('jquery');
-/*global document*/
+
 var btns = [];
 var taggedImgs;
+var requesting = false;
+var requestPromise;
 var getTaggedImgFromApi;
 
 function saveButton(btn){
@@ -13,13 +14,9 @@ function getAllButtons(){
   return btns;
 }
 
-// function getTaggedImgFromApi(){
-//   return jQuery.getJSON(cirqle_getpost_by_url);
-// }
-
 function createTagRetrievalFunction(url){
   return function(){
-    jQuery.getJSON(url);
+    return jQuery.getJSON(url);
   }
 }
 
@@ -27,27 +24,28 @@ function init(url){
   getTaggedImgFromApi = createTagRetrievalFunction(url);
 }
 
-function loadTaggedImg(){
-  return getTaggedImgFromApi();
-}
-
 function getTaggedImg(){
   var defer = jQuery.Deferred();
   if(!getTaggedImgFromApi) return defer.resolve([]);
 
-  if(taggedImgs){
+  if(!requesting && taggedImgs){
     return defer.resolve(taggedImgs);
   }
 
-  return loadTaggedImg().then(function(data){
-    taggedImgs = data;
-    return taggedImgs;
-  });
+  if(!requesting && !requestPromise){
+    requesting = true;
+    requestPromise = getTaggedImgFromApi().then(function(data){
+      requesting = false;
+      taggedImgs = data;
+      return data;
+    });
+  }
+  return requestPromise;
 }
 
-module.exports = {
+module.exports =  {
   init:init,
   getTaggedImg:getTaggedImg,
   saveButton:saveButton,
   getAllButtons:getAllButtons
-}
+};

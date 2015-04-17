@@ -62,14 +62,18 @@ gulp.task('clean', function(cb) {
 });
 
 gulp.task('watch', function() {
-    var server = gls.static('./test', 8888);
+    var server = gls.static(['./server', './dist'], 8888);
     server.start();
-    gulp.watch('./btn/cirqle-on-*.js', ['browserify'])
-    .on('change', function(event){
-      console.log('Changed', event.path);
+    gulp.watch(['./btn/cirqle-on-*.js', './btn/modules/*.js'], ['browserify'])
+    .on('error', function(event){
+      console.log('error', event);
+      server.stop();
+    });
+    gulp.watch('./dist/*.js', function(event){
+      console.log('dist change', event);
       server.notify(event);
     });
-    gulp.watch('./test/*.html', function(event){
+    gulp.watch('./server/*.html', function(event){
       server.notify(event);
     });
 });
