@@ -3,11 +3,11 @@ module.exports = {
     browser
       .url('http://localhost:8888/wordpress.html')
       .waitForElementVisible('body', 1000)
-      .waitForElementPresent('img[class=mockimage]', 5000)
-      .waitForElementVisible('div[class=cirqle-outer-button]', 900)
+      .waitForElementPresent('img[class=mockimage]', 10000)
+      .waitForElementVisible('div[class=cirqle-outer-button]', 10000)
       .click('div[class=cirqle-outer-button]')
       .pause(900)
-      .waitForElementVisible('div[id=cq-shopwindow]', 3000)
+      .waitForElementVisible('div[id=cq-shopwindow]', 10000)
       .pause(3000)
       .end();
   }
