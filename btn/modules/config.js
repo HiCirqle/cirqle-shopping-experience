@@ -1,0 +1,38 @@
+  // jquery_cdn = "//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js";
+  // web_component_cdn = "//cdn.cirqle.nl/polyfills/webcomponents.min.js";
+  // iframe_src_url = iframe_origin+"/experience-test/iframecontent.html"; // test
+  // apiDomain = "http = //54.73.226.47 = 9090"; //test
+  // apiDomain = "http = //54.217.202.215 = 8080"; //live
+function Config(id){
+  this.blog_id = id;
+  this.cdn_domain = "http://cdn.cirqle.nl";
+  this.iframe_origin = this.cdn_domain; // domain name of iframecontent.html
+  this.css_url = this.cdn_domain+"/button1/cirqle-style-general.css";
+  this.iframe_src_url = this.iframe_origin+"/experience2/iframecontent.html"; //live
+  this.maxPostCount =  15;
+  this.blogName = document.title;
+  this.blogDomain = window.location.host;
+  this.apiDomain = "https://api.cirqle.nl:8443"; //live
+  this.segmentIOSwitch = true;
+  this.isButtonLoaded = false;
+  this.buttonText = "Shop this post";
+  this.cirqle_getpost_by_url = this.apiDomain + "/api/1/blogs/@@blog_id/photos?tagged=true";
+  this.cirqle_getPostid_by_blogid_url = this.apiDomain + "/api/1/posts/blog/@@blog_id";
+  this.cirqle_getpost_by_postid_url = this.apiDomain + "/api/1/posts/{post_id}/blog/@@blog_id/photos?tagged=true";
+};
+
+var config;
+
+function setBlogId(id){
+  config = new Config(id);
+}
+
+function getSetting(name){
+  if(!config || !config.blog_id) return "";
+  return config[name] ? config[name].replace("@@blog_id", config.blog_id) : "";
+}
+
+module.exports = {
+  setBlogId:setBlogId,
+  getSetting:getSetting
+}

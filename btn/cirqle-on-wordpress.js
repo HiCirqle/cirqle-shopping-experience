@@ -7,6 +7,9 @@ var analytics = require('./modules/segmentio');
 analytics.init('nfllvg24aq', window); // (id, window, disabled)
 analytics.identity();
 require('./modules/webPolyfill')(window);
+var postImage = require('./modules/postImage');
+var config = require('./modules/config');
+var cirqleButton = require('./modules/button');
 
 
 
@@ -165,20 +168,25 @@ require('./modules/webPolyfill')(window);
     mockbutton(b_id);
   }
 
-  this.cirqle_init = function(b_id, config){
+  this.cirqle_init = function(b_id, customConfig){
     var pathName = document.location.pathname;
-
-    cq_config = config || {};
+    cq_config = customConfig || {};
 
     //overwirte showOnHover = false when on mobile
     if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) || /Mobile/i.test(navigator.userAgent)) {
       cq_config = {showOnHover:false};
     }
 
-    blog_id = b_id;
-    cirqle_getpost_by_url = apiDomain + "/api/1/blogs/"+blog_id+"/photos?tagged=true";
-    cirqle_getPostid_by_blogid_url = apiDomain + "/api/1/posts/blog/"+blog_id;
-    cirqle_getpost_by_postid_url = apiDomain + "/api/1/posts/{post_id}/blog/"+blog_id+"/photos?tagged=true";
+    config.setBlogId(b_id); // set blog id to config module
+    cirqleButton.setConfig({
+      config:config,
+      GATrack:GATrack,
+      analytics:analytics
+    }); // set blog id to config module
+    cirqleButton.setScope(document);
+
+    var blog_id = config.getSetting('blog_id');
+    var cirqle_getpost_by_url = config.getSetting('cirqle_getpost_by_url');
 
     buttonSingleton =  buttonCache;
     buttonSingleton.init(cirqle_getpost_by_url);
@@ -203,7 +211,7 @@ require('./modules/webPolyfill')(window);
 
       // send tracking of blog view with cirqle button embedded
       analytics.track("blogView", {
-        blogId: blog_id
+        blogId: config.getSetting('blog_id')
       });
 
       // iniitalize observer first, for element loaded after page is laoded
@@ -249,10 +257,10 @@ require('./modules/webPolyfill')(window);
         });
 
         // configuration of the observer:
-        var config = { attributes: true, childList: true, characterData: true, subtree: true };
+        var observerConfig = { attributes: true, childList: true, characterData: true, subtree: true };
 
         // pass in the target node, as well as the observer options
-        observer.observe(body, config);
+        observer.observe(body, observerConfig);
       });
 
       function doneChanging(){
@@ -271,7 +279,7 @@ require('./modules/webPolyfill')(window);
         if(message instanceof Object){
           if(message.action == 'productView'){
             analytics.track("productView", {
-              blogId: blog_id,
+              blogId: config.getSetting('blog_id'),
               postId: message.postId,
               productId: message.productId
             });
@@ -389,7 +397,7 @@ require('./modules/webPolyfill')(window);
     s.rel = "stylesheet";
     s.type = "text/css";
     s.href = css;
-    s.id = "cirqlecss_"+blog_id;
+    s.id = "cirqlecss_"+config.getSetting('blog_id');
     scope.head.appendChild(s);
   }
 
@@ -433,53 +441,79 @@ require('./modules/webPolyfill')(window);
   /*imgIdentifyMethods.page = true*/
   function findPostImage(scope){
     console.log('finding post image ...');
-    var domain  = document.domain;
-    var postImagesNodeAndURL = [];
-
-    var postImagewidth = 131;
-    var postImageheight = 32;
-    if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)){
-      var postImagewidth = 66;
-      var postImageheight = 32;
-    }
-
+    // var domain  = document.domain;
+    // var postImagesNodeAndURL = [];
+    //
+    // var postImagewidth = 131;
+    // var postImageheight = 32;
+    // if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)){
+    //   var postImagewidth = 66;
+    //   var postImageheight = 32;
+    // }
     buttonSingleton.getTaggedImg().then(function(imgUrls){
-      var backgroundImgElms = findBackgroundImage(imgUrls);
-      backgroundImgElms = Object.keys(backgroundImgElms).map(function (key) {return backgroundImgElms[key]});
-      // var backgroundImgElms = [];
-      for(var i = imgUrls.length-1; i >=0; i--){
-        var selector = "img[src*='"+removeUrlParam(imgUrls[i])+"'],img[data-img*='"+removeUrlParam(imgUrls[i])+"'],img[src*='"+removeUrlDomain(imgUrls[i])+"']";
-        var imgElms = scope.querySelectorAll(selector);
-        if(imgElms.length && imgElms.length > 0){
-          console.log('found');
-          console.log(scope);
-          console.log(selector);
-          console.log(imgElms);
-        }
-        imgElms = Object.keys(imgElms).map(function (key) {return imgElms[key]});
-        if(imgElms.concat) imgElms = imgElms.concat(backgroundImgElms);
+      postImage.setScope(scope);
+      var imgElmObjs = postImage.findImages(imgUrls);
+      console.log(imgElmObjs);
 
-        for(var j = imgElms.length-1; j >=0; j--){
-          var imgElm = imgElms[j];
-          var imgUrl = dataset(imgElm, "img") || imgUrls[i];
-          if(imgElm && imgElm.nodeType && !dataset(imgElm, "cqUuid")){
-            (function(imgElm, i){
-              if(imgElm.height == 0 || imgElm.width == 0){
-                cqjq("<img/>")
-                .load(function() {
-                  embeddShopButton(imgElm, imgUrl);
-                })
-                .error(function() {})
-                .attr("src", imgElm.src);
-              }
-              else{
+      for(var j = imgElmObjs.length-1; j >=0; j--){
+        var imgElm = imgElmObjs[j].element;
+        var imgUrl = dataset(imgElm, "img") || imgElmObjs[j].url;
+        if(imgElm && imgElm.nodeType && !dataset(imgElm, "cqUuid")){
+          (function(imgElm, imgUrl){
+            if(imgElm.height == 0 || imgElm.width == 0){
+              cqjq("<img/>")
+              .load(function() {
                 embeddShopButton(imgElm, imgUrl);
-              }
+                // cirqleButton.embedButton(imgElm, imgUrl);
+              })
+              .error(function() {})
+              .attr("src", imgElm.src);
+            }
+            else{
+              embeddShopButton(imgElm, imgUrl);
+              // cirqleButton.embedButton(imgElm, imgUrl);
+            }
 
-            })(imgElm, i);
-          }
+          })(imgElm, imgUrl);
         }
       }
+
+      // var backgroundImgElms = findBackgroundImage(imgUrls);
+      // backgroundImgElms = Object.keys(backgroundImgElms).map(function (key) {return backgroundImgElms[key]});
+      // // var backgroundImgElms = [];
+      // for(var i = imgUrls.length-1; i >=0; i--){
+      //   var selector = "img[src*='"+removeUrlParam(imgUrls[i])+"'],img[data-img*='"+removeUrlParam(imgUrls[i])+"'],img[src*='"+removeUrlDomain(imgUrls[i])+"']";
+      //   var imgElms = scope.querySelectorAll(selector);
+      //   if(imgElms.length && imgElms.length > 0){
+      //     console.log('found');
+      //     console.log(scope);
+      //     console.log(selector);
+      //     console.log(imgElms);
+      //   }
+      //   imgElms = Object.keys(imgElms).map(function (key) {return imgElms[key]});
+      //   if(imgElms.concat) imgElms = imgElms.concat(backgroundImgElms);
+      //
+      //   for(var j = imgElms.length-1; j >=0; j--){
+      //     var imgElm = imgElms[j];
+      //     var imgUrl = dataset(imgElm, "img") || imgUrls[i];
+      //     if(imgElm && imgElm.nodeType && !dataset(imgElm, "cqUuid")){
+      //       (function(imgElm, i){
+      //         if(imgElm.height == 0 || imgElm.width == 0){
+      //           cqjq("<img/>")
+      //           .load(function() {
+      //             embeddShopButton(imgElm, imgUrl);
+      //           })
+      //           .error(function() {})
+      //           .attr("src", imgElm.src);
+      //         }
+      //         else{
+      //           embeddShopButton(imgElm, imgUrl);
+      //         }
+      //
+      //       })(imgElm, i);
+      //     }
+      //   }
+      // }
     });
 
     if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) || /Mobile/i.test(navigator.userAgent)) {
@@ -495,7 +529,7 @@ require('./modules/webPolyfill')(window);
       defer.resolve(JSON.parse(localStorage.getItem(imgurl)));
     }
     else{
-      var url = apiDomain + "/api/1/posts/products?url="+imgurl+"&blogId="+blog_id;
+      var url = apiDomain + "/api/1/posts/products?url="+imgurl+"&blogId="+config.getSetting('blog_id');
       cqjq.getJSON(url).then(function(data){
         if(localStorage){
           localStorage.setItem(imgurl,JSON.stringify(data));
@@ -626,10 +660,7 @@ require('./modules/webPolyfill')(window);
   }
 
   function embeddShopButton(imgNode, imgUrl, ifrmScope){
-    if(dataset(imgNode, "postId")){
-      // shop button has been embedded
-      return;
-    }
+    if(dataset(imgNode, "postId")) return; // shop button has been embedded
 
     var el = imgNode;
     var uuid = guid();
@@ -683,7 +714,7 @@ require('./modules/webPolyfill')(window);
               if(data.length > 0){
                 var imgObj = data[0];
                 var trackTraits = {
-                  blogId: blog_id,
+                  blogId: config.getSetting('blog_id'),
                   postId: imgObj.postId,
                   imageUrl: imgObj.url
                 };
@@ -711,7 +742,7 @@ require('./modules/webPolyfill')(window);
         if(data.length > 0){
           var imgObj = data[0];
           var trackTraits = {
-            blogId: blog_id,
+            blogId: config.getSetting('blog_id'),
             postId: imgObj.postId,
             imageUrl: imgObj.url
           };
@@ -738,7 +769,7 @@ require('./modules/webPolyfill')(window);
             if(data.length > 0){
               var imgObj = data[0];
               var trackTraits = {
-                blogId: blog_id,
+                blogId: config.getSetting('blog_id'),
                 postId: imgObj.postId,
                 imageUrl: imgObj.url
               };
@@ -796,7 +827,7 @@ require('./modules/webPolyfill')(window);
     catch(err) {}
 
     var iframe = document.createElement('iframe');
-    iframe.src = iframe_src_url+'?imageurl='+encodeURIComponent(img.url)+"&bloggerid="+img.bloggerId+"&blogid="+blog_id+"&postid="+img.postId+"&blogname="+encodeURIComponent(blogName)+"&blogdomain="+encodeURIComponent(blogDomain)+"&posturl="+encodeURIComponent(img.postUrl);
+    iframe.src = iframe_src_url+'?imageurl='+encodeURIComponent(img.url)+"&bloggerid="+img.bloggerId+"&blogid="+config.getSetting('blog_id')+"&postid="+img.postId+"&blogname="+encodeURIComponent(blogName)+"&blogdomain="+encodeURIComponent(blogDomain)+"&posturl="+encodeURIComponent(img.postUrl);
     iframe.style.border = "0";
     iframe.style.width = "100%";
     iframe.style.height = "100%";

@@ -32,7 +32,7 @@ gulp.task('browserify', function () {
     return b.bundle();
   });
 
-  var bundle = gulp.src(['./btn/cirqle-on-*.js'])
+  var bundle = gulp.src(['./btn/cirqle-on-wordpress.js'])
     .pipe(browserified)
     // .pipe(source(getBundleName() + '.js'))
     // .pipe(buffer())
