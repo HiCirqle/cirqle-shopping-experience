@@ -1,4 +1,6 @@
-// var jQuery = require('jquery');
+var cqjq = require('jquery');
+var _ = require('lodash');
+require('../modules/webPolyfill')(window);
 var scope = document;
 
 function ImageElement(element, url){
@@ -11,22 +13,26 @@ function setScope(sc){
 }
 
 function getElementBackgroundImageValue(e){
+  var backgroundImage = "";
   if (e.currentStyle)
     backgroundImage = e.currentStyle['backgroundImage'];
   else if (window.getComputedStyle && e && e.nodeType)
     backgroundImage = window.getComputedStyle(e,null).getPropertyValue('background-image');
   else
     backgroundImage = "";
-  return backgroundImage;
+
+  return backgroundImage.slice(4, -1);;
 }
 
 function findBackgroundImage(urls){
   var all = scope.querySelectorAll('body *');
-  all = Object.keys(all).map(function (key) {return all[key]});
+  // all = Object.keys(all).map(function (key) {return all[key]});
+  all = makeArray(all);
 
-  return all.reduce(function(prev, e) {
+  return _.reduce(all, function(prev, e) {
     var backgroundImage = getElementBackgroundImageValue(e);
-    var index = urls.indexOf(backgroundImage);
+    console.log(backgroundImage);
+    var index = _.indexOf(urls, backgroundImage);
     if(index > 0){
       prev.push(new ImageElement(e, urls[index]));
     }
@@ -53,7 +59,8 @@ function removeUrlDomain(url){
 }
 
 function makeArray(objects){
-  return Object.keys(objects).map(function (key) {return objects[key]});
+  // return Object.keys(objects).map(function (key) {return objects[key]});
+  return cqjq.map(Object.keys(objects), function(key){return objects[key]});
 }
 
 function findImages(imgUrls){
@@ -64,7 +71,7 @@ function findImages(imgUrls){
     var selector = "img[src*='"+removeUrlParam(imgUrls[i])+"'],img[data-img*='"+removeUrlParam(imgUrls[i])+"'],img[src*='"+removeUrlDomain(imgUrls[i])+"']";
     var elements = scope.querySelectorAll(selector);
     elements = makeArray(elements);
-    elements = elements.map(function(e){
+    elements = cqjq.map(elements, function(e){
       return new ImageElement(e, imgUrls[i]);
     });
     imgElementObjects = imgElementObjects.concat(elements);

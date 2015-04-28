@@ -10,6 +10,13 @@ require('./modules/webPolyfill')(window);
 var postImage = require('./modules/postImage');
 var config = require('./modules/config');
 var cirqleButton = require('./modules/button');
+var browserHelper = require('./modules/browserHelper');
+var attachHandler = browserHelper.attachHandler;
+var _ = require('lodash');
+var buttonSingleton;
+var cq_config;
+var position = require('./modules/position');
+var repositionButton = require('./modules/position').repositionButton;
 
 
 
@@ -181,7 +188,9 @@ var cirqleButton = require('./modules/button');
     cirqleButton.setConfig({
       config:config,
       GATrack:GATrack,
-      analytics:analytics
+      analytics:analytics,
+      customConfig:customConfig,
+      buttonSingleton:buttonCache
     }); // set blog id to config module
     cirqleButton.setScope(document);
 
@@ -199,7 +208,7 @@ var cirqleButton = require('./modules/button');
       }
 
       // set up cirqle button environment. eg load css file, segment io setting
-      if(cq_config.customCss && typeof cq_config.customCss === "string" && cq_config.customCss.indexOf("cdn.cirqle.nl") > -1){
+      if(cq_config.customCss && typeof cq_config.customCss === "string" && _.includes(cq_config.customCss, "cdn.cirqle.nl")){
         css_url = cq_config.customCss;
       }
       setCirqleCss(document, css_url);
@@ -264,7 +273,7 @@ var cirqleButton = require('./modules/button');
       });
 
       function doneChanging(){
-        repositionButton();
+        repositionButton(buttonSingleton);
       }
 
       function iframelistener(event){
@@ -301,7 +310,7 @@ var cirqleButton = require('./modules/button');
       }
 
       // Handle post that show up after on load. eg. lazy loading
-      document.getElementsByTagName("body")[0].addEventListener("DOMNodeInserted", function(e) {
+      var DOMNodeInsertedListener = function(e) {
         var inserted = e.target;
         if(!inserted.querySelectorAll) return;
         var image = inserted.querySelectorAll('img');
@@ -311,7 +320,9 @@ var cirqleButton = require('./modules/button');
           //Handle post that show up on load
           embedButtonOnLoad(inserted);
         }
-      });
+      };
+      var bodyElm = document.getElementsByTagName("body")[0];
+      attachHandler(bodyElm, "DOMNodeInserted", DOMNodeInsertedListener);
 
       var id;
       cqjq(window).resize(function() {
@@ -321,7 +332,7 @@ var cirqleButton = require('./modules/button');
       });
 
       function doneResizing(){
-        repositionButton(); // some theme doesn't fire mutation event on viewport change, we have to manually forse reposition upon resizing
+        repositionButton(buttonSingleton); // some theme doesn't fire mutation event on viewport change, we have to manually forse reposition upon resizing
       }
 
       // findPostImage
@@ -329,26 +340,26 @@ var cirqleButton = require('./modules/button');
     });
   };
 
-  function repositionButton(){
-    var buttons = buttonSingleton.getAllButtons();
-    if(buttons.length === 0){return;};
-
-    for(var i=0; i < buttons.length; i++){
-      btnObj = buttons[i];
-      if(btnObj.btn.style.position == "relative"){
-        continue; // exclude button posistioned by relative
-      }
-      else if(isHidden(btnObj.img)){
-        cqjq(btnObj.btn).hide();
-        continue;
-      }
-      else{
-        // if(isMoved(btnObj.img) || isMoved(btnObj.btn)){
-        positionButtonAbsolute(btnObj.img, btnObj.btn);
-        // }
-      }
-    }
-  }
+  // function repositionButton(){
+  //   var buttons = buttonSingleton.getAllButtons();
+  //   if(buttons.length === 0){return;};
+  //
+  //   for(var i=0; i < buttons.length; i++){
+  //     var btnObj = buttons[i];
+  //     if(btnObj.btn.style.position == "relative"){
+  //       continue; // exclude button posistioned by relative
+  //     }
+  //     else if(isHidden(btnObj.img)){
+  //       cqjq(btnObj.btn).hide();
+  //       continue;
+  //     }
+  //     else{
+  //       // if(isMoved(btnObj.img) || isMoved(btnObj.btn)){
+  //       positionButtonAbsolute(btnObj.img, btnObj.btn);
+  //       // }
+  //     }
+  //   }
+  // }
 
   function isMoved(el){
     var offset = getNodePosition(el);
@@ -398,7 +409,8 @@ var cirqleButton = require('./modules/button');
     s.type = "text/css";
     s.href = css;
     s.id = "cirqlecss_"+config.getSetting('blog_id');
-    scope.head.appendChild(s);
+    var head = scope.head || scope.getElementsByTagName('head')[0];
+    head.appendChild(s);
   }
 
   // function getTaggedImgFromApi(){
@@ -415,6 +427,7 @@ var cirqleButton = require('./modules/button');
   }
 
   function getBackgroundImageValue(e){
+    var backgroundImage;
     if (e.currentStyle)
       backgroundImage = e.currentStyle['backgroundImage'];
     else if (window.getComputedStyle && e && e.nodeType)
@@ -424,19 +437,19 @@ var cirqleButton = require('./modules/button');
     return backgroundImage;
   }
 
-  function findBackgroundImage(imgUrls){
-    var all = document.querySelectorAll('body *');
-    all = Object.keys(all).map(function (key) {return all[key]})
-    return all.filter(function(e) {
-      var backgroundImage = getBackgroundImageValue(e);
-
-      var match = imgUrls.filter(function(e){
-          return backgroundImage.indexOf(e) > -1;
-        });
-      if (match.length > 0) console.log(backgroundImage);
-      return match.length > 0;
-    });
-  }
+  // function findBackgroundImage(imgUrls){
+  //   var all = document.querySelectorAll('body *');
+  //   all = Object.keys(all).map(function (key) {return all[key]})
+  //   return all.filter(function(e) {
+  //     var backgroundImage = getBackgroundImageValue(e);
+  //
+  //     var match = imgUrls.filter(function(e){
+  //         return backgroundImage.indexOf(e) > -1;
+  //       });
+  //     if (match.length > 0) console.log(backgroundImage);
+  //     return match.length > 0;
+  //   });
+  // }
 
   /*imgIdentifyMethods.page = true*/
   function findPostImage(scope){
@@ -463,15 +476,15 @@ var cirqleButton = require('./modules/button');
             if(imgElm.height == 0 || imgElm.width == 0){
               cqjq("<img/>")
               .load(function() {
-                embeddShopButton(imgElm, imgUrl);
-                // cirqleButton.embedButton(imgElm, imgUrl);
+                // embeddShopButton(imgElm, imgUrl);
+                cirqleButton.embedButton(imgElm, imgUrl);
               })
               .error(function() {})
               .attr("src", imgElm.src);
             }
             else{
-              embeddShopButton(imgElm, imgUrl);
-              // cirqleButton.embedButton(imgElm, imgUrl);
+              // embeddShopButton(imgElm, imgUrl);
+              cirqleButton.embedButton(imgElm, imgUrl);
             }
 
           })(imgElm, imgUrl);
@@ -1077,7 +1090,7 @@ var cirqleButton = require('./modules/button');
 
   function getTumblrImageId(imageURL){
     // media.tumblr.com
-    if(imageURL.indexOf("media.tumblr.com") > -1){
+    if(_.indexOf(imageURL, "media.tumblr.com") > -1){
       imageURL  = imageURL.substring(0, imageURL.lastIndexOf("/"));
       return imageURL.substring(imageURL.lastIndexOf("/")+1);
     }

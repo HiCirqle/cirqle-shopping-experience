@@ -6,10 +6,13 @@ var Timer = require('../modules/Timer');
 var browserHelper = require('../modules/browserHelper');
 var attachHandler = browserHelper.attachHandler;
 var isHidden = browserHelper.isHidden;
+var getHeight = browserHelper.getHeight;
+var getWidth = browserHelper.getWidth;
 var shoppingExperience = require('../modules/shoppingExperience');
 var showWindow = shoppingExperience.showWindow;
 var toogleParentScrollY = shoppingExperience.toogleParentScrollY;
 var tooglePurchaseDialog = shoppingExperience.tooglePurchaseDialog;
+require('../modules/webPolyfill')(window);
 var scope = document;
 var thisModule = {};
 
@@ -29,6 +32,7 @@ function setConfig(config){
     thisModule[key] = config[key];
   });
 
+  shoppingExperience.setBlogId(thisModule.config.getSetting('blog_id'));
 }
 
 function setScope(sc){
@@ -120,26 +124,6 @@ function positionButtonRelative(imgNode, btnNode, button){
   return btnNode;
 }
 
-function getHeight(e){
-  if (e.currentStyle)
-    height = e.currentStyle['height'];
-  else if (window.getComputedStyle && e && e.nodeType)
-    height = window.getComputedStyle(e,null).getPropertyValue('height');
-  else
-    height = 0;
-  return height;
-}
-
-function getWidth(e){
-  if (e.currentStyle)
-    width = e.currentStyle['width'];
-  else if (window.getComputedStyle && e && e.nodeType)
-    width = window.getComputedStyle(e,null).getPropertyValue('width');
-  else
-    width = 0;
-  return width;
-}
-
 function positionButtonAbsolute(imgNode, btnNode){
   btnNode.className = "cirqle-outer-button";
   cqjq(btnNode).hide(); // must hide it in order to get the computed dimension
@@ -203,10 +187,10 @@ function embedButton(imgNode, imgUrl, ifrmScope){
   }
   else{
     // button on hidden
-    if(cq_config.showOnHover && cq_config.showOnHover === true){button.style.visibility = "hidden";}
+    if(thisModule.customConfig.showOnHover && thisModule.customConfig.showOnHover === true){button.style.visibility = "hidden";}
 
     (function(){
-      if(cq_config.showOnHover && cq_config.showOnHover === true){
+      if(thisModule.customConfig.showOnHover && thisModule.customConfig.showOnHover === true){
         attachHandler(button, "mouseenter", function(e) {
           button.style.visibility = "visible";
         });
@@ -219,7 +203,7 @@ function embedButton(imgNode, imgUrl, ifrmScope){
       var timer = new Timer();
       attachHandler(imgHover, "mouseenter", function(e) {
         timer.start();
-        if(cq_config.showOnHover && cq_config.showOnHover === true){button.style.visibility = "visible";}
+        if(thisModule.customConfig.showOnHover && thisModule.customConfig.showOnHover === true){button.style.visibility = "visible";}
       });
 
       attachHandler(imgHover, "mouseleave", function(e) {
@@ -237,7 +221,7 @@ function embedButton(imgNode, imgUrl, ifrmScope){
             }
           });
         });
-        if(cq_config.showOnHover && cq_config.showOnHover === true){button.style.visibility = "hidden";}
+        if(thisModule.customConfig.showOnHover && thisModule.customConfig.showOnHover === true){button.style.visibility = "hidden";}
       });
 
     })()
@@ -272,7 +256,9 @@ function embedButton(imgNode, imgUrl, ifrmScope){
     });
 
     function closeiframelistener(event){
-      if ( event.origin !== iframe_origin ){
+      console.log(event);
+      console.log(event.origin, thisModule.config.getSetting('iframe_origin'));
+      if ( event.origin !== thisModule.config.getSetting('iframe_origin') ){
         return;
       }
 
@@ -317,7 +303,7 @@ function embedButton(imgNode, imgUrl, ifrmScope){
   el.absoluteLeft = imgPos[1];
   el.previousHeight = el.height;
   el.previousWidth = el.width;
-  buttonSingleton.saveButton({img:el, btn:button, uuid:uuid});
+  thisModule.buttonSingleton.saveButton({img:el, btn:button, uuid:uuid});
 
   if(isHidden(el)){
     cqjq(button).hide();

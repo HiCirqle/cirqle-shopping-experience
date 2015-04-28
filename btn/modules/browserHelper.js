@@ -30,7 +30,30 @@ function isHidden(el) {
   // return (style.display === 'none' || style.visibility == 'hidden')
 }
 
+
+function getHeight(e){
+  var height;
+  if (e.currentStyle)
+    height = e.currentStyle['height'];
+  else if (window.getComputedStyle && e && e.nodeType)
+    height = window.getComputedStyle(e,null).getPropertyValue('height');
+
+  return height;
+}
+
+function getWidth(e){
+  var width;
+  if (e.currentStyle)
+    width = e.currentStyle['width'];
+  else if (window.getComputedStyle && e && e.nodeType)
+    width = window.getComputedStyle(e,null).getPropertyValue('width');
+
+  return width;
+}
+
 module.exports = {
   attachHandler:attachHandler,
-  isHidden:isHidden
+  isHidden:isHidden,
+  getHeight:getHeight,
+  getWidth:getWidth,
 }

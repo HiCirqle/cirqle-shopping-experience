@@ -2,6 +2,8 @@ var cqjq = require('jquery');
 var highestZIndex = require('../modules/highestZIndex');
 var browserHelper = require('../modules/browserHelper');
 var isHidden = browserHelper.isHidden;
+var getHeight = browserHelper.getHeight;
+var getWidth = browserHelper.getWidth;
 
 function positionButtonRelative(imgNode, btnNode, button){
   btnNode.className = "cirqle-outer-button";
@@ -60,26 +62,6 @@ function positionButtonAbsolute(imgNode, btnNode){
   return btnNode;
 }
 
-function getHeight(e){
-  if (e.currentStyle)
-    height = e.currentStyle['height'];
-  else if (window.getComputedStyle && e && e.nodeType)
-    height = window.getComputedStyle(e,null).getPropertyValue('height');
-  else
-    height = 0;
-  return height;
-}
-
-function getWidth(e){
-  if (e.currentStyle)
-    width = e.currentStyle['width'];
-  else if (window.getComputedStyle && e && e.nodeType)
-    width = window.getComputedStyle(e,null).getPropertyValue('width');
-  else
-    width = 0;
-  return width;
-}
-
 function getNodePosition(node) {
   var offset = cqjq(node).offset();
   var top = parseInt(offset.top);
@@ -93,12 +75,13 @@ function getNodePosition(node) {
   return [top, left];
 }
 
-function repositionButton(){
+function repositionButton(buttonSingleton){
+  if(!buttonSingleton) return;
   var buttons = buttonSingleton.getAllButtons();
   if(buttons.length === 0){return;};
 
   for(var i=0; i < buttons.length; i++){
-    btnObj = buttons[i];
+    var btnObj = buttons[i];
     if(btnObj.btn.style.position == "relative"){
       continue; // exclude button posistioned by relative
     }
@@ -114,9 +97,21 @@ function repositionButton(){
   }
 }
 
+function calibrateZindexOnScroll(el){
+  var onScrollEventHandler = function(){
+    el.style.zIndex = highestZIndex(0, el)+2;
+  };
+
+  if(window.addEventListener)
+      window.addEventListener('scroll', onScrollEventHandler, false);
+  else if (window.attachEvent)
+      window.attachEvent('onscroll', onScrollEventHandler);
+}
+
 module.exports = {
   repositionButton:repositionButton,
   positionButtonAbsolute:positionButtonAbsolute,
   positionButtonRelative:positionButtonRelative,
-  getNodePosition:getNodePosition
+  getNodePosition:getNodePosition,
+  calibrateZindexOnScroll:calibrateZindexOnScroll
 }

@@ -1,4 +1,5 @@
 var gulp = require('gulp'),
+    babel = require('gulp-babel'),
     // sass = require('gulp-ruby-sass'),
     // autoprefixer = require('gulp-autoprefixer'),
     // imagemin = require('gulp-imagemin'),
@@ -34,6 +35,7 @@ gulp.task('browserify', function () {
 
   var bundle = gulp.src(['./btn/cirqle-on-wordpress.js'])
     .pipe(browserified)
+    .pipe(babel())
     // .pipe(source(getBundleName() + '.js'))
     // .pipe(buffer())
     .pipe(sourcemaps.init({loadMaps: true}))

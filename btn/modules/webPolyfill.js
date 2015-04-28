@@ -1,3 +1,8 @@
+var ieLegacySupport = require('../modules/ieLegacySupport');
+console.log(ieLegacySupport);
+ieLegacySupport.support('object');
+ieLegacySupport.support('array');
+
 function webPolyfill(window){
 
   // mutationobserver-shim v0.3.1 (github.com/megawac/MutationObserver.js)

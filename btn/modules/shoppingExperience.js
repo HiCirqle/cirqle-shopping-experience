@@ -1,13 +1,20 @@
 var iframe_src_url;
+var blogName = document.title;
+var blogDomain = window.location.host;
+var cqjq = require('jquery');
 var config = require('../modules/config');
-var repositionButton = require('../modules/position').repositionButton;
-console.log(config.getSetting('iframe_src_url'));
+var position = require('../modules/position');
+var repositionButton = position.repositionButton;
+var highestZIndex = require('../modules/highestZIndex');
+var calibrateZindexOnScroll = position.calibrateZindexOnScroll;
+var Timer = require('../modules/Timer');
 
 function setBlogId(id){
   iframe_src_url = config.getSetting('iframe_src_url');
 }
 
 function showWindow(img, timer, trackTraits){
+  console.log(iframe_src_url);
   if(!iframe_src_url) return;
   // delete previous content if any
   try {
@@ -77,7 +84,7 @@ function tooglePurchaseDialog(timer, trackTraits){
 
   var shopwindow = document.getElementById("cq-shopwindow");
 
-  if(shopwindow && shopwindow.style.visibility == "visible"){
+  if(shopwindow && shopwindow.style.visibility === "visible"){
     // instead of hiding the shop window, delete it
     // shopwindow.style.visibility = "hidden";
     try {
@@ -94,7 +101,9 @@ function tooglePurchaseDialog(timer, trackTraits){
       });
     }
   }
+  // else if(shopwindow && shopwindow.style.visibility !== "visible"){
   else{
+    console.log(shopwindow);
     shopwindow.style.visibility = "visible";
     timer.start();
     try{
@@ -105,6 +114,7 @@ function tooglePurchaseDialog(timer, trackTraits){
 }
 
 module.exports = {
+  setBlogId:setBlogId,
   showWindow:showWindow,
   tooglePurchaseDialog:tooglePurchaseDialog,
   toogleParentScrollY:toogleParentScrollY

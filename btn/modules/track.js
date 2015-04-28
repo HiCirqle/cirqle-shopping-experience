@@ -1,11 +1,10 @@
-// module.exports=track;
-
-/*global document*/
+var _ = require('lodash');
 var gaTrackingCode = 'UA-60330716-1';
 var domainName = window.location.host;
 var path = window.location.pathname;
 var blacklist = [];
 var GADomainPair = [];
+require('../modules/webPolyfill')(window);
 
 var dimensions = {
   postUrl:"dimension1",
@@ -28,7 +27,7 @@ function blacklistUrl(url){
 }
 
 function isBlackListed(){
-  return blacklist.indexOf(domainName) > -1;
+  return _.indexOf(blacklist, domainName) > -1;
 }
 
 function trackView(){

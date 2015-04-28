@@ -16,7 +16,7 @@ function getAllButtons(){
 
 function createTagRetrievalFunction(url){
   return function(){
-    return jQuery.getJSON(url);
+    return jQuery.getJSON(url+'&callback=?');
   }
 }
 
