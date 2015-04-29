@@ -58,6 +58,17 @@ function removeUrlDomain(url){
   return url;
 }
 
+function getTumblrImageId(imageURL){
+  // media.tumblr.com
+  if(_.indexOf(imageURL, "media.tumblr.com") > -1){
+    imageURL  = imageURL.substring(0, imageURL.lastIndexOf("/"));
+    return imageURL.substring(imageURL.lastIndexOf("/")+1);
+  }
+  else{
+    return removeUrlParam(imageURL);
+  }
+}
+
 function makeArray(objects){
   // return Object.keys(objects).map(function (key) {return objects[key]});
   return cqjq.map(Object.keys(objects), function(key){return objects[key]});
@@ -80,5 +91,6 @@ function findImages(imgUrls){
 }
 module.exports = {
   setScope:setScope,
-  findImages:findImages
+  findImages:findImages,
+  getTumblrImageId:getTumblrImageId
 }

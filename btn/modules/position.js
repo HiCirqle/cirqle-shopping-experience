@@ -108,10 +108,16 @@ function calibrateZindexOnScroll(el){
       window.attachEvent('onscroll', onScrollEventHandler);
 }
 
+function isMoved(el){
+  var offset = getNodePosition(el);
+  return (Math.abs(offset[0] - el.absoluteTop) > 0) || (Math.abs(offset[1] - el.absoluteLeft) > 0) || (Math.abs(el.height - el.previousHeight) > 0) || (Math.abs(el.width - el.previousWidth) > 0);
+}
+
 module.exports = {
   repositionButton:repositionButton,
   positionButtonAbsolute:positionButtonAbsolute,
   positionButtonRelative:positionButtonRelative,
   getNodePosition:getNodePosition,
-  calibrateZindexOnScroll:calibrateZindexOnScroll
+  calibrateZindexOnScroll:calibrateZindexOnScroll,
+  isMoved:isMoved
 }
