@@ -4,7 +4,6 @@ var gulp = require('gulp'),
     // sass = require('gulp-ruby-sass'),
     // autoprefixer = require('gulp-autoprefixer'),
     // imagemin = require('gulp-imagemin'),
-    // source = require('vinyl-source-stream'),
     // buffer = require('vinyl-buffer'),
     // livereload = require('gulp-livereload'),
     // minifycss = require('gulp-minify-css'),
@@ -17,6 +16,7 @@ var gulp = require('gulp'),
     del = require('del'),
     changed = require('gulp-changed'),
     browserify = require('browserify'),
+    source = require('vinyl-source-stream'),
     transform = require('vinyl-transform'), // vinyl-source-stream + vinyl-buffer
     sourcemaps = require('gulp-sourcemaps'),
     gls = require('gulp-live-server');
@@ -27,17 +27,29 @@ var getBundleName = function () {
   return version + '.' + name + '.' + 'min';
 };
 
+// gulp.task('modules', function() {
+//     browserify({
+//     entries: './main.js',
+//     debug: true
+//     })
+//     .transform(babelify)
+//     .bundle()
+//     .pipe(source('output.js'))
+//     .pipe(gulp.dest('./dist'));
+// });
 
 gulp.task('browserify', function () {
   var browserified = transform(function(filename) {
-    var b = browserify(filename);
-    // .transform(babelify);
-    return b.bundle();
+    return browserify({
+    entries: filename,
+    debug: true
+    })
+    .transform(babelify)
+    .bundle();
   });
 
   var bundle = gulp.src(['./btn/cirqle-on-wordpress.js'])
     .pipe(browserified)
-    // .pipe(babel())
     // .pipe(source(getBundleName() + '.js'))
     // .pipe(buffer())
     .pipe(sourcemaps.init({loadMaps: true}))

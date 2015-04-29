@@ -10,7 +10,7 @@ var calibrateZindexOnScroll = position.calibrateZindexOnScroll;
 var Timer = require('../modules/Timer');
 
 function setBlogId(id){
-  iframe_src_url = config.getSetting('iframe_src_url');
+  iframe_src_url = config.get('iframe_src_url');
 }
 
 function showWindow(img, timer, trackTraits){
@@ -24,7 +24,7 @@ function showWindow(img, timer, trackTraits){
   catch(err) {}
 
   var iframe = document.createElement('iframe');
-  iframe.src = iframe_src_url+'?imageurl='+encodeURIComponent(img.url)+"&bloggerid="+img.bloggerId+"&blogid="+config.getSetting('blog_id')+"&postid="+img.postId+"&blogname="+encodeURIComponent(blogName)+"&blogdomain="+encodeURIComponent(blogDomain)+"&posturl="+encodeURIComponent(img.postUrl);
+  iframe.src = iframe_src_url+'?imageurl='+encodeURIComponent(img.url)+"&bloggerid="+img.bloggerId+"&blogid="+config.get('blog_id')+"&postid="+img.postId+"&blogname="+encodeURIComponent(blogName)+"&blogdomain="+encodeURIComponent(blogDomain)+"&posturl="+encodeURIComponent(img.postUrl);
   iframe.style.border = "0";
   iframe.style.width = "100%";
   iframe.style.height = "100%";

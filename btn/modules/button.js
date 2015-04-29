@@ -1,325 +1,284 @@
-var cqjq = require('jquery');
 var dataset = require('../modules/dataset');
-var getNodePosition = require('../modules/nodePosition');
-var highestZIndex = require('../modules/highestZIndex');
-var Timer = require('../modules/Timer');
+var GATrack = require('../modules/track');
+var cqjq = require('jquery');
+var mockbutton = require('../modules/mockbutton');
+var buttonCache = require('../modules/buttoncache');
+var analytics = require('../modules/segmentio');
+analytics.init('nfllvg24aq', window); // (id, window, disabled)
+analytics.identity();
+require('../modules/webPolyfill')(window);
+var postImage = require('../modules/postImage');
+var config = require('../modules/config');
+var cirqleButton = require('../modules/shopbutton');
 var browserHelper = require('../modules/browserHelper');
 var attachHandler = browserHelper.attachHandler;
-var isHidden = browserHelper.isHidden;
-var getHeight = browserHelper.getHeight;
-var getWidth = browserHelper.getWidth;
-var shoppingExperience = require('../modules/shoppingExperience');
-var showWindow = shoppingExperience.showWindow;
-var toogleParentScrollY = shoppingExperience.toogleParentScrollY;
-var tooglePurchaseDialog = shoppingExperience.tooglePurchaseDialog;
-require('../modules/webPolyfill')(window);
-var scope = document;
-var thisModule = {};
+var _ = require('lodash');
+var buttonSingleton;
+var cq_config;
+var position = require('../modules/position');
+var repositionButton = require('../modules/position').repositionButton;
 
-var guid = (function() {
-  function s4() {
-    return Math.floor((1 + Math.random()) * 0x10000)
-    .toString(16)
-    .substring(1);
-  }
-  return function() {
-    return s4() + s4() + '-' + s4() + '-' + s4() + '-' + s4() + '-' + s4() + s4() + s4();
-  };
-})();
-
-function setConfig(config){
-  Object.keys(config).forEach(function(key){
-    thisModule[key] = config[key];
-  });
-
-  shoppingExperience.setBlogId(thisModule.config.getSetting('blog_id'));
+function buttonActivated(){
+  dataset(document.getElementsByTagName("body")[0], "cpButtonActivated", true);
 }
 
-function setScope(sc){
-  console.log(thisModule.config);
-  scope = sc
+function setCirqleCss(scope, css){
+  var s = scope.createElement('link');
+  s.rel = "stylesheet";
+  s.type = "text/css";
+  s.href = css;
+  s.id = "cirqlecss_"+config.get('blog_id');
+  var head = scope.head || scope.getElementsByTagName('head')[0];
+  head.appendChild(s);
 }
 
-function getPostImageInfo(imgurl){
-  var defer = cqjq.Deferred();
-  //caching here
-  if(localStorage && localStorage.getItem(imgurl)){
-    defer.resolve(JSON.parse(localStorage.getItem(imgurl)));
+function embedButtonOnLoad(content){
+  try{
+    buttonActivated();
+    findPostImage(content);
+
+  }catch(e){
   }
-  else{
-    var url = thisModule.config.getSetting('apiDomain') + "/api/1/posts/products?url="+imgurl+"&blogId="+thisModule.config.getSetting('blog_id');
-    cqjq.getJSON(url).then(function(data){
-      if(localStorage){
-        localStorage.setItem(imgurl,JSON.stringify(data));
+}
+
+function findPostImage(scope){
+  console.log('finding post image ...');
+  buttonSingleton.getTaggedImg().then(function(imgUrls){
+    postImage.setScope(scope);
+    var imgElmObjs = postImage.findImages(imgUrls);
+    console.log(imgElmObjs);
+
+    for(var j = imgElmObjs.length-1; j >=0; j--){
+      var imgElm = imgElmObjs[j].element;
+      var imgUrl = dataset(imgElm, "img") || imgElmObjs[j].url;
+      if(imgElm && imgElm.nodeType && !dataset(imgElm, "cqUuid")){
+        (function(imgElm, imgUrl){
+          if(imgElm.height == 0 || imgElm.width == 0){
+            cqjq("<img/>")
+            .load(function() {
+              // embeddShopButton(imgElm, imgUrl);
+              cirqleButton.embedButton(imgElm, imgUrl);
+            })
+            .error(function() {})
+            .attr("src", imgElm.src);
+          }
+          else{
+            // embeddShopButton(imgElm, imgUrl);
+            cirqleButton.embedButton(imgElm, imgUrl);
+          }
+
+        })(imgElm, imgUrl);
       }
-      defer.resolve(data);
-    });
-  }
-  return defer;
-}
-/*imgIdentifyMethods.page = true*/
-
-function createButton(imgNode, uuid){
-  var button = document.createElement('div');
-  button.className = "cirqle-btn";
-  // button.dataset.uuid = uuid;
-  // imgNode.dataset.cqUuid = uuid;
-  dataset(button, "uuid", uuid);
-  dataset(imgNode, "cqUuid", uuid);
-
-  var icon = document.createElement('div');
-  icon.className = "cirqle-btn-icon";
-  icon.innerHTML = '<svg height="32" id="shopping-cart" viewBox="0 0 32 32" width="32" xmlns="http://www.w3.org/2000/svg"><path d=" M0 4 L5 4 L6 8 L30 8 L28 22 L6 22 L3.5 6 L0 6z M10 24 A3 3 0 0 0 10 30 A3 3 0 0 0 10 24 M24 24 A3 3 0 0 0 24 30 A3 3 0 0 0 24 24 "></path></svg>';
-
-  var text = document.createElement('div');
-  text.className = "cirqle-btn-copy";
-  text.innerHTML = thisModule.config.getSetting('buttonText');
-
-  button.appendChild(icon);
-  button.appendChild(text);
-
-  return button;
-}
-
-function embedButtonAbsolute(imgNode, uuid, ifrmScope){
-  var button = createButton(imgNode, uuid);
-
-  var outerButton = document.createElement('div');
-
-  outerButton.appendChild(button);
-  if(ifrmScope){
-    ifrmScope.getElementsByTagName("body")[0].appendChild(outerButton);
-    outerButton = positionButtonRelative(imgNode, outerButton, button);
-  }else{
-    document.getElementsByTagName("body")[0].appendChild(outerButton);
-    outerButton = positionButtonAbsolute(imgNode, outerButton);
-  }
-  // outerButton.dataset.uuid = uuid;
-  dataset(outerButton, "uuid", uuid);
-
-  return outerButton;
-}
-
-function positionButtonRelative(imgNode, btnNode, button){
-  btnNode.className = "cirqle-outer-button";
-  cqjq(btnNode).hide(); // must hide it in order to get the computed dimension
-
-  var offsetFromBottomRight = 15;
-  var btnHeight = parseInt(cqjq(btnNode).css('height'));
-  var btnWidth = parseInt(cqjq(btnNode).css('width'));
-  cqjq(btnNode).show();
-
-  var buttonTop = offsetFromBottomRight + btnHeight; // button height 32px/32px
-  var buttonRight = offsetFromBottomRight; // button width 131px/66px
-
-  btnNode.style.zIndex = "102";
-  btnNode.style.position = "relative";
-  btnNode.style.height = "0px";
-  imgNode.parentNode.appendChild(btnNode); //append outer button
-
-  button.style.position = "absolute";
-  button.style.top = "-"+buttonTop+"px";
-  button.style.right = buttonRight+"px";
-
-  return btnNode;
-}
-
-function positionButtonAbsolute(imgNode, btnNode){
-  btnNode.className = "cirqle-outer-button";
-  cqjq(btnNode).hide(); // must hide it in order to get the computed dimension
-
-  var offsetFromBottomRight = 15;
-  var imgPos = getNodePosition(imgNode);
-  var btnHeight = parseInt(cqjq(btnNode).css('height'));
-  var btnWidth = parseInt(cqjq(btnNode).css('width'));
-  cqjq(btnNode).show();
-
-  //ipad and tablet shows desktop button
-  var imgNodeHeight = imgNode.height || getHeight(imgNode);
-  var imgNodeWidth = imgNode.width || getWidth(imgNode);
-  var buttonTop = imgPos[0] + parseFloat(imgNodeHeight) - offsetFromBottomRight - btnHeight; // button height 32px/32px
-  var buttonLeft = imgPos[1] + parseFloat(imgNodeWidth) - offsetFromBottomRight - btnWidth; // button width 131px/66px
-
-  var current = parseInt(cqjq(btnNode).css("z-index"), 10);
-  var zIndex = highestZIndex(0, btnNode)+100;
-  // console.log(btnNode);
-  // console.log(zIndex);
-  // console.log(current);
-  btnNode.style.zIndex = zIndex;
-  // if(isNaN(current)){
-  // }
-
-  btnNode.className = "cirqle-outer-button";
-  btnNode.style.position = "absolute";
-  btnNode.style.top = buttonTop+"px";
-  btnNode.style.left = buttonLeft+"px";
-
-  return btnNode;
-}
-
-function embedButton(imgNode, imgUrl, ifrmScope){
-  if(dataset(imgNode, "postId")) return; // shop button has been embedded
-
-  var el = imgNode;
-  var uuid = guid();
-
-  var imgHover = el;
-
-  var button = embedButtonAbsolute(imgNode, uuid, ifrmScope);
-
-  if(parseInt(cqjq(button).css('width')) > imgNode.width){
-      try {
-          button.parentNode.removeChild(button);
-      }
-      catch(err) {}
-      return;
-  }
-
-  getPostImageInfo(imgUrl).then(function(data){
-    if(data.length > 0){
-      var imgObj = data[0];
-      dataset(imgNode, "postId", imgObj.postId);
     }
+
+    // var backgroundImgElms = findBackgroundImage(imgUrls);
+    // backgroundImgElms = Object.keys(backgroundImgElms).map(function (key) {return backgroundImgElms[key]});
+    // // var backgroundImgElms = [];
+    // for(var i = imgUrls.length-1; i >=0; i--){
+    //   var selector = "img[src*='"+removeUrlParam(imgUrls[i])+"'],img[data-img*='"+removeUrlParam(imgUrls[i])+"'],img[src*='"+removeUrlDomain(imgUrls[i])+"']";
+    //   var imgElms = scope.querySelectorAll(selector);
+    //   if(imgElms.length && imgElms.length > 0){
+    //     console.log('found');
+    //     console.log(scope);
+    //     console.log(selector);
+    //     console.log(imgElms);
+    //   }
+    //   imgElms = Object.keys(imgElms).map(function (key) {return imgElms[key]});
+    //   if(imgElms.concat) imgElms = imgElms.concat(backgroundImgElms);
+    //
+    //   for(var j = imgElms.length-1; j >=0; j--){
+    //     var imgElm = imgElms[j];
+    //     var imgUrl = dataset(imgElm, "img") || imgUrls[i];
+    //     if(imgElm && imgElm.nodeType && !dataset(imgElm, "cqUuid")){
+    //       (function(imgElm, i){
+    //         if(imgElm.height == 0 || imgElm.width == 0){
+    //           cqjq("<img/>")
+    //           .load(function() {
+    //             embeddShopButton(imgElm, imgUrl);
+    //           })
+    //           .error(function() {})
+    //           .attr("src", imgElm.src);
+    //         }
+    //         else{
+    //           embeddShopButton(imgElm, imgUrl);
+    //         }
+    //
+    //       })(imgElm, i);
+    //     }
+    //   }
+    // }
   });
+}
 
-  if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
-    // some code..
+class Button {
+  constructor(){}
+
+  cirqle_mockbutton(b_id){
+    console.log('mockbutton');
+    mockbutton(b_id);
   }
-  else{
-    // button on hidden
-    if(thisModule.customConfig.showOnHover && thisModule.customConfig.showOnHover === true){button.style.visibility = "hidden";}
 
-    (function(){
-      if(thisModule.customConfig.showOnHover && thisModule.customConfig.showOnHover === true){
-        attachHandler(button, "mouseenter", function(e) {
-          button.style.visibility = "visible";
-        });
+  cirqle_init (b_id, customConfig){
+    var pathName = document.location.pathname;
+    cq_config = customConfig || {};
 
-        attachHandler(button, "mouseleave", function(e) {
-          button.style.visibility = "hidden";
-        });
+    //overwirte showOnHover = false when on mobile
+    if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) || /Mobile/i.test(navigator.userAgent)) {
+      cq_config = {showOnHover:false};
+    }
+
+    config.setBlogId(b_id); // set blog id to config module
+    cirqleButton.setConfig({
+      config:config,
+      GATrack:GATrack,
+      analytics:analytics,
+      customConfig:cq_config,
+      buttonSingleton:buttonCache
+    }); // set blog id to config module
+    cirqleButton.setScope(document);
+
+    var blog_id = config.get('blog_id');
+    var cirqle_getpost_by_url = config.get('cirqle_getpost_by_url');
+
+    buttonSingleton =  buttonCache;
+    buttonSingleton.init(cirqle_getpost_by_url);
+    buttonSingleton.getTaggedImg();
+
+    if(cq_config.buttonText && typeof cq_config.buttonText === "string"){
+      config.set('buttonText', cq_config.buttonText);
+    }
+
+    // set up cirqle button environment. eg load css file
+    var css_url = config.get('css_url')
+    if(cq_config.customCss && typeof cq_config.customCss === "string" && _.includes(cq_config.customCss, "cdn.cirqle.nl")){
+      css_url = cq_config.customCss;
+    }
+    setCirqleCss(document, css_url);
+
+    // send tracking of blog view with cirqle button embedded
+    analytics.track("blogView", {
+      blogId: config.get('blog_id')
+    });
+
+    // iniitalize observer first, for element loaded after page is laoded
+    var body = document.getElementsByTagName('body')[0];
+    var id;
+
+    // create an observer instance
+    var observer = new MutationObserver(function(mutations) {
+      var mutated = false;
+
+      for(var i=0; i < mutations.length; i++) {
+        var mutation = mutations[i];
+        var addedNodes = mutation.addedNodes;
+        var target = mutation.target;
+        var type = mutation.type;
+
+        for(var j=0; j < addedNodes.length; j++){
+          if(!addedNodes[j].querySelectorAll) continue;
+          var img = addedNodes[j].querySelectorAll('img');
+          if(img.length > 0){
+            mutated = true;
+            break;
+          }
+        }
+
+        try{
+          var img = target.querySelectorAll('img');
+          if(img.length > 0){
+            mutated = true;
+          }
+        }catch(e){}
+
+        if(mutated){
+          break;
+        }
       }
 
-      var timer = new Timer();
-      attachHandler(imgHover, "mouseenter", function(e) {
-        timer.start();
-        if(thisModule.customConfig.showOnHover && thisModule.customConfig.showOnHover === true){button.style.visibility = "visible";}
-      });
-
-      attachHandler(imgHover, "mouseleave", function(e) {
-        timer.end(function(duration){
-          getPostImageInfo(imgUrl).then(function(data){
-            if(data.length > 0){
-              var imgObj = data[0];
-              var trackTraits = {
-                blogId: thisModule.config.getSetting('blog_id'),
-                postId: imgObj.postId,
-                imageUrl: imgObj.url
-              };
-              var traits = cqjq.extend({}, trackTraits, {duration: duration});
-              analytics.track("postImageHover", traits);
-            }
-          });
-        });
-        if(thisModule.customConfig.showOnHover && thisModule.customConfig.showOnHover === true){button.style.visibility = "hidden";}
-      });
-
-    })()
-  };
-
-  attachHandler(button, "click", function(e) {
-    try{
-      thisModule.GATrack.trackShopButtonClick();
-    }catch(e){}
-
-    e.stopPropagation();
-
-    var timer = new Timer();
-
-    getPostImageInfo(imgUrl).then(function(data){
-      if(data.length > 0){
-        var imgObj = data[0];
-        var trackTraits = {
-          blogId: thisModule.config.getSetting('blog_id'),
-          postId: imgObj.postId,
-          imageUrl: imgObj.url
-        };
-        // append iframe window here
-        showWindow(imgObj, timer, trackTraits);
-        // hide parent page scrollbar
-        toogleParentScrollY();
-        //show positioned iframe
-        tooglePurchaseDialog(timer, trackTraits);
-        // track clicked rate through segment IO
-        analytics.track("shopbuttonClicked", trackTraits);
+      if(mutated){
+        clearTimeout(id);
+        id = setTimeout(doneChanging, 1000);
       }
     });
 
-    function closeiframelistener(event){
-      console.log(event);
-      console.log(event.origin, thisModule.config.getSetting('iframe_origin'));
-      if ( event.origin !== thisModule.config.getSetting('iframe_origin') ){
+    // configuration of the observer:
+    var observerConfig = { attributes: true, childList: true, characterData: true, subtree: true };
+
+    // pass in the target node, as well as the observer options
+    observer.observe(body, observerConfig);
+
+    function doneChanging(){
+      repositionButton(buttonSingleton);
+    }
+
+    function iframelistener(event){
+      if ( event.origin !== config.get('iframe_origin') ){
         return;
       }
 
       var message = event.data;
+      try{
+        message = JSON.parse(message);
+      }catch(e){}
+      if(message instanceof Object){
+        if(message.action == 'productView'){
+          analytics.track("productView", {
+            blogId: config.get('blog_id'),
+            postId: message.postId,
+            productId: message.productId
+          });
+        }
+        console.log(message);
+        if(message.action == 'affiliateClick'){
+          // GA
+          if(message.blogDomain && message.productId && message.postUrl)
+            GATrack.trackEvent('affiliateLink', 'click', message.blogDomain, {productId:message.productId, postUrl:message.postUrl})
+        }
 
-      if(message == "cqCloseShopWindow"){
-        getPostImageInfo(imgUrl).then(function(data){
-          if(data.length > 0){
-            var imgObj = data[0];
-            var trackTraits = {
-              blogId: thisModule.config.getSetting('blog_id'),
-              postId: imgObj.postId,
-              imageUrl: imgObj.url
-            };
-            //close positioned iframe
-            tooglePurchaseDialog(timer, trackTraits);
-            toogleParentScrollY();
-          }
-        })
-      };
+      }
     }
 
     if (window.addEventListener){
-      attachHandler(window, "message", closeiframelistener);
+      attachHandler(window, "message", iframelistener);
     } else {
-      attachHandler(window, "onmessage", closeiframelistener);
+      attachHandler(window, "onmessage", iframelistener);
     }
 
-    // stop event bubbling to prevent fire of outer link
-    if (!e) var e = window.event;
-    e.cancelBubble = true;
-    e.preventDefault();
-    if (e.stopPropagation) e.stopPropagation();
+    // Handle post that show up after on load. eg. lazy loading
+    var DOMNodeInsertedListener = function(e) {
+      var inserted = e.target;
+      if(!inserted.querySelectorAll) return;
+      var image = inserted.querySelectorAll('img');
+      var iframe = inserted.querySelectorAll("iframe[src*='"+document.domain+"/post']");
 
-    return false;
+      if(image.length > 0 || iframe.length > 0){
+        //Handle post that show up on load
+        embedButtonOnLoad(inserted);
+      }
+    };
+    var bodyElm = document.getElementsByTagName("body")[0];
+    attachHandler(bodyElm, "DOMNodeInserted", DOMNodeInsertedListener);
 
-  }, true); // set true for even capturing instead of bubbling
+    var id;
+    cqjq(window).resize(function() {
+      // touch screen trigger resize, only fadeout when not device
+      clearTimeout(id);
+      id = setTimeout(doneResizing, 500);
+    });
 
-        // save button for repositioning when viewport changed
-  var imgPos = getNodePosition(el);
-  el.absoluteTop = imgPos[0];
-  el.absoluteLeft = imgPos[1];
-  el.previousHeight = el.height;
-  el.previousWidth = el.width;
-  thisModule.buttonSingleton.saveButton({img:el, btn:button, uuid:uuid});
-
-  if(isHidden(el)){
-    cqjq(button).hide();
-  }
-
-  try{
-    if(!isButtonLoaded){
-      thisModule.GATrack.trackPageViewWithButtonLoaded();
-      isButtonLoaded = true;
+    function doneResizing(){
+      repositionButton(buttonSingleton); // some theme doesn't fire mutation event on viewport change, we have to manually forse reposition upon resizing
     }
-    thisModule.GATrack.trackShopButtonShow();
-  }catch(e){}
+
+    // findPostImag
+    embedButtonOnLoad(document);
+  };
 }
 
-module.exports = {
-  setConfig:setConfig,
-  setScope:setScope,
-  embedButton:embedButton
-}
+try{
+  GATrack.blacklistUrl('www.elle.nl');
+  GATrack.saveCustomGADomainPair({domainUrl:'www.lindanieuws.nl', ga:'UA-60685671-1'});
+  GATrack.trackView();
+}catch(e){}
+
+module.exports = Button;

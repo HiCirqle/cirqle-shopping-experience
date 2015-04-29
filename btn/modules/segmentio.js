@@ -16,7 +16,9 @@ function identity(){
         'All': false,
         'Webhooks': true
       }
-    }, function(){});
+    }, function(){
+      console.log("segmentio init");
+    });
   }catch(e){}
 }
 
@@ -27,7 +29,9 @@ function track(action, traits){
         'All': false,
         'Webhooks': true
       }
-    }, function(){});
+    }, function(){
+      console.log("segmentio action");
+    });
   }catch(e){}
 }
 

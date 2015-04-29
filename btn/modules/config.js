@@ -27,12 +27,18 @@ function setBlogId(id){
   config = new Config(id);
 }
 
-function getSetting(name){
+function get(name){
   if(!config || !config.blog_id) return "";
   return config[name] ? config[name].replace("@@blog_id", config.blog_id) : "";
 }
 
+function set(name, value){
+  if(!config || !config.blog_id) return "";
+  config[name] = value;
+}
+
 module.exports = {
   setBlogId:setBlogId,
-  getSetting:getSetting
+  get:get,
+  set:set
 }
