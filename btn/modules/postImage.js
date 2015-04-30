@@ -3,9 +3,16 @@ var _ = require('lodash');
 require('../modules/webPolyfill')(window);
 var scope = document;
 
-function ImageElement(element, url){
-  this.element = element
-  this.url = url
+class ImageElement{
+  constructor(element, url){
+    this.element = element
+    this.url = url
+  }
+}
+
+class PostImage{
+  constructor(){}
+
 }
 
 function setScope(sc){
@@ -31,7 +38,7 @@ function findBackgroundImage(urls){
 
   return _.reduce(all, function(prev, e) {
     var backgroundImage = getElementBackgroundImageValue(e);
-    console.log(backgroundImage);
+    // console.log(backgroundImage);
     var index = _.indexOf(urls, backgroundImage);
     if(index > 0){
       prev.push(new ImageElement(e, urls[index]));
@@ -89,6 +96,7 @@ function findImages(imgUrls){
   }
   return imgElementObjects.concat(backgroundImgElmObject);
 }
+
 module.exports = {
   setScope:setScope,
   findImages:findImages,

@@ -32,90 +32,53 @@ function setCirqleCss(scope, css){
   head.appendChild(s);
 }
 
-function embedButtonOnLoad(content){
-  try{
-    buttonActivated();
-    findPostImage(content);
-
-  }catch(e){
-  }
-}
-
-function findPostImage(scope){
-  console.log('finding post image ...');
-  buttonSingleton.getTaggedImg().then(function(imgUrls){
-    postImage.setScope(scope);
-    var imgElmObjs = postImage.findImages(imgUrls);
-    console.log(imgElmObjs);
-
-    for(var j = imgElmObjs.length-1; j >=0; j--){
-      var imgElm = imgElmObjs[j].element;
-      var imgUrl = dataset(imgElm, "img") || imgElmObjs[j].url;
-      if(imgElm && imgElm.nodeType && !dataset(imgElm, "cqUuid")){
-        (function(imgElm, imgUrl){
-          if(imgElm.height == 0 || imgElm.width == 0){
-            cqjq("<img/>")
-            .load(function() {
-              // embeddShopButton(imgElm, imgUrl);
-              cirqleButton.embedButton(imgElm, imgUrl);
-            })
-            .error(function() {})
-            .attr("src", imgElm.src);
-          }
-          else{
-            // embeddShopButton(imgElm, imgUrl);
-            cirqleButton.embedButton(imgElm, imgUrl);
-          }
-
-        })(imgElm, imgUrl);
-      }
-    }
-
-    // var backgroundImgElms = findBackgroundImage(imgUrls);
-    // backgroundImgElms = Object.keys(backgroundImgElms).map(function (key) {return backgroundImgElms[key]});
-    // // var backgroundImgElms = [];
-    // for(var i = imgUrls.length-1; i >=0; i--){
-    //   var selector = "img[src*='"+removeUrlParam(imgUrls[i])+"'],img[data-img*='"+removeUrlParam(imgUrls[i])+"'],img[src*='"+removeUrlDomain(imgUrls[i])+"']";
-    //   var imgElms = scope.querySelectorAll(selector);
-    //   if(imgElms.length && imgElms.length > 0){
-    //     console.log('found');
-    //     console.log(scope);
-    //     console.log(selector);
-    //     console.log(imgElms);
-    //   }
-    //   imgElms = Object.keys(imgElms).map(function (key) {return imgElms[key]});
-    //   if(imgElms.concat) imgElms = imgElms.concat(backgroundImgElms);
-    //
-    //   for(var j = imgElms.length-1; j >=0; j--){
-    //     var imgElm = imgElms[j];
-    //     var imgUrl = dataset(imgElm, "img") || imgUrls[i];
-    //     if(imgElm && imgElm.nodeType && !dataset(imgElm, "cqUuid")){
-    //       (function(imgElm, i){
-    //         if(imgElm.height == 0 || imgElm.width == 0){
-    //           cqjq("<img/>")
-    //           .load(function() {
-    //             embeddShopButton(imgElm, imgUrl);
-    //           })
-    //           .error(function() {})
-    //           .attr("src", imgElm.src);
-    //         }
-    //         else{
-    //           embeddShopButton(imgElm, imgUrl);
-    //         }
-    //
-    //       })(imgElm, i);
-    //     }
-    //   }
-    // }
-  });
-}
-
 class Button {
   constructor(){}
 
   cirqle_mockbutton(b_id){
     console.log('mockbutton');
     mockbutton(b_id);
+  }
+
+  embedButtonOnLoad(scope){
+    try{
+      buttonActivated();
+      this.findImages(scope);
+
+    }catch(e){
+    }
+  }
+
+  findImages(scope){
+    console.log(scope);
+    buttonSingleton.getTaggedImg().then(function(imgUrls){
+      postImage.setScope(scope);
+      var imgElmObjs = postImage.findImages(imgUrls);
+      console.log(imgElmObjs);
+
+      for(var j = imgElmObjs.length-1; j >=0; j--){
+        var imgElm = imgElmObjs[j].element;
+        var imgUrl = dataset(imgElm, "img") || imgElmObjs[j].url;
+        if(imgElm && imgElm.nodeType && !dataset(imgElm, "cqUuid")){
+          (function(imgElm, imgUrl){
+            if(imgElm.height == 0 || imgElm.width == 0){
+              cqjq("<img/>")
+              .load(function() {
+                // embeddShopButton(imgElm, imgUrl);
+                cirqleButton.embedButton(imgElm, imgUrl);
+              })
+              .error(function() {})
+              .attr("src", imgElm.src);
+            }
+            else{
+              // embeddShopButton(imgElm, imgUrl);
+              cirqleButton.embedButton(imgElm, imgUrl);
+            }
+
+          })(imgElm, imgUrl);
+        }
+      }
+    });
   }
 
   cirqle_init (b_id, customConfig){
@@ -253,7 +216,7 @@ class Button {
 
       if(image.length > 0 || iframe.length > 0){
         //Handle post that show up on load
-        embedButtonOnLoad(inserted);
+        this.embedButtonOnLoad(inserted);
       }
     };
     var bodyElm = document.getElementsByTagName("body")[0];
@@ -271,7 +234,7 @@ class Button {
     }
 
     // findPostImag
-    embedButtonOnLoad(document);
+    this.embedButtonOnLoad(document);
   };
 }
 

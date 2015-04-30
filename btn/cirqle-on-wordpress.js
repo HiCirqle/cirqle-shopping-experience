@@ -1,5 +1,22 @@
 var Button = require('./modules/Button');
-class WordpressButton extends Button {}
+class WordpressButton extends Button {
+  constructor(){
+    super();
+  }
+
+  findImages(scope){
+    super.findImages(scope);
+    console.log("wordpress findImages");
+  }
+  embedButtonOnLoad(scope){
+    super.embedButtonOnLoad(scope);
+    console.log("wordpress embedButtonOnLoad");
+  }
+  cirqle_init(b_id, customConfig){
+    super.cirqle_init(b_id, customConfig);
+    console.log("wordpress cirqle_init");
+  }
+}
 
 var self = new WordpressButton();
 _cq = _cq || [];

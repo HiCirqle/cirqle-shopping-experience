@@ -17,7 +17,7 @@ function identity(){
         'Webhooks': true
       }
     }, function(){
-      console.log("segmentio init");
+      // console.log("segmentio init");
     });
   }catch(e){}
 }
@@ -30,7 +30,7 @@ function track(action, traits){
         'Webhooks': true
       }
     }, function(){
-      console.log("segmentio action");
+      // console.log("segmentio action");
     });
   }catch(e){}
 }
