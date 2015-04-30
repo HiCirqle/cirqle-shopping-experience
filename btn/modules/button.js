@@ -50,7 +50,6 @@ class Button {
   }
 
   findImages(scope){
-    console.log(scope);
     buttonSingleton.getTaggedImg().then(function(imgUrls){
       postImage.setScope(scope);
       var imgElmObjs = postImage.findImages(imgUrls);
@@ -201,11 +200,7 @@ class Button {
       }
     }
 
-    if (window.addEventListener){
-      attachHandler(window, "message", iframelistener);
-    } else {
-      attachHandler(window, "onmessage", iframelistener);
-    }
+    attachHandler(window, "message", iframelistener);
 
     // Handle post that show up after on load. eg. lazy loading
     var DOMNodeInsertedListener = function(e) {

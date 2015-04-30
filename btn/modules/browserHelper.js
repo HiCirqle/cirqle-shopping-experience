@@ -6,7 +6,19 @@ function attachHandler(element, event, handler, bubble) {
   if(element.addEventListener){
     element.addEventListener(event, handler, bubble);
   } else if(element.attachEvent){
-    element.attachEvent(event, handler, bubble);
+    element.attachEvent('on'+event, handler, bubble);
+  }
+}
+
+function detachHandler(element, event, handler, bubble) {
+  if(!bubble){
+    bubble = false;
+  }
+
+  if(element.removeEventListener){
+    element.removeEventListener(event, handler, bubble);
+  } else if(element.attachEvent){
+    element.detachEvent('on'+event, handler, bubble);
   }
 }
 
@@ -104,6 +116,7 @@ function isElementInViewport(el){
 
 module.exports = {
   attachHandler:attachHandler,
+  detachHandler:detachHandler,
   isHidden:isHidden,
   getHeight:getHeight,
   getWidth:getWidth,

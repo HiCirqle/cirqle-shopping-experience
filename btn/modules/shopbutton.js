@@ -5,6 +5,7 @@ var highestZIndex = require('../modules/highestZIndex');
 var Timer = require('../modules/Timer');
 var browserHelper = require('../modules/browserHelper');
 var attachHandler = browserHelper.attachHandler;
+var detachHandler = browserHelper.detachHandler;
 var isHidden = browserHelper.isHidden;
 var getHeight = browserHelper.getHeight;
 var getWidth = browserHelper.getWidth;
@@ -277,14 +278,13 @@ function embedButton(imgNode, imgUrl, ifrmScope){
             toogleParentScrollY();
           }
         })
+
+        //remove this event listener
+        detachHandler(window, "message", closeiframelistener);
       };
     }
 
-    if (window.addEventListener){
-      attachHandler(window, "message", closeiframelistener);
-    } else {
-      attachHandler(window, "onmessage", closeiframelistener);
-    }
+    attachHandler(window, "message", closeiframelistener);
 
     // stop event bubbling to prevent fire of outer link
     if (!e) var e = window.event;
