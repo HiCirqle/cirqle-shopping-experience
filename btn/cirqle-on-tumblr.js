@@ -1,11 +1,15 @@
+var postImage = require('./modules/postImage');
 var Button = require('./modules/Button');
 class TumblrButton extends Button {
   constructor(){
     super();
   }
 
-  findPostImage(){
-    super.findPostImage();
+  findPostImages(imgUrls, scope){
+    // return super.findPostImages(imgUrls, scope);
+    postImage.setScope(scope);
+    return postImage.findTumblrImages(imgUrls);
+    console.log("tumblr findPostImages");
   }
 }
 

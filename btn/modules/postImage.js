@@ -97,8 +97,25 @@ function findImages(imgUrls){
   return imgElementObjects.concat(backgroundImgElmObject);
 }
 
+function findTumblrImages(imgUrls){
+  var imgElementObjects = [];
+  // var backgroundImgElmObject = findBackgroundImage(imgUrls);
+  for(var i = imgUrls.length-1; i >=0; i--){
+    var identifier = getTumblrImageId(imgUrls[i]);
+    var selector = "img[src*='"+identifier+"'],img[data-img*='"+identifier+"']";
+    var elements = scope.querySelectorAll(selector);
+    elements = makeArray(elements);
+    elements = cqjq.map(elements, function(e){
+      return new ImageElement(e, imgUrls[i]);
+    });
+    imgElementObjects = imgElementObjects.concat(elements);
+  }
+  // return imgElementObjects.concat(backgroundImgElmObject);
+  return imgElementObjects;
+}
+
 module.exports = {
   setScope:setScope,
   findImages:findImages,
-  getTumblrImageId:getTumblrImageId
+  findTumblrImages:findTumblrImages
 }

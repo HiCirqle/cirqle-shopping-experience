@@ -4,18 +4,22 @@ class WordpressButton extends Button {
     super();
   }
 
-  findImages(scope){
-    super.findImages(scope);
-    console.log("wordpress findImages");
+  findPostImages(imgUrls, scope){
+    return super.findPostImages(imgUrls, scope);
+    console.log("wordpress findPostImages");
   }
-  embedButtonOnLoad(scope){
-    super.embedButtonOnLoad(scope);
-    console.log("wordpress embedButtonOnLoad");
-  }
-  cirqle_init(b_id, customConfig){
-    super.cirqle_init(b_id, customConfig);
-    console.log("wordpress cirqle_init");
-  }
+  // findImages(scope){
+  //   super.findImages(scope);
+  //   console.log("wordpress findImages");
+  // }
+  // embedButtonOnLoad(scope){
+  //   super.embedButtonOnLoad(scope);
+  //   console.log("wordpress embedButtonOnLoad");
+  // }
+  // cirqle_init(b_id, customConfig){
+  //   super.cirqle_init(b_id, customConfig);
+  //   console.log("wordpress cirqle_init");
+  // }
 }
 
 var self = new WordpressButton();

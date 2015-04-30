@@ -32,6 +32,7 @@ function setCirqleCss(scope, css){
   head.appendChild(s);
 }
 
+// include method that we want to pass on by inheritance in the class button
 class Button {
   constructor(){}
 
@@ -49,10 +50,17 @@ class Button {
     }
   }
 
+  findPostImages(imgUrls, scope){
+    postImage.setScope(scope);
+    return postImage.findImages(imgUrls);
+  }
+
   findImages(scope){
+    var self = this;
     buttonSingleton.getTaggedImg().then(function(imgUrls){
-      postImage.setScope(scope);
-      var imgElmObjs = postImage.findImages(imgUrls);
+      // postImage.setScope(scope);
+      // var imgElmObjs = postImage.findImages(imgUrls);
+      var imgElmObjs = self.findPostImages(imgUrls, scope);
       console.log(imgElmObjs);
 
       for(var j = imgElmObjs.length-1; j >=0; j--){
