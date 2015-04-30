@@ -4,8 +4,9 @@ class SquareSpaceButton extends Button {
     super();
   }
 
-  findPostImage(){
-    super.findPostImage();
+  findPostImages(imgUrls, scope){
+    return super.findPostImages(imgUrls, scope);
+    console.log("squarespace findPostImages");
   }
 }
 

@@ -22,19 +22,19 @@ function buttonActivated(){
   dataset(document.getElementsByTagName("body")[0], "cpButtonActivated", true);
 }
 
-function setCirqleCss(scope, css){
-  var s = scope.createElement('link');
-  s.rel = "stylesheet";
-  s.type = "text/css";
-  s.href = css;
-  s.id = "cirqlecss_"+config.get('blog_id');
-  var head = scope.head || scope.getElementsByTagName('head')[0];
-  head.appendChild(s);
-}
-
 // include method that we want to pass on by inheritance in the class button
 class Button {
   constructor(){}
+
+  setCirqleCss(scope, css){
+    var s = scope.createElement('link');
+    s.rel = "stylesheet";
+    s.type = "text/css";
+    s.href = css;
+    s.id = "cirqlecss_"+config.get('blog_id');
+    var head = scope.head || scope.getElementsByTagName('head')[0];
+    head.appendChild(s);
+  }
 
   cirqle_mockbutton(b_id){
     console.log('mockbutton');
@@ -123,7 +123,7 @@ class Button {
     if(cq_config.customCss && typeof cq_config.customCss === "string" && _.includes(cq_config.customCss, "cdn.cirqle.nl")){
       css_url = cq_config.customCss;
     }
-    setCirqleCss(document, css_url);
+    this.setCirqleCss(document, css_url);
 
     // send tracking of blog view with cirqle button embedded
     analytics.track("blogView", {
