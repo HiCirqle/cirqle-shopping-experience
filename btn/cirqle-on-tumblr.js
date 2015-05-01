@@ -1,6 +1,6 @@
 var cqjq = require('jquery');
 var postImage = require('./modules/postImage');
-var browserHelper = require('../modules/browserHelper');
+var browserHelper = require('./modules/browserHelper');
 var iframeRef = browserHelper.iframeRef;
 var Button = require('./modules/Button');
 class TumblrButton extends Button {
@@ -26,8 +26,8 @@ class TumblrButton extends Button {
         //wait for each iframe to be loaded before accessing its element
         cqjq(iframe[i]).load(function(){
           // set iframe css
-          var iframeScope = iframeRef(iframe[i])
-          super.setCirqleCss(iframeScope), css_url);
+          var iframeScope = iframeRef(iframe[i]);
+          super.setCirqleCss(iframeScope, css_url);
           super.findImages(iframeScope);
         });
 

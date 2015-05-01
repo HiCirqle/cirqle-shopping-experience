@@ -1,4 +1,5 @@
 var gulp = require('gulp'),
+    plumber = require('gulp-plumber'),
     babel = require('gulp-babel'),
     babelify = require("babelify"),
     // sass = require('gulp-ruby-sass'),
@@ -48,7 +49,16 @@ gulp.task('browserify', function () {
     .bundle();
   });
 
-  var bundle = gulp.src(['./btn/cirqle-on-wordpress.js'])
+  var plumberErrorCb = function(error){
+    console.log(error);
+  }
+
+  var bundle = gulp.src([
+    './btn/cirqle-on-wordpress.js', 
+    './btn/cirqle-on-tumblr.js',
+    './btn/cirqle-on-blogger.js'
+    ])
+    .pipe(plumber(plumberErrorCb))
     .pipe(browserified)
     // .pipe(source(getBundleName() + '.js'))
     // .pipe(buffer())
