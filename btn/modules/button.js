@@ -44,7 +44,18 @@ class Button {
   embedButtonOnLoad(scope){
     try{
       buttonActivated();
+      // find on document at the fastest speed possible
       this.findImages(scope);
+      // find on document one more time on DOMContentLoaded
+      attachHandler(scope, 'DOMContentLoaded', () => {
+        console.log('find on document one more time on DOMContentLoaded');
+        this.findImages(scope);
+      });
+
+      // attachHandler(window, 'load', () => {
+      //   console.log('find on document one more time on window load');
+      //   this.findImages(scope);
+      // });
 
     }catch(e){
     }
@@ -110,8 +121,8 @@ class Button {
     var blog_id = config.get('blog_id');
     var cirqle_getpost_by_url = config.get('cirqle_getpost_by_url');
 
-    buttonSingleton =  buttonCache;
-    buttonSingleton.init(cirqle_getpost_by_url);
+    buttonCache.init(cirqle_getpost_by_url);
+    buttonSingleton = buttonCache;
     buttonSingleton.getTaggedImg();
 
     if(cq_config.buttonText && typeof cq_config.buttonText === "string"){
@@ -166,6 +177,7 @@ class Button {
       }
 
       if(mutated){
+        // console.log(addedNodes);
         clearTimeout(id);
         id = setTimeout(doneChanging, 1000);
       }
