@@ -7,5 +7,6 @@
 
 ## how to test locally
 ### e2e testing
-1. navigate to "test" folder
-2. run "nightwatch" (default is set to test on firefox)
+1. run gulp process in a separate terminal
+2. navigate to "test" folder
+3. run "node nightwatch" (default is set to test on firefox) in another terminal
