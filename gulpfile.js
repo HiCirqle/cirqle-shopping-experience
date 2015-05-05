@@ -54,7 +54,7 @@ gulp.task('browserify', function () {
   }
 
   var bundle = gulp.src([
-    './btn/cirqle-on-wordpress.js', 
+    './btn/cirqle-on-wordpress.js',
     './btn/cirqle-on-tumblr.js',
     './btn/cirqle-on-blogger.js'
     ])

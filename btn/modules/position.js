@@ -2,8 +2,11 @@ var cqjq = require('jquery');
 var highestZIndex = require('../modules/highestZIndex');
 var browserHelper = require('../modules/browserHelper');
 var isHidden = browserHelper.isHidden;
+var isCovered = browserHelper.isCovered;
 var getHeight = browserHelper.getHeight;
 var getWidth = browserHelper.getWidth;
+var attachHandler = browserHelper.attachHandler;
+var detachHandler = browserHelper.detachHandler;
 
 function positionButtonRelative(imgNode, btnNode, button){
   btnNode.className = "cirqle-outer-button";
@@ -29,7 +32,7 @@ function positionButtonRelative(imgNode, btnNode, button){
   return btnNode;
 }
 
-function positionButtonAbsolute(imgNode, btnNode){
+function positionButtonAbsolute(imgNode, btnNode, adjustZIndex){
   btnNode.className = "cirqle-outer-button";
   cqjq(btnNode).hide(); // must hide it in order to get the computed dimension
 
@@ -45,12 +48,18 @@ function positionButtonAbsolute(imgNode, btnNode){
   var buttonTop = imgPos[0] + parseFloat(imgNodeHeight) - offsetFromBottomRight - btnHeight; // button height 32px/32px
   var buttonLeft = imgPos[1] + parseFloat(imgNodeWidth) - offsetFromBottomRight - btnWidth; // button width 131px/66px
 
-  var current = parseInt(cqjq(btnNode).css("z-index"), 10);
-  var zIndex = highestZIndex(0, btnNode)+100;
+  if(!adjustZIndex) adjustZIndex = true;
+
+  if(adjustZIndex){
+    var current = parseInt(cqjq(btnNode).css("z-index"), 10);
+    var zIndex = highestZIndex(0, btnNode);
+    // zIndex+=100;
+    btnNode.style.zIndex = zIndex;
+  }
+
   // console.log(btnNode);
   // console.log(zIndex);
   // console.log(current);
-  btnNode.style.zIndex = zIndex;
   // if(isNaN(current)){
   // }
 
@@ -75,7 +84,7 @@ function getNodePosition(node) {
   return [top, left];
 }
 
-function repositionButton(buttonSingleton){
+function repositionButton(buttonSingleton, adjustZIndex){
   if(!buttonSingleton) return;
   var buttons = buttonSingleton.getAllButtons();
   if(buttons.length === 0){return;};
@@ -91,8 +100,15 @@ function repositionButton(buttonSingleton){
     }
     else{
       // if(isMoved(btnObj.img) || isMoved(btnObj.btn)){
-      positionButtonAbsolute(btnObj.img, btnObj.btn);
+      positionButtonAbsolute(btnObj.img, btnObj.btn, adjustZIndex);
       // }
+    }
+
+    var isElementCovered =  isCovered(btnObj.img);
+    var isElementHidden =  isHidden(btnObj.img);
+    if(isElementHidden || isElementCovered){
+      console.log('hide button');
+      cqjq(btnObj.btn).hide();
     }
   }
 }
@@ -102,10 +118,7 @@ function calibrateZindexOnScroll(el){
     el.style.zIndex = highestZIndex(0, el)+2;
   };
 
-  if(window.addEventListener)
-      window.addEventListener('scroll', onScrollEventHandler, false);
-  else if (window.attachEvent)
-      window.attachEvent('onscroll', onScrollEventHandler);
+  attachHandler(window, 'scroll', onScrollEventHandler);
 }
 
 function isMoved(el){

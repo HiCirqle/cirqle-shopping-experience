@@ -1,3 +1,6 @@
+var cqjq = require('jquery');
+var findIntersector = require('../modules/findIntersector');
+
 function attachHandler(element, event, handler, bubble) {
   if(!bubble){
     bubble = false;
@@ -114,6 +117,51 @@ function isElementInViewport(el){
   );
 }
 
+// https://github.com/brandonaaron/jquery-overlaps/blob/master/jquery.overlaps.js
+function getDims(elems) {
+    var dims = [], i = 0, offset, elem;
+
+    while ((elem = elems[i++])) {
+        offset = cqjq(elem).offset();
+        dims.push([
+            offset.top,
+            offset.left,
+            elem.offsetWidth,
+            elem.offsetHeight,
+            elem
+        ]);
+    }
+
+    return dims;
+}
+
+function checkOverlap(dims1, dims2) {
+    var x1 = dims1[1], y1 = dims1[0],
+        w1 = dims1[2], h1 = dims1[3],
+        x2 = dims2[1], y2 = dims2[0],
+        w2 = dims2[2], h2 = dims2[3];
+    return !(y2 + h2 <= y1 || y1 + h1 <= y2 || x2 + w2 <= x1 || x1 + w1 <= x2);
+}
+
+function isCovered(el){
+  var dim1 = getDims(cqjq(el))[0], dim2,
+      allElementDims = getDims(cqjq('.blocker')),
+      isOverLap = false;
+
+  // var dim2 = allElementDims[0];
+  // return checkOverlap(dim1, dim2);
+
+  for(var i=0; i<allElementDims.length; i++){
+    dim2 = allElementDims[i];
+    if(dim1[4] === dim2[4]){
+      continue;
+    }
+    isOverLap = checkOverlap(dim1, dim2);
+    if(isOverLap) break;
+  }
+  return isOverLap;
+}
+
 module.exports = {
   attachHandler:attachHandler,
   detachHandler:detachHandler,
@@ -124,5 +172,6 @@ module.exports = {
   iframeRef:iframeRef,
   isElement:isElement,
   getScrollPositionXY:getScrollPositionXY,
-  isElementInViewport:isElementInViewport
+  isElementInViewport:isElementInViewport,
+  isCovered:isCovered
 }

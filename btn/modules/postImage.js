@@ -32,16 +32,19 @@ function getElementBackgroundImageValue(e){
 }
 
 function findBackgroundImage(urls){
-  var all = scope.querySelectorAll('body *');
+  var all = scope.querySelectorAll('body div,span');
+  var joinedUrls = urls.join(',');
   // all = Object.keys(all).map(function (key) {return all[key]});
   all = makeArray(all);
-
   return _.reduce(all, function(prev, e) {
-    var backgroundImage = getElementBackgroundImageValue(e);
-    // console.log(backgroundImage);
-    var index = _.indexOf(urls, backgroundImage);
-    if(index > 0){
-      prev.push(new ImageElement(e, urls[index]));
+    var backgroundImage = removeUrlParam(getElementBackgroundImageValue(e));
+    // console.log(_.includes(joinedUrls, backgroundImage));
+    // var index = _.indexOf(urls, backgroundImage);
+    // if(index > 0){
+    //   prev.push(new ImageElement(e, urls[index]));
+    // }
+    if(_.includes(joinedUrls, backgroundImage) && backgroundImage !== ""){
+      prev.push(new ImageElement(e, backgroundImage));
     }
     return prev;
   }, []);
@@ -67,7 +70,7 @@ function removeUrlDomain(url){
 
 function getTumblrImageId(imageURL){
   // media.tumblr.com
-  if(_.indexOf(imageURL, "media.tumblr.com") > -1){
+  if(_.includes(imageURL, "media.tumblr.com") > -1){
     imageURL  = imageURL.substring(0, imageURL.lastIndexOf("/"));
     return imageURL.substring(imageURL.lastIndexOf("/")+1);
   }

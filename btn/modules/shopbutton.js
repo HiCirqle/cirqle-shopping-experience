@@ -1,5 +1,8 @@
 var cqjq = require('jquery');
 var dataset = require('../modules/dataset');
+var position = require('../modules/position');
+var positionButtonAbsolute = position.positionButtonAbsolute;
+var positionButtonRelative = position.positionButtonRelative;
 var getNodePosition = require('../modules/nodePosition');
 var highestZIndex = require('../modules/highestZIndex');
 var Timer = require('../modules/Timer');
@@ -7,6 +10,7 @@ var browserHelper = require('../modules/browserHelper');
 var attachHandler = browserHelper.attachHandler;
 var detachHandler = browserHelper.detachHandler;
 var isHidden = browserHelper.isHidden;
+var isCovered = browserHelper.isCovered;
 var getHeight = browserHelper.getHeight;
 var getWidth = browserHelper.getWidth;
 var shoppingExperience = require('../modules/shoppingExperience');
@@ -98,63 +102,6 @@ function embedButtonAbsolute(imgNode, uuid, ifrmScope){
   dataset(outerButton, "uuid", uuid);
 
   return outerButton;
-}
-
-function positionButtonRelative(imgNode, btnNode, button){
-  btnNode.className = "cirqle-outer-button";
-  cqjq(btnNode).hide(); // must hide it in order to get the computed dimension
-
-  var offsetFromBottomRight = 15;
-  var btnHeight = parseInt(cqjq(btnNode).css('height'));
-  var btnWidth = parseInt(cqjq(btnNode).css('width'));
-  cqjq(btnNode).show();
-
-  var buttonTop = offsetFromBottomRight + btnHeight; // button height 32px/32px
-  var buttonRight = offsetFromBottomRight; // button width 131px/66px
-
-  btnNode.style.zIndex = "102";
-  btnNode.style.position = "relative";
-  btnNode.style.height = "0px";
-  imgNode.parentNode.appendChild(btnNode); //append outer button
-
-  button.style.position = "absolute";
-  button.style.top = "-"+buttonTop+"px";
-  button.style.right = buttonRight+"px";
-
-  return btnNode;
-}
-
-function positionButtonAbsolute(imgNode, btnNode){
-  btnNode.className = "cirqle-outer-button";
-  cqjq(btnNode).hide(); // must hide it in order to get the computed dimension
-
-  var offsetFromBottomRight = 15;
-  var imgPos = getNodePosition(imgNode);
-  var btnHeight = parseInt(cqjq(btnNode).css('height'));
-  var btnWidth = parseInt(cqjq(btnNode).css('width'));
-  cqjq(btnNode).show();
-
-  //ipad and tablet shows desktop button
-  var imgNodeHeight = imgNode.height || getHeight(imgNode);
-  var imgNodeWidth = imgNode.width || getWidth(imgNode);
-  var buttonTop = imgPos[0] + parseFloat(imgNodeHeight) - offsetFromBottomRight - btnHeight; // button height 32px/32px
-  var buttonLeft = imgPos[1] + parseFloat(imgNodeWidth) - offsetFromBottomRight - btnWidth; // button width 131px/66px
-
-  var current = parseInt(cqjq(btnNode).css("z-index"), 10);
-  var zIndex = highestZIndex(0, btnNode)+100;
-  // console.log(btnNode);
-  // console.log(zIndex);
-  // console.log(current);
-  btnNode.style.zIndex = zIndex;
-  // if(isNaN(current)){
-  // }
-
-  btnNode.className = "cirqle-outer-button";
-  btnNode.style.position = "absolute";
-  btnNode.style.top = buttonTop+"px";
-  btnNode.style.left = buttonLeft+"px";
-
-  return btnNode;
 }
 
 function embedButton(imgNode, imgUrl, ifrmScope){
@@ -303,8 +250,10 @@ function embedButton(imgNode, imgUrl, ifrmScope){
   el.previousHeight = el.height;
   el.previousWidth = el.width;
   thisModule.buttonSingleton.saveButton({img:el, btn:button, uuid:uuid});
-
-  if(isHidden(el)){
+  var isElementCovered =  isCovered(el);
+  var isElementHidden =  isHidden(el);
+  console.log(isElementHidden, isElementCovered);
+  if(isElementHidden || isElementCovered){
     cqjq(button).hide();
   }
 

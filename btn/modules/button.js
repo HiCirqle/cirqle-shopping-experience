@@ -47,10 +47,10 @@ class Button {
       // find on document at the fastest speed possible
       this.findImages(scope);
       // find on document one more time on DOMContentLoaded
-      attachHandler(scope, 'DOMContentLoaded', () => {
-        console.log('find on document one more time on DOMContentLoaded');
-        this.findImages(scope);
-      });
+      // attachHandler(scope, 'DOMContentLoaded', () => {
+      //   console.log('find on document one more time on DOMContentLoaded');
+      //   this.findImages(scope);
+      // });
 
       // attachHandler(window, 'load', () => {
       //   console.log('find on document one more time on window load');
@@ -190,7 +190,8 @@ class Button {
     observer.observe(body, observerConfig);
 
     function doneChanging(){
-      repositionButton(buttonSingleton);
+      var adjustZIndex = false;
+      repositionButton(buttonSingleton, adjustZIndex);
     }
 
     function iframelistener(event){
@@ -222,6 +223,7 @@ class Button {
 
     attachHandler(window, "message", iframelistener);
 
+    var self = this;
     // Handle post that show up after on load. eg. lazy loading
     var DOMNodeInsertedListener = function(e) {
       var inserted = e.target;
@@ -231,7 +233,7 @@ class Button {
 
       if(image.length > 0 || iframe.length > 0){
         //Handle post that show up on load
-        this.embedButtonOnLoad(inserted);
+        self.embedButtonOnLoad(inserted);
       }
     };
     var bodyElm = document.getElementsByTagName("body")[0];
