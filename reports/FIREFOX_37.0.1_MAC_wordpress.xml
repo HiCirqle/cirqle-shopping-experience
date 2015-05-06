@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<testsuites name="wordpress"
+             errors="0"
+             failures="0"
+             tests="4">
+  
+  <testsuite errors="0" failures="0" hostname="" id=""
+    name="wordpress button e2e" package="wordpress" skipped="0"
+    tests="4" time="" timestamp="">
+    
+    
+      <testcase name="Element &lt;body&gt; was visible after 3771 milliseconds.">
+        
+        
+      </testcase>
+    
+      <testcase name="Element &lt;img[class=mockimage]&gt; was present after 61 milliseconds.">
+        
+        
+      </testcase>
+    
+      <testcase name="Element &lt;div[class=cirqle-outer-button]&gt; was visible after 91 milliseconds.">
+        
+        
+      </testcase>
+    
+      <testcase name="Element &lt;div[id=cq-shopwindow]&gt; was visible after 254 milliseconds.">
+        
+        
+      </testcase>
+    
+    
+    </testsuite>
+  
+</testsuites>

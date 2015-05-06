@@ -134,6 +134,21 @@ function getDims(elems) {
 
     return dims;
 }
+function checkIsWithin(dims1, dims2){
+    var x1 = dims1[1], y1 = dims1[0],
+        w1 = dims1[2], h1 = dims1[3],
+        x2 = dims2[1], y2 = dims2[0],
+        w2 = dims2[2], h2 = dims2[3];
+
+    // if(dims2[4].className === "container") console.log(dims1, dims2);
+    return (x1 >= x2 && y1 >= y2 && x1+w1 <= x2+w2 && y1+h1 <= y2+h2);
+}
+
+function checkIsDescendant(dims1, dims2){
+    var e1 = dims1[4], e2 = dims2[4];
+
+    return cqjq.contains(e2, e1);
+}
 
 function checkOverlap(dims1, dims2) {
     var x1 = dims1[1], y1 = dims1[0],
@@ -145,19 +160,23 @@ function checkOverlap(dims1, dims2) {
 
 function isCovered(el){
   var dim1 = getDims(cqjq(el))[0], dim2,
-      allElementDims = getDims(cqjq('.blocker')),
-      isOverLap = false;
-
-  // var dim2 = allElementDims[0];
-  // return checkOverlap(dim1, dim2);
+      allElementDims = getDims(cqjq('body *').not('[class^="cirqle"],[class^="cq-shopwindow"],svg,path,[data-cq-uuid]')),
+      isCover = false, isOverLap = false, isWithin = false, isDescendant = false;
 
   for(var i=0; i<allElementDims.length; i++){
     dim2 = allElementDims[i];
+    // skip same element comparison
     if(dim1[4] === dim2[4]){
+      // console.log(dim1[4], dim2[4], isDescendant);
       continue;
     }
+    isDescendant = checkIsDescendant(dim1, dim2)
     isOverLap = checkOverlap(dim1, dim2);
-    if(isOverLap) break;
+    isWithin = checkIsWithin(dim1, dim2);
+    // if(dim2[4].className) console.log(dim2[4].className);
+    if(isOverLap && !isDescendant) console.log(isOverLap, isDescendant, dim1[4], dim2[4]);
+    // if(isOverLap && !isWithin || isOverLap && isWithin && !isDescendant) break;
+    if(isOverLap && !isDescendant) break;
   }
   return isOverLap;
 }

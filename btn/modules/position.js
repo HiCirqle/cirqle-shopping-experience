@@ -104,9 +104,9 @@ function repositionButton(buttonSingleton, adjustZIndex){
       // }
     }
 
-    var isElementCovered =  isCovered(btnObj.img);
-    var isElementHidden =  isHidden(btnObj.img);
-    if(isElementHidden || isElementCovered){
+    // var isButtonCovered =  isCovered(btnObj.img);
+    var isImageHidden =  isHidden(btnObj.img);
+    if(isImageHidden){
       console.log('hide button');
       cqjq(btnObj.btn).hide();
     }

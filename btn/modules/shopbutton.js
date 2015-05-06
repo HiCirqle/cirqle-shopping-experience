@@ -250,10 +250,10 @@ function embedButton(imgNode, imgUrl, ifrmScope){
   el.previousHeight = el.height;
   el.previousWidth = el.width;
   thisModule.buttonSingleton.saveButton({img:el, btn:button, uuid:uuid});
-  var isElementCovered =  isCovered(el);
-  var isElementHidden =  isHidden(el);
-  console.log(isElementHidden, isElementCovered);
-  if(isElementHidden || isElementCovered){
+  // var isButtonCovered =  isCovered(el);
+  var isImageHidden =  isHidden(el);
+  // console.log(isImageHidden, isButtonCovered);
+  if(isImageHidden){
     cqjq(button).hide();
   }
 

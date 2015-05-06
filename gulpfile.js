@@ -20,7 +20,9 @@ var gulp = require('gulp'),
     source = require('vinyl-source-stream'),
     transform = require('vinyl-transform'), // vinyl-source-stream + vinyl-buffer
     sourcemaps = require('gulp-sourcemaps'),
-    gls = require('gulp-live-server');
+    gls = require('gulp-live-server'),
+    nightwatch = require('gulp-nightwatch'),
+    exit = require('gulp-exit');
 
 var getBundleName = function () {
   var version = require('./package.json').version;
@@ -71,30 +73,30 @@ gulp.task('browserify', function () {
     // Add transformation tasks ends
     // .pipe(uglify())
     .pipe(sourcemaps.write('./map'))
-    .pipe(gulp.dest('./dist'));
+    .pipe(gulp.dest('./dist'))
+    .on('error', function (error) {
+        console.error('' + error);
+        gls.stop();
+    });
     // .pipe(notify({ message: 'Scripts task complete' }));
 
   return bundle;
-});
-
-gulp.task('live-reload-server', function(){
-    var server = gls.static('./test', 8888);
-    server.start();
-    server.notify();
 });
 
 gulp.task('clean', function(cb) {
     del(['dist'], cb);
 });
 
-gulp.task('watch', function() {
+gulp.task('watch', ['browserify'], function() {
     var server = gls.static(['./server', './dist'], 8888);
     server.start();
+
     gulp.watch(['./btn/cirqle-on-*.js', './btn/modules/*.js'], ['browserify'])
     .on('error', function(event){
       console.log('error', event);
       server.stop();
     });
+
     gulp.watch('./dist/*.js', function(event){
       console.log('dist change', event);
       server.notify(event);
@@ -104,4 +106,25 @@ gulp.task('watch', function() {
     });
 });
 
-gulp.task('default', ['clean', 'browserify', 'watch']);
+
+gulp.task('nightwatch:chrome', ['watch'], function(){
+  gulp.src('')
+    .pipe(nightwatch({
+      configFile: 'test/nightwatch.json',
+      // cliArgs: [ '--env chrome', '--tag sandbox' ]
+    }))
+    .on('error', function (error) {
+        console.error('' + error);
+        gls.stop();
+        process.exit(1);
+    })
+    .on('finish', function () {
+        gls.stop();
+        process.exit(1);
+    });
+
+});
+
+gulp.task('test', ['clean', 'nightwatch:chrome']);
+
+gulp.task('default', ['clean', 'watch']);

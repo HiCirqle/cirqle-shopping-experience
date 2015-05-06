@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<testsuites name="tumblr"
+             errors="0"
+             failures="0"
+             tests="4">
+  
+  <testsuite errors="0" failures="0" hostname="" id=""
+    name="tumblr button e2e" package="tumblr" skipped="0"
+    tests="4" time="" timestamp="">
+    
+    
+      <testcase name="Element &lt;body&gt; was visible after 147 milliseconds.">
+        
+        
+      </testcase>
+    
+      <testcase name="Element &lt;img[class=mockimage]&gt; was present after 1043 milliseconds.">
+        
+        
+      </testcase>
+    
+      <testcase name="Element &lt;div[class=cirqle-outer-button]&gt; was visible after 1641 milliseconds.">
+        
+        
+      </testcase>
+    
+      <testcase name="Element &lt;div[id=cq-shopwindow]&gt; was visible after 2649 milliseconds.">
+        
+        
+      </testcase>
+    
+    
+    </testsuite>
+  
+</testsuites>

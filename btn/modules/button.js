@@ -47,15 +47,15 @@ class Button {
       // find on document at the fastest speed possible
       this.findImages(scope);
       // find on document one more time on DOMContentLoaded
-      // attachHandler(scope, 'DOMContentLoaded', () => {
-      //   console.log('find on document one more time on DOMContentLoaded');
-      //   this.findImages(scope);
-      // });
+      attachHandler(scope, 'DOMContentLoaded', () => {
+        console.log('find on document one more time on DOMContentLoaded');
+        this.findImages(scope);
+      });
 
-      // attachHandler(window, 'load', () => {
-      //   console.log('find on document one more time on window load');
-      //   this.findImages(scope);
-      // });
+      attachHandler(window, 'load', () => {
+        console.log('find on document one more time on window load');
+        this.findImages(scope);
+      });
 
     }catch(e){
     }
