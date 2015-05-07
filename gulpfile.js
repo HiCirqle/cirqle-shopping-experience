@@ -32,26 +32,7 @@ var getBundleName = function () {
   return version + '.' + name + '.' + 'min';
 };
 
-// gulp.task('modules', function() {
-//     browserify({
-//     entries: './main.js',
-//     debug: true
-//     })
-//     .transform(babelify)
-//     .bundle()
-//     .pipe(source('output.js'))
-//     .pipe(gulp.dest('./dist'));
-// });
-
 gulp.task('browserify', function (cb) {
-  // var browserified = transform(function(filename) {
-  //   return browserify({
-  //   entries: filename,
-  //   debug: true
-  //   })
-  //   .transform(babelify)
-  //   .bundle();
-  // });
 
   var plumberErrorCb = function(error){
     console.log(error);
@@ -66,18 +47,18 @@ gulp.task('browserify', function (cb) {
   var tasks = files.map(function(entry){
       return browserify({
         entries: ['./btn/'+entry],
-        paths: ['./btn/modules','./node_modules', './modules']
+        paths: ['btn/modules']
         })
         .transform(babelify)
         .bundle()
         .pipe(source(entry))
-        // .pipe(sourcemaps.init({loadMaps: true}))
         .pipe(changed('dist', {hasChanged: changed.compareSha1Digest}))
         .pipe(jshint('.jshintrc'))
         .pipe(jshint.reporter('default'))
         .pipe(buffer())
         .pipe(uglify())
-        // .pipe(sourcemaps.write('./map'))
+        .pipe(sourcemaps.init({loadMaps: true}))
+        .pipe(sourcemaps.write('./map'))
         .pipe(gulp.dest('./dist'));
       });
 
