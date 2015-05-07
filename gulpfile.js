@@ -23,7 +23,8 @@ var gulp = require('gulp'),
     gls = require('gulp-live-server'),
     nightwatch = require('gulp-nightwatch'),
     exit = require('gulp-exit');
-    through2 = require('through2');
+    through2 = require('through2'),
+    es = require('event-stream');
 
 var getBundleName = function () {
   var version = require('./package.json').version;
@@ -43,26 +44,36 @@ var getBundleName = function () {
 // });
 
 gulp.task('browserify', function (cb) {
-  var browserified = transform(function(filename) {
-    return browserify({
-    entries: filename,
-    debug: true
-    })
-    .transform(babelify)
-    .bundle();
-  });
+  // var browserified = transform(function(filename) {
+  //   return browserify({
+  //   entries: filename,
+  //   debug: true
+  //   })
+  //   .transform(babelify)
+  //   .bundle();
+  // });
 
   var plumberErrorCb = function(error){
     console.log(error);
   }
 
-  var b = browserify();
+  var files = [
+    'cirqle-on-wordpress.js',
+    'cirqle-on-tumblr.js',
+    'cirqle-on-blogger.js'
+    ];
 
-  var bundle = gulp.src([
-    './btn/cirqle-on-wordpress.js',
-    './btn/cirqle-on-tumblr.js',
-    './btn/cirqle-on-blogger.js'
-    ])
+  var tasks = files.map(function(entry){
+      return browserify({ entries: ['./btn/'+entry] })
+        .transform(babelify)
+        .bundle()
+        .pipe(source(entry))
+        .pipe(gulp.dest('./dist'));
+      });
+
+  return es.merge.apply(null, tasks);
+
+  var bundle = gulp.src(files)
     .pipe(plumber(plumberErrorCb))
     .pipe(browserified)
     // .pipe(through2.obj(function write (file, enc, next){
@@ -138,10 +149,11 @@ gulp.task('nightwatch:chrome', ['watch'], function(){
         gls.stop();
         process.exit(1);
     })
-    .on('finish', function () {
+    .on('end', function () {
         gls.stop();
         process.exit(1);
     });
+    // .pipe(exit());
 
 });
 
