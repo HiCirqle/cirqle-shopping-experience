@@ -23,6 +23,7 @@ var gulp = require('gulp'),
     gls = require('gulp-live-server'),
     nightwatch = require('gulp-nightwatch'),
     exit = require('gulp-exit');
+    through2 = require('through2');
 
 var getBundleName = function () {
   var version = require('./package.json').version;
@@ -42,14 +43,14 @@ var getBundleName = function () {
 // });
 
 gulp.task('browserify', function () {
-  var browserified = transform(function(filename) {
-    return browserify({
-    entries: filename,
-    debug: true
-    })
-    .transform(babelify)
-    .bundle();
-  });
+  // var browserified = transform(function(filename) {
+  //   return browserify({
+  //   entries: filename,
+  //   debug: true
+  //   })
+  //   .transform(babelify)
+  //   .bundle();
+  // });
 
   var plumberErrorCb = function(error){
     console.log(error);
@@ -61,7 +62,18 @@ gulp.task('browserify', function () {
     './btn/cirqle-on-blogger.js'
     ])
     .pipe(plumber(plumberErrorCb))
-    .pipe(browserified)
+    .pipe(through2.obj(function (file, enc, next){
+        browserify({
+          entries: file.path,
+          debug: true
+        })
+        .transform(babelify)
+        .bundle(function(err, res){
+            // assumes file.contents is a Buffer
+            file.contents = res;
+            next(null, file);
+        });
+    }))
     // .pipe(source(getBundleName() + '.js'))
     // .pipe(buffer())
     .pipe(sourcemaps.init({loadMaps: true}))
