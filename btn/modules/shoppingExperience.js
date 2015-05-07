@@ -2,12 +2,12 @@ var iframe_src_url;
 var blogName = document.title;
 var blogDomain = window.location.host;
 var cqjq = require('jquery');
-var config = require('../modules/config');
-var position = require('../modules/position');
+var config = require('config');
+var position = require('position');
 var repositionButton = position.repositionButton;
-var highestZIndex = require('../modules/highestZIndex');
+var highestZIndex = require('highestZIndex');
 var calibrateZindexOnScroll = position.calibrateZindexOnScroll;
-var Timer = require('../modules/Timer');
+var Timer = require('Timer');
 
 function setBlogId(id){
   iframe_src_url = config.get('iframe_src_url');

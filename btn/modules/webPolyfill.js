@@ -1,4 +1,4 @@
-var ieLegacySupport = require('../modules/ieLegacySupport');
+var ieLegacySupport = require('ieLegacySupport');
 ieLegacySupport.support('object');
 ieLegacySupport.support('array');
 

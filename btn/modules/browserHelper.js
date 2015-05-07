@@ -1,5 +1,5 @@
 var cqjq = require('jquery');
-var findIntersector = require('../modules/findIntersector');
+var findIntersector = require('findIntersector');
 
 function attachHandler(element, event, handler, bubble) {
   if(!bubble){

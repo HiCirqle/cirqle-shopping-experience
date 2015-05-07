@@ -1,22 +1,22 @@
-var dataset = require('../modules/dataset');
-var GATrack = require('../modules/track');
+var dataset = require('dataset');
+var GATrack = require('track');
 var cqjq = require('jquery');
-var mockbutton = require('../modules/mockbutton');
-var buttonCache = require('../modules/buttoncache');
-var analytics = require('../modules/segmentio');
+var mockbutton = require('mockbutton');
+var buttonCache = require('buttoncache');
+var analytics = require('segmentio');
 analytics.init('nfllvg24aq', window); // (id, window, disabled)
 analytics.identity();
-require('../modules/webPolyfill')(window);
-var postImage = require('../modules/postImage');
-var config = require('../modules/config');
-var cirqleButton = require('../modules/shopbutton');
-var browserHelper = require('../modules/browserHelper');
+require('webPolyfill')(window);
+var postImage = require('postImage');
+var config = require('config');
+var cirqleButton = require('shopbutton');
+var browserHelper = require('browserHelper');
 var attachHandler = browserHelper.attachHandler;
 var _ = require('lodash');
 var buttonSingleton;
 var cq_config;
-var position = require('../modules/position');
-var repositionButton = require('../modules/position').repositionButton;
+var position = require('position');
+var repositionButton = require('position').repositionButton;
 
 function buttonActivated(){
   dataset(document.getElementsByTagName("body")[0], "cpButtonActivated", true);

@@ -1,6 +1,6 @@
 var cqjq = require('jquery');
 var _ = require('lodash');
-require('../modules/webPolyfill')(window);
+require('webPolyfill')(window);
 var scope = document;
 
 class ImageElement{

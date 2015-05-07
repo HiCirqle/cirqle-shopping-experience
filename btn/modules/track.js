@@ -4,7 +4,7 @@ var domainName = window.location.host;
 var path = window.location.pathname;
 var blacklist = [];
 var GADomainPair = [];
-require('../modules/webPolyfill')(window);
+require('webPolyfill')(window);
 
 var dimensions = {
   postUrl:"dimension1",

@@ -1,5 +1,5 @@
 var cqjq = require('jquery');
-var findIntersector = require('../modules/findIntersector');
+var findIntersector = require('findIntersector');
 
 function highestZIndex(defaultIndex, btn){
   var highest = defaultIndex;
