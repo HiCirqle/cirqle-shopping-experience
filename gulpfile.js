@@ -42,19 +42,21 @@ var getBundleName = function () {
 //     .pipe(gulp.dest('./dist'));
 // });
 
-gulp.task('browserify', function () {
-  // var browserified = transform(function(filename) {
-  //   return browserify({
-  //   entries: filename,
-  //   debug: true
-  //   })
-  //   .transform(babelify)
-  //   .bundle();
-  // });
+gulp.task('browserify', function (cb) {
+  var browserified = transform(function(filename) {
+    return browserify({
+    entries: filename,
+    debug: true
+    })
+    .transform(babelify)
+    .bundle();
+  });
 
   var plumberErrorCb = function(error){
     console.log(error);
   }
+
+  var b = browserify();
 
   var bundle = gulp.src([
     './btn/cirqle-on-wordpress.js',
@@ -62,18 +64,24 @@ gulp.task('browserify', function () {
     './btn/cirqle-on-blogger.js'
     ])
     .pipe(plumber(plumberErrorCb))
-    .pipe(through2.obj(function (file, enc, next){
-        browserify({
-          entries: file.path,
-          debug: true
-        })
-        .transform(babelify)
-        .bundle(function(err, res){
-            // assumes file.contents is a Buffer
-            file.contents = res;
-            next(null, file);
-        });
-    }))
+    .pipe(browserified)
+    // .pipe(through2.obj(function write (file, enc, next){
+    //   console.log(file.path);
+    //     b.add(file.path);
+    //     next();
+    //   },
+    //   function end (next){
+    //     b.bundle()
+    //     .pipe(sourcemaps.init({loadMaps: true}))
+    //     .pipe(changed('dist', {hasChanged: changed.compareSha1Digest}))
+    //     .pipe(jshint('.jshintrc'))
+    //     .pipe(jshint.reporter('default'))
+    //     // .pipe(uglify())
+    //     .pipe(sourcemaps.write('./map'))
+    //     .pipe(source)
+    //     .pipe(gulp.dest('./dist')).on('finish', cb));
+    //   }
+    // ));
     // .pipe(source(getBundleName() + '.js'))
     // .pipe(buffer())
     .pipe(sourcemaps.init({loadMaps: true}))
