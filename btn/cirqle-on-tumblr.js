@@ -1,8 +1,8 @@
 var cqjq = require('jquery');
-var postImage = require('./modules/postImage');
-var browserHelper = require('./modules/browserHelper');
+var postImage = require('modules/postImage');
+var browserHelper = require('modules/browserHelper');
 var iframeRef = browserHelper.iframeRef;
-var Button = require('./modules/Button');
+var Button = require('modules/Button');
 class TumblrButton extends Button {
   constructor(){
     super();
