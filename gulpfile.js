@@ -143,7 +143,7 @@ gulp.task('nightwatch:chrome', ['watch'], function(){
     })
     .on('end', function () {
         gls.stop();
-        process.exit(1);
+        process.exit(0);
     });
     // .pipe(exit());
 
