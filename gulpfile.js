@@ -47,10 +47,11 @@ gulp.task('browserify', function (cb) {
   var tasks = files.map(function(entry){
       return browserify({
         entries: ['./btn/'+entry],
-        paths: ['btn/modules']
+        paths: ['./btn/modules']
         })
         .transform(babelify)
         .bundle()
+        .pipe(plumber(plumberErrorCb))
         .pipe(source(entry))
         .pipe(changed('dist', {hasChanged: changed.compareSha1Digest}))
         .pipe(jshint('.jshintrc'))

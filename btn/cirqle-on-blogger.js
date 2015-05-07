@@ -1,4 +1,4 @@
-var Button = require('Button');
+var Button = require('button');
 class BloggerButton extends Button {
   constructor(){
     super();
