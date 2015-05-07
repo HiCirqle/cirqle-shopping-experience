@@ -64,7 +64,10 @@ gulp.task('browserify', function (cb) {
     ];
 
   var tasks = files.map(function(entry){
-      return browserify({ entries: ['./btn/'+entry] })
+      return browserify({
+        entries: ['./btn/'+entry],
+        paths: ['./btn/modules/'] 
+        })
         .transform(babelify)
         .bundle()
         .pipe(source(entry))
