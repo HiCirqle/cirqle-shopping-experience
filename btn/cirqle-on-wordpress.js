@@ -1,4 +1,4 @@
-var Button = require('Button');
+var Button = require('./modules/Button');
 class WordpressButton extends Button {
   constructor(){
     super();
