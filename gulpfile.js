@@ -64,46 +64,6 @@ gulp.task('browserify', function (cb) {
       });
 
   return es.merge.apply(null, tasks);
-
-  // var bundle = gulp.src(files)
-  //   .pipe(plumber(plumberErrorCb))
-  //   .pipe(browserified)
-  //   // .pipe(through2.obj(function write (file, enc, next){
-  //   //   console.log(file.path);
-  //   //     b.add(file.path);
-  //   //     next();
-  //   //   },
-  //   //   function end (next){
-  //   //     b.bundle()
-  //   //     .pipe(sourcemaps.init({loadMaps: true}))
-  //   //     .pipe(changed('dist', {hasChanged: changed.compareSha1Digest}))
-  //   //     .pipe(jshint('.jshintrc'))
-  //   //     .pipe(jshint.reporter('default'))
-  //   //     // .pipe(uglify())
-  //   //     .pipe(sourcemaps.write('./map'))
-  //   //     .pipe(source)
-  //   //     .pipe(gulp.dest('./dist')).on('finish', cb));
-  //   //   }
-  //   // ));
-  //   // .pipe(source(getBundleName() + '.js'))
-  //   // .pipe(buffer())
-  //   .pipe(sourcemaps.init({loadMaps: true}))
-  //   // Add transformation tasks begins
-  //   .pipe(changed('dist', {hasChanged: changed.compareSha1Digest}))
-  //   .pipe(jshint('.jshintrc'))
-  //   .pipe(jshint.reporter('default'))
-  //   // .pipe(rename({suffix: '.min'}))
-  //   // Add transformation tasks ends
-  //   // .pipe(uglify())
-  //   .pipe(sourcemaps.write('./map'))
-  //   .pipe(gulp.dest('./dist'))
-  //   .on('error', function (error) {
-  //       console.error('' + error);
-  //       gls.stop();
-  //   });
-    // .pipe(notify({ message: 'Scripts task complete' }));
-
-  return bundle;
 });
 
 gulp.task('clean', function(cb) {
