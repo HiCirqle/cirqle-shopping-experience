@@ -3,7 +3,6 @@ var postImage = require('postImage');
 var browserHelper = require('browserHelper');
 var iframeRef = browserHelper.iframeRef;
 var Button = require('button');
-
 class TumblrButton extends Button {
   constructor(){
     super();

@@ -37,7 +37,6 @@ class Button {
   }
 
   cirqle_mockbutton(b_id){
-    console.log('mockbutton');
     mockbutton(b_id);
   }
 
