@@ -1,4 +1,5 @@
 var Button = require('button');
+
 class WordpressButton extends Button {
   constructor(){
     super();
