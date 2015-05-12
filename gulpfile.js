@@ -41,7 +41,8 @@ gulp.task('browserify', function (cb) {
   var files = [
     'cirqle-on-wordpress.js',
     'cirqle-on-tumblr.js',
-    'cirqle-on-blogger.js'
+    'cirqle-on-blogger.js',
+    'cirqle-preview.js'
     ];
 
   var tasks = files.map(function(entry){
@@ -74,7 +75,7 @@ gulp.task('watch', ['browserify'], function() {
     var server = gls.static(['./server', './dist'], 8888);
     server.start();
 
-    gulp.watch(['./btn/cirqle-on-*.js', './btn/modules/*.js'], ['browserify'])
+    gulp.watch(['./btn/cirqle-on-*.js', './btn/cirqle-preview.js', './btn/modules/*.js'], ['browserify'])
     .on('error', function(event){
       console.log('error', event);
       server.stop();

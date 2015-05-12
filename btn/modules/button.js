@@ -26,6 +26,10 @@ function buttonActivated(){
 class Button {
   constructor(){}
 
+  embedButton(imgElm, imgUrl){
+    cirqleButton.embedButton(imgElm, imgUrl);
+  }
+
   setCirqleCss(scope, css){
     var s = scope.createElement('link');
     s.rel = "stylesheet";
@@ -82,14 +86,14 @@ class Button {
               cqjq("<img/>")
               .load(function() {
                 // embeddShopButton(imgElm, imgUrl);
-                cirqleButton.embedButton(imgElm, imgUrl);
+                self.embedButton(imgElm, imgUrl);
               })
               .error(function() {})
               .attr("src", imgElm.src);
             }
             else{
               // embeddShopButton(imgElm, imgUrl);
-              cirqleButton.embedButton(imgElm, imgUrl);
+              self.embedButton(imgElm, imgUrl);
             }
 
           })(imgElm, imgUrl);
