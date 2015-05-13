@@ -58,5 +58,4 @@ class PreviewButton extends Button {
 
 var self = new PreviewButton();
 console.log(document.getElementsByTagName);
-// self.findImages(document);
 self.cirqle_init("12277140-9ca1-11e4-9fc0-a50e41abca13");

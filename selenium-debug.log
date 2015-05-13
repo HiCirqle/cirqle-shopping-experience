@@ -1,167 +1,65 @@
-23:33:02.747 INFO - Launching a standalone server
+22:23:17.564 INFO - Launching a standalone server
 Setting system property webdriver.chrome.driver to ./lib/chromedriver
 Setting system property webdriver.ie.driver to ./lib/IEDriverServer.exe
-23:33:02.808 INFO - Java: Oracle Corporation 25.31-b07
-23:33:02.809 INFO - OS: Mac OS X 10.10.3 x86_64
-23:33:02.829 INFO - v2.45.0, with Core v2.45.0. Built from revision 5017cb8
-23:33:02.949 INFO - Default driver org.openqa.selenium.ie.InternetExplorerDriver registration is skipped: registration capabilities Capabilities [{ensureCleanSession=true, browserName=internet explorer, version=, platform=WINDOWS}] does not match with current platform: MAC
-23:33:02.999 INFO - RemoteWebDriver instances should connect to: http://127.0.0.1:4444/wd/hub
-23:33:03.000 INFO - Version Jetty/5.1.x
-23:33:03.001 INFO - Started HttpContext[/selenium-server,/selenium-server]
-23:33:03.047 INFO - Started org.openqa.jetty.jetty.servlet.ServletHandler@16c0663d
-23:33:03.047 INFO - Started HttpContext[/wd,/wd]
-23:33:03.047 INFO - Started HttpContext[/selenium-server/driver,/selenium-server/driver]
-23:33:03.047 INFO - Started HttpContext[/,/]
-23:33:03.053 INFO - Started SocketListener on 0.0.0.0:4444
-23:33:03.053 INFO - Started org.openqa.jetty.jetty.Server@30dae81
-23:33:03.310 INFO - Executing: [new session: Capabilities [{acceptSslCerts=true, name=Blogger, browserName=firefox, javascriptEnabled=true, platform=ANY}]])
-23:33:03.324 INFO - Creating a new session for Capabilities [{acceptSslCerts=true, name=Blogger, browserName=firefox, javascriptEnabled=true, platform=ANY}]
-23:33:06.425 INFO - Done: [new session: Capabilities [{acceptSslCerts=true, name=Blogger, browserName=firefox, javascriptEnabled=true, platform=ANY}]]
-23:33:06.432 INFO - Executing: [get: http://localhost:8888/blogger.html])
-23:33:12.219 INFO - Done: [get: http://localhost:8888/blogger.html]
-23:33:12.225 INFO - Executing: [find element: By.cssSelector: body])
-23:33:12.331 INFO - Done: [find element: By.cssSelector: body]
-23:33:12.335 INFO - Executing: [is displayed: 0 [[FirefoxDriver: firefox on MAC (33e6b743-8046-cf4f-8a2d-2a8e036a3710)] -> css selector: body]])
-23:33:12.372 INFO - Done: [is displayed: 0 [[FirefoxDriver: firefox on MAC (33e6b743-8046-cf4f-8a2d-2a8e036a3710)] -> css selector: body]]
-23:33:12.376 INFO - Executing: [find element: By.cssSelector: img[class=mockimage]])
-23:33:12.411 INFO - Done: [find element: By.cssSelector: img[class=mockimage]]
-23:33:12.414 INFO - Executing: [find element: By.cssSelector: div[class=cirqle-outer-button]])
-23:33:12.448 INFO - Done: [find element: By.cssSelector: div[class=cirqle-outer-button]]
-23:33:12.450 INFO - Executing: [is displayed: 2 [[FirefoxDriver: firefox on MAC (33e6b743-8046-cf4f-8a2d-2a8e036a3710)] -> css selector: div[class=cirqle-outer-button]]])
-23:33:12.486 INFO - Done: [is displayed: 2 [[FirefoxDriver: firefox on MAC (33e6b743-8046-cf4f-8a2d-2a8e036a3710)] -> css selector: div[class=cirqle-outer-button]]]
-23:33:12.489 INFO - Executing: [find element: By.cssSelector: div[class=cirqle-outer-button]])
-23:33:12.525 INFO - Done: [find element: By.cssSelector: div[class=cirqle-outer-button]]
-23:33:12.527 INFO - Executing: [click: 2 [[FirefoxDriver: firefox on MAC (33e6b743-8046-cf4f-8a2d-2a8e036a3710)] -> css selector: div[class=cirqle-outer-button]]])
-23:33:12.620 INFO - Done: [click: 2 [[FirefoxDriver: firefox on MAC (33e6b743-8046-cf4f-8a2d-2a8e036a3710)] -> css selector: div[class=cirqle-outer-button]]]
-23:33:13.529 INFO - Executing: [find element: By.cssSelector: div[id=cq-shopwindow]])
-23:33:15.012 WARN - Exception thrown
-org.openqa.selenium.NoSuchElementException: Unable to locate element: {"method":"css selector","selector":"div[id=cq-shopwindow]"}
-Command duration or timeout: 9 milliseconds
-For documentation on this error, please visit: http://seleniumhq.org/exceptions/no_such_element.html
-Build info: version: '2.45.0', revision: '5017cb8', time: '2015-02-26 23:59:50'
-System info: host: 'Bran.local', ip: '192.168.1.2', os.name: 'Mac OS X', os.arch: 'x86_64', os.version: '10.10.3', java.version: '1.8.0_31'
-Driver info: org.openqa.selenium.firefox.FirefoxDriver
-Capabilities [{applicationCacheEnabled=true, rotatable=false, handlesAlerts=true, databaseEnabled=true, version=37.0.1, platform=MAC, nativeEvents=false, acceptSslCerts=true, webStorageEnabled=true, locationContextEnabled=true, browserName=firefox, takesScreenshot=true, javascriptEnabled=true, cssSelectorsEnabled=true}]
-Session ID: 33e6b743-8046-cf4f-8a2d-2a8e036a3710
-*** Element info: {Using=css selector, value=div[id=cq-shopwindow]}
-	at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
-	at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62)
-	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
-	at java.lang.reflect.Constructor.newInstance(Constructor.java:408)
-	at org.openqa.selenium.remote.ErrorHandler.createThrowable(ErrorHandler.java:204)
-	at org.openqa.selenium.remote.ErrorHandler.throwIfResponseFailed(ErrorHandler.java:156)
-	at org.openqa.selenium.remote.RemoteWebDriver.execute(RemoteWebDriver.java:599)
-	at org.openqa.selenium.remote.RemoteWebDriver.findElement(RemoteWebDriver.java:352)
-	at org.openqa.selenium.remote.RemoteWebDriver.findElementByCssSelector(RemoteWebDriver.java:441)
-	at org.openqa.selenium.By$ByCssSelector.findElement(By.java:426)
-	at org.openqa.selenium.remote.RemoteWebDriver.findElement(RemoteWebDriver.java:344)
-	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
-	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
-	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
-	at java.lang.reflect.Method.invoke(Method.java:483)
-	at org.openqa.selenium.support.events.EventFiringWebDriver$2.invoke(EventFiringWebDriver.java:101)
-	at com.sun.proxy.$Proxy1.findElement(Unknown Source)
-	at org.openqa.selenium.support.events.EventFiringWebDriver.findElement(EventFiringWebDriver.java:184)
-	at org.openqa.selenium.remote.server.handler.FindElement.call(FindElement.java:47)
-	at org.openqa.selenium.remote.server.handler.FindElement.call(FindElement.java:1)
-	at java.util.concurrent.FutureTask.run(FutureTask.java:266)
-	at org.openqa.selenium.remote.server.DefaultSession$1.run(DefaultSession.java:168)
-	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
-	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
-	at java.lang.Thread.run(Thread.java:745)
-Caused by: org.openqa.selenium.NoSuchElementException: Unable to locate element: {"method":"css selector","selector":"div[id=cq-shopwindow]"}
-For documentation on this error, please visit: http://seleniumhq.org/exceptions/no_such_element.html
-Build info: version: '2.45.0', revision: '5017cb8', time: '2015-02-26 23:59:50'
-System info: host: 'Bran.local', ip: '192.168.1.2', os.name: 'Mac OS X', os.arch: 'x86_64', os.version: '10.10.3', java.version: '1.8.0_31'
-Driver info: driver.version: unknown
-	at <anonymous class>.FirefoxDriver.prototype.findElementInternal_(file:///var/folders/yf/hf1w40qj64j16wjxkxn9cd_40000gp/T/anonymous9117240771061394279webdriver-profile/extensions/fxdriver@googlecode.com/components/driver-component.js:10271)
-	at <anonymous class>.FirefoxDriver.prototype.findElement(file:///var/folders/yf/hf1w40qj64j16wjxkxn9cd_40000gp/T/anonymous9117240771061394279webdriver-profile/extensions/fxdriver@googlecode.com/components/driver-component.js:10280)
-	at <anonymous class>.DelayedCommand.prototype.executeInternal_/h(file:///var/folders/yf/hf1w40qj64j16wjxkxn9cd_40000gp/T/anonymous9117240771061394279webdriver-profile/extensions/fxdriver@googlecode.com/components/command-processor.js:12274)
-	at <anonymous class>.DelayedCommand.prototype.executeInternal_(file:///var/folders/yf/hf1w40qj64j16wjxkxn9cd_40000gp/T/anonymous9117240771061394279webdriver-profile/extensions/fxdriver@googlecode.com/components/command-processor.js:12279)
-	at <anonymous class>.DelayedCommand.prototype.execute/<(file:///var/folders/yf/hf1w40qj64j16wjxkxn9cd_40000gp/T/anonymous9117240771061394279webdriver-profile/extensions/fxdriver@googlecode.com/components/command-processor.js:12221)
-23:33:15.021 WARN - Exception: Unable to locate element: {"method":"css selector","selector":"div[id=cq-shopwindow]"}
-For documentation on this error, please visit: http://seleniumhq.org/exceptions/no_such_element.html
-Build info: version: '2.45.0', revision: '5017cb8', time: '2015-02-26 23:59:50'
-System info: host: 'Bran.local', ip: '192.168.1.2', os.name: 'Mac OS X', os.arch: 'x86_64', os.version: '10.10.3', java.version: '1.8.0_31'
-Driver info: driver.version: unknown
-23:33:15.804 INFO - Executing: [find element: By.cssSelector: div[id=cq-shopwindow]])
-23:33:15.851 INFO - Done: [find element: By.cssSelector: div[id=cq-shopwindow]]
-23:33:15.854 INFO - Executing: [is displayed: 3 [[FirefoxDriver: firefox on MAC (33e6b743-8046-cf4f-8a2d-2a8e036a3710)] -> css selector: div[id=cq-shopwindow]]])
-23:33:15.906 INFO - Done: [is displayed: 3 [[FirefoxDriver: firefox on MAC (33e6b743-8046-cf4f-8a2d-2a8e036a3710)] -> css selector: div[id=cq-shopwindow]]]
-23:33:18.912 INFO - Executing: [delete session: 7254174e-11ae-438c-abdf-79a832b834cd])
-23:33:18.987 INFO - Done: [delete session: 7254174e-11ae-438c-abdf-79a832b834cd]
-23:33:20.004 INFO - Executing: [new session: Capabilities [{acceptSslCerts=true, name=Tumblr, browserName=firefox, javascriptEnabled=true, platform=ANY}]])
-23:33:20.005 INFO - Creating a new session for Capabilities [{acceptSslCerts=true, name=Tumblr, browserName=firefox, javascriptEnabled=true, platform=ANY}]
-23:33:21.858 INFO - Done: [new session: Capabilities [{acceptSslCerts=true, name=Tumblr, browserName=firefox, javascriptEnabled=true, platform=ANY}]]
-23:33:21.861 INFO - Executing: [get: http://localhost:8888/tumblr.html])
-23:33:22.991 INFO - Done: [get: http://localhost:8888/tumblr.html]
-23:33:22.996 INFO - Executing: [find element: By.cssSelector: body])
-23:33:23.081 INFO - Done: [find element: By.cssSelector: body]
-23:33:23.084 INFO - Executing: [is displayed: 0 [[FirefoxDriver: firefox on MAC (94c2660b-17d0-5b4c-9a52-e0c2b34cd805)] -> css selector: body]])
-23:33:23.132 INFO - Done: [is displayed: 0 [[FirefoxDriver: firefox on MAC (94c2660b-17d0-5b4c-9a52-e0c2b34cd805)] -> css selector: body]]
-23:33:23.135 INFO - Executing: [find element: By.cssSelector: img[class=mockimage]])
-23:33:23.537 WARN - Exception thrown
-org.openqa.selenium.NoSuchElementException: Unable to locate element: {"method":"css selector","selector":"img[class=mockimage]"}
-Command duration or timeout: 39 milliseconds
-For documentation on this error, please visit: http://seleniumhq.org/exceptions/no_such_element.html
-Build info: version: '2.45.0', revision: '5017cb8', time: '2015-02-26 23:59:50'
-System info: host: 'Bran.local', ip: '192.168.1.2', os.name: 'Mac OS X', os.arch: 'x86_64', os.version: '10.10.3', java.version: '1.8.0_31'
-Driver info: org.openqa.selenium.firefox.FirefoxDriver
-Capabilities [{applicationCacheEnabled=true, rotatable=false, handlesAlerts=true, databaseEnabled=true, version=37.0.1, platform=MAC, nativeEvents=false, acceptSslCerts=true, webStorageEnabled=true, locationContextEnabled=true, browserName=firefox, takesScreenshot=true, javascriptEnabled=true, cssSelectorsEnabled=true}]
-Session ID: 94c2660b-17d0-5b4c-9a52-e0c2b34cd805
-*** Element info: {Using=css selector, value=img[class=mockimage]}
-	at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
-	at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62)
-	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
-	at java.lang.reflect.Constructor.newInstance(Constructor.java:408)
-	at org.openqa.selenium.remote.ErrorHandler.createThrowable(ErrorHandler.java:204)
-	at org.openqa.selenium.remote.ErrorHandler.throwIfResponseFailed(ErrorHandler.java:156)
-	at org.openqa.selenium.remote.RemoteWebDriver.execute(RemoteWebDriver.java:599)
-	at org.openqa.selenium.remote.RemoteWebDriver.findElement(RemoteWebDriver.java:352)
-	at org.openqa.selenium.remote.RemoteWebDriver.findElementByCssSelector(RemoteWebDriver.java:441)
-	at org.openqa.selenium.By$ByCssSelector.findElement(By.java:426)
-	at org.openqa.selenium.remote.RemoteWebDriver.findElement(RemoteWebDriver.java:344)
-	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
-	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
-	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
-	at java.lang.reflect.Method.invoke(Method.java:483)
-	at org.openqa.selenium.support.events.EventFiringWebDriver$2.invoke(EventFiringWebDriver.java:101)
-	at com.sun.proxy.$Proxy1.findElement(Unknown Source)
-	at org.openqa.selenium.support.events.EventFiringWebDriver.findElement(EventFiringWebDriver.java:184)
-	at org.openqa.selenium.remote.server.handler.FindElement.call(FindElement.java:47)
-	at org.openqa.selenium.remote.server.handler.FindElement.call(FindElement.java:1)
-	at java.util.concurrent.FutureTask.run(FutureTask.java:266)
-	at org.openqa.selenium.remote.server.DefaultSession$1.run(DefaultSession.java:168)
-	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
-	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
-	at java.lang.Thread.run(Thread.java:745)
-Caused by: org.openqa.selenium.NoSuchElementException: Unable to locate element: {"method":"css selector","selector":"img[class=mockimage]"}
-For documentation on this error, please visit: http://seleniumhq.org/exceptions/no_such_element.html
-Build info: version: '2.45.0', revision: '5017cb8', time: '2015-02-26 23:59:50'
-System info: host: 'Bran.local', ip: '192.168.1.2', os.name: 'Mac OS X', os.arch: 'x86_64', os.version: '10.10.3', java.version: '1.8.0_31'
-Driver info: driver.version: unknown
-	at <anonymous class>.FirefoxDriver.prototype.findElementInternal_(file:///var/folders/yf/hf1w40qj64j16wjxkxn9cd_40000gp/T/anonymous3450991897058224548webdriver-profile/extensions/fxdriver@googlecode.com/components/driver-component.js:10271)
-	at <anonymous class>.FirefoxDriver.prototype.findElement(file:///var/folders/yf/hf1w40qj64j16wjxkxn9cd_40000gp/T/anonymous3450991897058224548webdriver-profile/extensions/fxdriver@googlecode.com/components/driver-component.js:10280)
-	at <anonymous class>.DelayedCommand.prototype.executeInternal_/h(file:///var/folders/yf/hf1w40qj64j16wjxkxn9cd_40000gp/T/anonymous3450991897058224548webdriver-profile/extensions/fxdriver@googlecode.com/components/command-processor.js:12274)
-	at <anonymous class>.DelayedCommand.prototype.executeInternal_(file:///var/folders/yf/hf1w40qj64j16wjxkxn9cd_40000gp/T/anonymous3450991897058224548webdriver-profile/extensions/fxdriver@googlecode.com/components/command-processor.js:12279)
-	at <anonymous class>.DelayedCommand.prototype.execute/<(file:///var/folders/yf/hf1w40qj64j16wjxkxn9cd_40000gp/T/anonymous3450991897058224548webdriver-profile/extensions/fxdriver@googlecode.com/components/command-processor.js:12221)
-23:33:23.543 WARN - Exception: Unable to locate element: {"method":"css selector","selector":"img[class=mockimage]"}
-For documentation on this error, please visit: http://seleniumhq.org/exceptions/no_such_element.html
-Build info: version: '2.45.0', revision: '5017cb8', time: '2015-02-26 23:59:50'
-System info: host: 'Bran.local', ip: '192.168.1.2', os.name: 'Mac OS X', os.arch: 'x86_64', os.version: '10.10.3', java.version: '1.8.0_31'
-Driver info: driver.version: unknown
-23:33:24.112 INFO - Executing: [find element: By.cssSelector: img[class=mockimage]])
-23:33:24.119 INFO - Done: [find element: By.cssSelector: img[class=mockimage]]
-23:33:24.125 INFO - Executing: [find element: By.cssSelector: div[class=cirqle-outer-button]])
-23:33:24.574 WARN - Exception thrown
+22:23:17.627 INFO - Java: Oracle Corporation 25.31-b07
+22:23:17.627 INFO - OS: Mac OS X 10.10.3 x86_64
+22:23:17.643 INFO - v2.45.0, with Core v2.45.0. Built from revision 5017cb8
+22:23:17.756 INFO - Default driver org.openqa.selenium.ie.InternetExplorerDriver registration is skipped: registration capabilities Capabilities [{ensureCleanSession=true, browserName=internet explorer, version=, platform=WINDOWS}] does not match with current platform: MAC
+22:23:17.807 INFO - RemoteWebDriver instances should connect to: http://127.0.0.1:4444/wd/hub
+22:23:17.808 INFO - Version Jetty/5.1.x
+22:23:17.810 INFO - Started HttpContext[/selenium-server,/selenium-server]
+22:23:17.852 INFO - Started org.openqa.jetty.jetty.servlet.ServletHandler@16c0663d
+22:23:17.852 INFO - Started HttpContext[/wd,/wd]
+22:23:17.853 INFO - Started HttpContext[/selenium-server/driver,/selenium-server/driver]
+22:23:17.853 INFO - Started HttpContext[/,/]
+22:23:17.859 INFO - Started SocketListener on 0.0.0.0:4444
+22:23:17.859 INFO - Started org.openqa.jetty.jetty.Server@30dae81
+22:23:18.120 INFO - Executing: [new session: Capabilities [{acceptSslCerts=true, name=Blogger, browserName=firefox, javascriptEnabled=true, platform=ANY}]])
+22:23:18.134 INFO - Creating a new session for Capabilities [{acceptSslCerts=true, name=Blogger, browserName=firefox, javascriptEnabled=true, platform=ANY}]
+22:23:21.531 INFO - Done: [new session: Capabilities [{acceptSslCerts=true, name=Blogger, browserName=firefox, javascriptEnabled=true, platform=ANY}]]
+22:23:21.539 INFO - Executing: [get: http://localhost:8888/blogger.html])
+22:23:27.382 INFO - Done: [get: http://localhost:8888/blogger.html]
+22:23:27.387 INFO - Executing: [find element: By.cssSelector: body])
+22:23:27.499 INFO - Done: [find element: By.cssSelector: body]
+22:23:27.503 INFO - Executing: [is displayed: 0 [[FirefoxDriver: firefox on MAC (bfb2faac-bb22-6e40-8dbb-93d107bf1a0a)] -> css selector: body]])
+22:23:27.547 INFO - Done: [is displayed: 0 [[FirefoxDriver: firefox on MAC (bfb2faac-bb22-6e40-8dbb-93d107bf1a0a)] -> css selector: body]]
+22:23:27.551 INFO - Executing: [find element: By.cssSelector: img[class=mockimage]])
+22:23:27.587 INFO - Done: [find element: By.cssSelector: img[class=mockimage]]
+22:23:27.590 INFO - Executing: [find element: By.cssSelector: div[class=cirqle-outer-button]])
+22:23:27.631 INFO - Done: [find element: By.cssSelector: div[class=cirqle-outer-button]]
+22:23:27.633 INFO - Executing: [is displayed: 2 [[FirefoxDriver: firefox on MAC (bfb2faac-bb22-6e40-8dbb-93d107bf1a0a)] -> css selector: div[class=cirqle-outer-button]]])
+22:23:27.676 INFO - Done: [is displayed: 2 [[FirefoxDriver: firefox on MAC (bfb2faac-bb22-6e40-8dbb-93d107bf1a0a)] -> css selector: div[class=cirqle-outer-button]]]
+22:23:27.679 INFO - Executing: [find element: By.cssSelector: div[class=cirqle-outer-button]])
+22:23:27.712 INFO - Done: [find element: By.cssSelector: div[class=cirqle-outer-button]]
+22:23:27.715 INFO - Executing: [click: 2 [[FirefoxDriver: firefox on MAC (bfb2faac-bb22-6e40-8dbb-93d107bf1a0a)] -> css selector: div[class=cirqle-outer-button]]])
+22:23:27.810 INFO - Done: [click: 2 [[FirefoxDriver: firefox on MAC (bfb2faac-bb22-6e40-8dbb-93d107bf1a0a)] -> css selector: div[class=cirqle-outer-button]]]
+22:23:28.721 INFO - Executing: [find element: By.cssSelector: div[id=cq-shopwindow]])
+22:23:29.037 INFO - Done: [find element: By.cssSelector: div[id=cq-shopwindow]]
+22:23:29.040 INFO - Executing: [is displayed: 3 [[FirefoxDriver: firefox on MAC (bfb2faac-bb22-6e40-8dbb-93d107bf1a0a)] -> css selector: div[id=cq-shopwindow]]])
+22:23:29.099 INFO - Done: [is displayed: 3 [[FirefoxDriver: firefox on MAC (bfb2faac-bb22-6e40-8dbb-93d107bf1a0a)] -> css selector: div[id=cq-shopwindow]]]
+22:23:32.104 INFO - Executing: [delete session: a27d943d-dc08-4698-be07-809f32ecdeb1])
+22:23:32.233 INFO - Done: [delete session: a27d943d-dc08-4698-be07-809f32ecdeb1]
+22:23:33.258 INFO - Executing: [new session: Capabilities [{acceptSslCerts=true, name=Tumblr, browserName=firefox, javascriptEnabled=true, platform=ANY}]])
+22:23:33.259 INFO - Creating a new session for Capabilities [{acceptSslCerts=true, name=Tumblr, browserName=firefox, javascriptEnabled=true, platform=ANY}]
+22:23:35.424 INFO - Done: [new session: Capabilities [{acceptSslCerts=true, name=Tumblr, browserName=firefox, javascriptEnabled=true, platform=ANY}]]
+22:23:35.427 INFO - Executing: [get: http://localhost:8888/tumblr.html])
+22:23:38.407 INFO - Done: [get: http://localhost:8888/tumblr.html]
+22:23:38.410 INFO - Executing: [find element: By.cssSelector: body])
+22:23:38.516 INFO - Done: [find element: By.cssSelector: body]
+22:23:38.518 INFO - Executing: [is displayed: 0 [[FirefoxDriver: firefox on MAC (2437aa2e-fa78-c940-a543-f0a8d4c10a4c)] -> css selector: body]])
+22:23:39.383 INFO - Done: [is displayed: 0 [[FirefoxDriver: firefox on MAC (2437aa2e-fa78-c940-a543-f0a8d4c10a4c)] -> css selector: body]]
+22:23:39.387 INFO - Executing: [find element: By.cssSelector: img[class=mockimage]])
+22:23:39.750 INFO - Done: [find element: By.cssSelector: img[class=mockimage]]
+22:23:39.754 INFO - Executing: [find element: By.cssSelector: div[class=cirqle-outer-button]])
+22:23:41.355 WARN - Exception thrown
 org.openqa.selenium.NoSuchElementException: Unable to locate element: {"method":"css selector","selector":"div[class=cirqle-outer-button]"}
-Command duration or timeout: 40 milliseconds
+Command duration or timeout: 49 milliseconds
 For documentation on this error, please visit: http://seleniumhq.org/exceptions/no_such_element.html
 Build info: version: '2.45.0', revision: '5017cb8', time: '2015-02-26 23:59:50'
 System info: host: 'Bran.local', ip: '192.168.1.2', os.name: 'Mac OS X', os.arch: 'x86_64', os.version: '10.10.3', java.version: '1.8.0_31'
 Driver info: org.openqa.selenium.firefox.FirefoxDriver
 Capabilities [{applicationCacheEnabled=true, rotatable=false, handlesAlerts=true, databaseEnabled=true, version=37.0.1, platform=MAC, nativeEvents=false, acceptSslCerts=true, webStorageEnabled=true, locationContextEnabled=true, browserName=firefox, takesScreenshot=true, javascriptEnabled=true, cssSelectorsEnabled=true}]
-Session ID: 94c2660b-17d0-5b4c-9a52-e0c2b34cd805
+Session ID: 2437aa2e-fa78-c940-a543-f0a8d4c10a4c
 *** Element info: {Using=css selector, value=div[class=cirqle-outer-button]}
 	at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
 	at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62)
@@ -193,35 +91,27 @@ For documentation on this error, please visit: http://seleniumhq.org/exceptions/
 Build info: version: '2.45.0', revision: '5017cb8', time: '2015-02-26 23:59:50'
 System info: host: 'Bran.local', ip: '192.168.1.2', os.name: 'Mac OS X', os.arch: 'x86_64', os.version: '10.10.3', java.version: '1.8.0_31'
 Driver info: driver.version: unknown
-	at <anonymous class>.FirefoxDriver.prototype.findElementInternal_(file:///var/folders/yf/hf1w40qj64j16wjxkxn9cd_40000gp/T/anonymous3450991897058224548webdriver-profile/extensions/fxdriver@googlecode.com/components/driver-component.js:10271)
-	at <anonymous class>.FirefoxDriver.prototype.findElement(file:///var/folders/yf/hf1w40qj64j16wjxkxn9cd_40000gp/T/anonymous3450991897058224548webdriver-profile/extensions/fxdriver@googlecode.com/components/driver-component.js:10280)
-	at <anonymous class>.DelayedCommand.prototype.executeInternal_/h(file:///var/folders/yf/hf1w40qj64j16wjxkxn9cd_40000gp/T/anonymous3450991897058224548webdriver-profile/extensions/fxdriver@googlecode.com/components/command-processor.js:12274)
-	at <anonymous class>.DelayedCommand.prototype.executeInternal_(file:///var/folders/yf/hf1w40qj64j16wjxkxn9cd_40000gp/T/anonymous3450991897058224548webdriver-profile/extensions/fxdriver@googlecode.com/components/command-processor.js:12279)
-	at <anonymous class>.DelayedCommand.prototype.execute/<(file:///var/folders/yf/hf1w40qj64j16wjxkxn9cd_40000gp/T/anonymous3450991897058224548webdriver-profile/extensions/fxdriver@googlecode.com/components/command-processor.js:12221)
-23:33:24.579 WARN - Exception: Unable to locate element: {"method":"css selector","selector":"div[class=cirqle-outer-button]"}
+	at <anonymous class>.FirefoxDriver.prototype.findElementInternal_(file:///var/folders/yf/hf1w40qj64j16wjxkxn9cd_40000gp/T/anonymous8863287667072153705webdriver-profile/extensions/fxdriver@googlecode.com/components/driver-component.js:10271)
+	at <anonymous class>.FirefoxDriver.prototype.findElement(file:///var/folders/yf/hf1w40qj64j16wjxkxn9cd_40000gp/T/anonymous8863287667072153705webdriver-profile/extensions/fxdriver@googlecode.com/components/driver-component.js:10280)
+	at <anonymous class>.DelayedCommand.prototype.executeInternal_/h(file:///var/folders/yf/hf1w40qj64j16wjxkxn9cd_40000gp/T/anonymous8863287667072153705webdriver-profile/extensions/fxdriver@googlecode.com/components/command-processor.js:12274)
+	at <anonymous class>.DelayedCommand.prototype.executeInternal_(file:///var/folders/yf/hf1w40qj64j16wjxkxn9cd_40000gp/T/anonymous8863287667072153705webdriver-profile/extensions/fxdriver@googlecode.com/components/command-processor.js:12279)
+	at <anonymous class>.DelayedCommand.prototype.execute/<(file:///var/folders/yf/hf1w40qj64j16wjxkxn9cd_40000gp/T/anonymous8863287667072153705webdriver-profile/extensions/fxdriver@googlecode.com/components/command-processor.js:12221)
+22:23:41.363 WARN - Exception: Unable to locate element: {"method":"css selector","selector":"div[class=cirqle-outer-button]"}
 For documentation on this error, please visit: http://seleniumhq.org/exceptions/no_such_element.html
 Build info: version: '2.45.0', revision: '5017cb8', time: '2015-02-26 23:59:50'
 System info: host: 'Bran.local', ip: '192.168.1.2', os.name: 'Mac OS X', os.arch: 'x86_64', os.version: '10.10.3', java.version: '1.8.0_31'
 Driver info: driver.version: unknown
-23:33:25.359 INFO - Executing: [find element: By.cssSelector: div[class=cirqle-outer-button]])
-23:33:25.904 INFO - Done: [find element: By.cssSelector: div[class=cirqle-outer-button]]
-23:33:25.908 INFO - Executing: [is displayed: 2 [[FirefoxDriver: firefox on MAC (94c2660b-17d0-5b4c-9a52-e0c2b34cd805)] -> css selector: div[class=cirqle-outer-button]]])
-23:33:25.967 INFO - Done: [is displayed: 2 [[FirefoxDriver: firefox on MAC (94c2660b-17d0-5b4c-9a52-e0c2b34cd805)] -> css selector: div[class=cirqle-outer-button]]]
-23:33:25.973 INFO - Executing: [find element: By.cssSelector: div[class=cirqle-outer-button]])
-23:33:26.023 INFO - Done: [find element: By.cssSelector: div[class=cirqle-outer-button]]
-23:33:26.025 INFO - Executing: [click: 2 [[FirefoxDriver: firefox on MAC (94c2660b-17d0-5b4c-9a52-e0c2b34cd805)] -> css selector: div[class=cirqle-outer-button]]])
-23:33:26.126 INFO - Done: [click: 2 [[FirefoxDriver: firefox on MAC (94c2660b-17d0-5b4c-9a52-e0c2b34cd805)] -> css selector: div[class=cirqle-outer-button]]]
-23:33:27.032 INFO - Executing: [find element: By.cssSelector: div[id=cq-shopwindow]])
-23:33:27.430 WARN - Exception thrown
-org.openqa.selenium.NoSuchElementException: Unable to locate element: {"method":"css selector","selector":"div[id=cq-shopwindow]"}
-Command duration or timeout: 8 milliseconds
+22:23:42.261 INFO - Executing: [find element: By.cssSelector: div[class=cirqle-outer-button]])
+22:23:42.794 WARN - Exception thrown
+org.openqa.selenium.NoSuchElementException: Unable to locate element: {"method":"css selector","selector":"div[class=cirqle-outer-button]"}
+Command duration or timeout: 9 milliseconds
 For documentation on this error, please visit: http://seleniumhq.org/exceptions/no_such_element.html
 Build info: version: '2.45.0', revision: '5017cb8', time: '2015-02-26 23:59:50'
 System info: host: 'Bran.local', ip: '192.168.1.2', os.name: 'Mac OS X', os.arch: 'x86_64', os.version: '10.10.3', java.version: '1.8.0_31'
 Driver info: org.openqa.selenium.firefox.FirefoxDriver
 Capabilities [{applicationCacheEnabled=true, rotatable=false, handlesAlerts=true, databaseEnabled=true, version=37.0.1, platform=MAC, nativeEvents=false, acceptSslCerts=true, webStorageEnabled=true, locationContextEnabled=true, browserName=firefox, takesScreenshot=true, javascriptEnabled=true, cssSelectorsEnabled=true}]
-Session ID: 94c2660b-17d0-5b4c-9a52-e0c2b34cd805
-*** Element info: {Using=css selector, value=div[id=cq-shopwindow]}
+Session ID: 2437aa2e-fa78-c940-a543-f0a8d4c10a4c
+*** Element info: {Using=css selector, value=div[class=cirqle-outer-button]}
 	at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
 	at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62)
 	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
@@ -247,47 +137,32 @@ Session ID: 94c2660b-17d0-5b4c-9a52-e0c2b34cd805
 	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
 	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
 	at java.lang.Thread.run(Thread.java:745)
-Caused by: org.openqa.selenium.NoSuchElementException: Unable to locate element: {"method":"css selector","selector":"div[id=cq-shopwindow]"}
+Caused by: org.openqa.selenium.NoSuchElementException: Unable to locate element: {"method":"css selector","selector":"div[class=cirqle-outer-button]"}
 For documentation on this error, please visit: http://seleniumhq.org/exceptions/no_such_element.html
 Build info: version: '2.45.0', revision: '5017cb8', time: '2015-02-26 23:59:50'
 System info: host: 'Bran.local', ip: '192.168.1.2', os.name: 'Mac OS X', os.arch: 'x86_64', os.version: '10.10.3', java.version: '1.8.0_31'
 Driver info: driver.version: unknown
-	at <anonymous class>.FirefoxDriver.prototype.findElementInternal_(file:///var/folders/yf/hf1w40qj64j16wjxkxn9cd_40000gp/T/anonymous3450991897058224548webdriver-profile/extensions/fxdriver@googlecode.com/components/driver-component.js:10271)
-	at <anonymous class>.FirefoxDriver.prototype.findElement(file:///var/folders/yf/hf1w40qj64j16wjxkxn9cd_40000gp/T/anonymous3450991897058224548webdriver-profile/extensions/fxdriver@googlecode.com/components/driver-component.js:10280)
-	at <anonymous class>.DelayedCommand.prototype.executeInternal_/h(file:///var/folders/yf/hf1w40qj64j16wjxkxn9cd_40000gp/T/anonymous3450991897058224548webdriver-profile/extensions/fxdriver@googlecode.com/components/command-processor.js:12274)
-	at <anonymous class>.DelayedCommand.prototype.executeInternal_(file:///var/folders/yf/hf1w40qj64j16wjxkxn9cd_40000gp/T/anonymous3450991897058224548webdriver-profile/extensions/fxdriver@googlecode.com/components/command-processor.js:12279)
-	at <anonymous class>.DelayedCommand.prototype.execute/<(file:///var/folders/yf/hf1w40qj64j16wjxkxn9cd_40000gp/T/anonymous3450991897058224548webdriver-profile/extensions/fxdriver@googlecode.com/components/command-processor.js:12221)
-23:33:27.435 WARN - Exception: Unable to locate element: {"method":"css selector","selector":"div[id=cq-shopwindow]"}
+	at <anonymous class>.FirefoxDriver.prototype.findElementInternal_(file:///var/folders/yf/hf1w40qj64j16wjxkxn9cd_40000gp/T/anonymous8863287667072153705webdriver-profile/extensions/fxdriver@googlecode.com/components/driver-component.js:10271)
+	at <anonymous class>.FirefoxDriver.prototype.findElement(file:///var/folders/yf/hf1w40qj64j16wjxkxn9cd_40000gp/T/anonymous8863287667072153705webdriver-profile/extensions/fxdriver@googlecode.com/components/driver-component.js:10280)
+	at <anonymous class>.DelayedCommand.prototype.executeInternal_/h(file:///var/folders/yf/hf1w40qj64j16wjxkxn9cd_40000gp/T/anonymous8863287667072153705webdriver-profile/extensions/fxdriver@googlecode.com/components/command-processor.js:12274)
+	at <anonymous class>.DelayedCommand.prototype.executeInternal_(file:///var/folders/yf/hf1w40qj64j16wjxkxn9cd_40000gp/T/anonymous8863287667072153705webdriver-profile/extensions/fxdriver@googlecode.com/components/command-processor.js:12279)
+	at <anonymous class>.DelayedCommand.prototype.execute/<(file:///var/folders/yf/hf1w40qj64j16wjxkxn9cd_40000gp/T/anonymous8863287667072153705webdriver-profile/extensions/fxdriver@googlecode.com/components/command-processor.js:12221)
+22:23:42.799 WARN - Exception: Unable to locate element: {"method":"css selector","selector":"div[class=cirqle-outer-button]"}
 For documentation on this error, please visit: http://seleniumhq.org/exceptions/no_such_element.html
 Build info: version: '2.45.0', revision: '5017cb8', time: '2015-02-26 23:59:50'
 System info: host: 'Bran.local', ip: '192.168.1.2', os.name: 'Mac OS X', os.arch: 'x86_64', os.version: '10.10.3', java.version: '1.8.0_31'
 Driver info: driver.version: unknown
-23:33:28.198 INFO - Executing: [find element: By.cssSelector: div[id=cq-shopwindow]])
-23:33:28.208 INFO - Done: [find element: By.cssSelector: div[id=cq-shopwindow]]
-23:33:28.210 INFO - Executing: [is displayed: 3 [[FirefoxDriver: firefox on MAC (94c2660b-17d0-5b4c-9a52-e0c2b34cd805)] -> css selector: div[id=cq-shopwindow]]])
-23:33:28.267 INFO - Done: [is displayed: 3 [[FirefoxDriver: firefox on MAC (94c2660b-17d0-5b4c-9a52-e0c2b34cd805)] -> css selector: div[id=cq-shopwindow]]]
-23:33:31.271 INFO - Executing: [delete session: a9fb6611-30b7-4562-9c75-a95ea390f5db])
-23:33:31.354 INFO - Done: [delete session: a9fb6611-30b7-4562-9c75-a95ea390f5db]
-23:33:32.374 INFO - Executing: [new session: Capabilities [{acceptSslCerts=true, name=Wordpress, browserName=firefox, javascriptEnabled=true, platform=ANY}]])
-23:33:32.374 INFO - Creating a new session for Capabilities [{acceptSslCerts=true, name=Wordpress, browserName=firefox, javascriptEnabled=true, platform=ANY}]
-23:33:34.207 INFO - Done: [new session: Capabilities [{acceptSslCerts=true, name=Wordpress, browserName=firefox, javascriptEnabled=true, platform=ANY}]]
-23:33:34.211 INFO - Executing: [get: http://localhost:8888/wordpress.html])
-23:33:35.301 INFO - Done: [get: http://localhost:8888/wordpress.html]
-23:33:35.304 INFO - Executing: [find element: By.cssSelector: body])
-23:33:35.398 INFO - Done: [find element: By.cssSelector: body]
-23:33:35.401 INFO - Executing: [is displayed: 0 [[FirefoxDriver: firefox on MAC (0186425b-721b-b04a-965d-1a228ecc61f5)] -> css selector: body]])
-23:33:35.448 INFO - Done: [is displayed: 0 [[FirefoxDriver: firefox on MAC (0186425b-721b-b04a-965d-1a228ecc61f5)] -> css selector: body]]
-23:33:35.453 INFO - Executing: [find element: By.cssSelector: img[class=mockimage]])
-23:33:35.817 WARN - Exception thrown
-org.openqa.selenium.NoSuchElementException: Unable to locate element: {"method":"css selector","selector":"img[class=mockimage]"}
-Command duration or timeout: 36 milliseconds
+22:23:43.587 INFO - Executing: [find element: By.cssSelector: div[class=cirqle-outer-button]])
+22:23:44.050 WARN - Exception thrown
+org.openqa.selenium.NoSuchElementException: Unable to locate element: {"method":"css selector","selector":"div[class=cirqle-outer-button]"}
+Command duration or timeout: 9 milliseconds
 For documentation on this error, please visit: http://seleniumhq.org/exceptions/no_such_element.html
 Build info: version: '2.45.0', revision: '5017cb8', time: '2015-02-26 23:59:50'
 System info: host: 'Bran.local', ip: '192.168.1.2', os.name: 'Mac OS X', os.arch: 'x86_64', os.version: '10.10.3', java.version: '1.8.0_31'
 Driver info: org.openqa.selenium.firefox.FirefoxDriver
 Capabilities [{applicationCacheEnabled=true, rotatable=false, handlesAlerts=true, databaseEnabled=true, version=37.0.1, platform=MAC, nativeEvents=false, acceptSslCerts=true, webStorageEnabled=true, locationContextEnabled=true, browserName=firefox, takesScreenshot=true, javascriptEnabled=true, cssSelectorsEnabled=true}]
-Session ID: 0186425b-721b-b04a-965d-1a228ecc61f5
-*** Element info: {Using=css selector, value=img[class=mockimage]}
+Session ID: 2437aa2e-fa78-c940-a543-f0a8d4c10a4c
+*** Element info: {Using=css selector, value=div[class=cirqle-outer-button]}
 	at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
 	at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62)
 	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
@@ -313,31 +188,297 @@ Session ID: 0186425b-721b-b04a-965d-1a228ecc61f5
 	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
 	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
 	at java.lang.Thread.run(Thread.java:745)
-Caused by: org.openqa.selenium.NoSuchElementException: Unable to locate element: {"method":"css selector","selector":"img[class=mockimage]"}
+Caused by: org.openqa.selenium.NoSuchElementException: Unable to locate element: {"method":"css selector","selector":"div[class=cirqle-outer-button]"}
 For documentation on this error, please visit: http://seleniumhq.org/exceptions/no_such_element.html
 Build info: version: '2.45.0', revision: '5017cb8', time: '2015-02-26 23:59:50'
 System info: host: 'Bran.local', ip: '192.168.1.2', os.name: 'Mac OS X', os.arch: 'x86_64', os.version: '10.10.3', java.version: '1.8.0_31'
 Driver info: driver.version: unknown
-	at <anonymous class>.FirefoxDriver.prototype.findElementInternal_(file:///var/folders/yf/hf1w40qj64j16wjxkxn9cd_40000gp/T/anonymous194710194139670383webdriver-profile/extensions/fxdriver@googlecode.com/components/driver-component.js:10271)
-	at <anonymous class>.FirefoxDriver.prototype.findElement(file:///var/folders/yf/hf1w40qj64j16wjxkxn9cd_40000gp/T/anonymous194710194139670383webdriver-profile/extensions/fxdriver@googlecode.com/components/driver-component.js:10280)
-	at <anonymous class>.DelayedCommand.prototype.executeInternal_/h(file:///var/folders/yf/hf1w40qj64j16wjxkxn9cd_40000gp/T/anonymous194710194139670383webdriver-profile/extensions/fxdriver@googlecode.com/components/command-processor.js:12274)
-	at <anonymous class>.DelayedCommand.prototype.executeInternal_(file:///var/folders/yf/hf1w40qj64j16wjxkxn9cd_40000gp/T/anonymous194710194139670383webdriver-profile/extensions/fxdriver@googlecode.com/components/command-processor.js:12279)
-	at <anonymous class>.DelayedCommand.prototype.execute/<(file:///var/folders/yf/hf1w40qj64j16wjxkxn9cd_40000gp/T/anonymous194710194139670383webdriver-profile/extensions/fxdriver@googlecode.com/components/command-processor.js:12221)
-23:33:35.822 WARN - Exception: Unable to locate element: {"method":"css selector","selector":"img[class=mockimage]"}
+	at <anonymous class>.FirefoxDriver.prototype.findElementInternal_(file:///var/folders/yf/hf1w40qj64j16wjxkxn9cd_40000gp/T/anonymous8863287667072153705webdriver-profile/extensions/fxdriver@googlecode.com/components/driver-component.js:10271)
+	at <anonymous class>.FirefoxDriver.prototype.findElement(file:///var/folders/yf/hf1w40qj64j16wjxkxn9cd_40000gp/T/anonymous8863287667072153705webdriver-profile/extensions/fxdriver@googlecode.com/components/driver-component.js:10280)
+	at <anonymous class>.DelayedCommand.prototype.executeInternal_/h(file:///var/folders/yf/hf1w40qj64j16wjxkxn9cd_40000gp/T/anonymous8863287667072153705webdriver-profile/extensions/fxdriver@googlecode.com/components/command-processor.js:12274)
+	at <anonymous class>.DelayedCommand.prototype.executeInternal_(file:///var/folders/yf/hf1w40qj64j16wjxkxn9cd_40000gp/T/anonymous8863287667072153705webdriver-profile/extensions/fxdriver@googlecode.com/components/command-processor.js:12279)
+	at <anonymous class>.DelayedCommand.prototype.execute/<(file:///var/folders/yf/hf1w40qj64j16wjxkxn9cd_40000gp/T/anonymous8863287667072153705webdriver-profile/extensions/fxdriver@googlecode.com/components/command-processor.js:12221)
+22:23:44.059 WARN - Exception: Unable to locate element: {"method":"css selector","selector":"div[class=cirqle-outer-button]"}
 For documentation on this error, please visit: http://seleniumhq.org/exceptions/no_such_element.html
 Build info: version: '2.45.0', revision: '5017cb8', time: '2015-02-26 23:59:50'
 System info: host: 'Bran.local', ip: '192.168.1.2', os.name: 'Mac OS X', os.arch: 'x86_64', os.version: '10.10.3', java.version: '1.8.0_31'
 Driver info: driver.version: unknown
-23:33:36.413 INFO - Executing: [find element: By.cssSelector: img[class=mockimage]])
-23:33:36.726 WARN - Exception thrown
-org.openqa.selenium.NoSuchElementException: Unable to locate element: {"method":"css selector","selector":"img[class=mockimage]"}
+22:23:44.836 INFO - Executing: [find element: By.cssSelector: div[class=cirqle-outer-button]])
+22:23:45.306 WARN - Exception thrown
+org.openqa.selenium.NoSuchElementException: Unable to locate element: {"method":"css selector","selector":"div[class=cirqle-outer-button]"}
 Command duration or timeout: 8 milliseconds
 For documentation on this error, please visit: http://seleniumhq.org/exceptions/no_such_element.html
 Build info: version: '2.45.0', revision: '5017cb8', time: '2015-02-26 23:59:50'
 System info: host: 'Bran.local', ip: '192.168.1.2', os.name: 'Mac OS X', os.arch: 'x86_64', os.version: '10.10.3', java.version: '1.8.0_31'
 Driver info: org.openqa.selenium.firefox.FirefoxDriver
 Capabilities [{applicationCacheEnabled=true, rotatable=false, handlesAlerts=true, databaseEnabled=true, version=37.0.1, platform=MAC, nativeEvents=false, acceptSslCerts=true, webStorageEnabled=true, locationContextEnabled=true, browserName=firefox, takesScreenshot=true, javascriptEnabled=true, cssSelectorsEnabled=true}]
-Session ID: 0186425b-721b-b04a-965d-1a228ecc61f5
+Session ID: 2437aa2e-fa78-c940-a543-f0a8d4c10a4c
+*** Element info: {Using=css selector, value=div[class=cirqle-outer-button]}
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62)
+	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
+	at java.lang.reflect.Constructor.newInstance(Constructor.java:408)
+	at org.openqa.selenium.remote.ErrorHandler.createThrowable(ErrorHandler.java:204)
+	at org.openqa.selenium.remote.ErrorHandler.throwIfResponseFailed(ErrorHandler.java:156)
+	at org.openqa.selenium.remote.RemoteWebDriver.execute(RemoteWebDriver.java:599)
+	at org.openqa.selenium.remote.RemoteWebDriver.findElement(RemoteWebDriver.java:352)
+	at org.openqa.selenium.remote.RemoteWebDriver.findElementByCssSelector(RemoteWebDriver.java:441)
+	at org.openqa.selenium.By$ByCssSelector.findElement(By.java:426)
+	at org.openqa.selenium.remote.RemoteWebDriver.findElement(RemoteWebDriver.java:344)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:483)
+	at org.openqa.selenium.support.events.EventFiringWebDriver$2.invoke(EventFiringWebDriver.java:101)
+	at com.sun.proxy.$Proxy1.findElement(Unknown Source)
+	at org.openqa.selenium.support.events.EventFiringWebDriver.findElement(EventFiringWebDriver.java:184)
+	at org.openqa.selenium.remote.server.handler.FindElement.call(FindElement.java:47)
+	at org.openqa.selenium.remote.server.handler.FindElement.call(FindElement.java:1)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:266)
+	at org.openqa.selenium.remote.server.DefaultSession$1.run(DefaultSession.java:168)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+	at java.lang.Thread.run(Thread.java:745)
+Caused by: org.openqa.selenium.NoSuchElementException: Unable to locate element: {"method":"css selector","selector":"div[class=cirqle-outer-button]"}
+For documentation on this error, please visit: http://seleniumhq.org/exceptions/no_such_element.html
+Build info: version: '2.45.0', revision: '5017cb8', time: '2015-02-26 23:59:50'
+System info: host: 'Bran.local', ip: '192.168.1.2', os.name: 'Mac OS X', os.arch: 'x86_64', os.version: '10.10.3', java.version: '1.8.0_31'
+Driver info: driver.version: unknown
+	at <anonymous class>.FirefoxDriver.prototype.findElementInternal_(file:///var/folders/yf/hf1w40qj64j16wjxkxn9cd_40000gp/T/anonymous8863287667072153705webdriver-profile/extensions/fxdriver@googlecode.com/components/driver-component.js:10271)
+	at <anonymous class>.FirefoxDriver.prototype.findElement(file:///var/folders/yf/hf1w40qj64j16wjxkxn9cd_40000gp/T/anonymous8863287667072153705webdriver-profile/extensions/fxdriver@googlecode.com/components/driver-component.js:10280)
+	at <anonymous class>.DelayedCommand.prototype.executeInternal_/h(file:///var/folders/yf/hf1w40qj64j16wjxkxn9cd_40000gp/T/anonymous8863287667072153705webdriver-profile/extensions/fxdriver@googlecode.com/components/command-processor.js:12274)
+	at <anonymous class>.DelayedCommand.prototype.executeInternal_(file:///var/folders/yf/hf1w40qj64j16wjxkxn9cd_40000gp/T/anonymous8863287667072153705webdriver-profile/extensions/fxdriver@googlecode.com/components/command-processor.js:12279)
+	at <anonymous class>.DelayedCommand.prototype.execute/<(file:///var/folders/yf/hf1w40qj64j16wjxkxn9cd_40000gp/T/anonymous8863287667072153705webdriver-profile/extensions/fxdriver@googlecode.com/components/command-processor.js:12221)
+22:23:45.311 WARN - Exception: Unable to locate element: {"method":"css selector","selector":"div[class=cirqle-outer-button]"}
+For documentation on this error, please visit: http://seleniumhq.org/exceptions/no_such_element.html
+Build info: version: '2.45.0', revision: '5017cb8', time: '2015-02-26 23:59:50'
+System info: host: 'Bran.local', ip: '192.168.1.2', os.name: 'Mac OS X', os.arch: 'x86_64', os.version: '10.10.3', java.version: '1.8.0_31'
+Driver info: driver.version: unknown
+22:23:46.126 INFO - Executing: [find element: By.cssSelector: div[class=cirqle-outer-button]])
+22:23:46.610 WARN - Exception thrown
+org.openqa.selenium.NoSuchElementException: Unable to locate element: {"method":"css selector","selector":"div[class=cirqle-outer-button]"}
+Command duration or timeout: 7 milliseconds
+For documentation on this error, please visit: http://seleniumhq.org/exceptions/no_such_element.html
+Build info: version: '2.45.0', revision: '5017cb8', time: '2015-02-26 23:59:50'
+System info: host: 'Bran.local', ip: '192.168.1.2', os.name: 'Mac OS X', os.arch: 'x86_64', os.version: '10.10.3', java.version: '1.8.0_31'
+Driver info: org.openqa.selenium.firefox.FirefoxDriver
+Capabilities [{applicationCacheEnabled=true, rotatable=false, handlesAlerts=true, databaseEnabled=true, version=37.0.1, platform=MAC, nativeEvents=false, acceptSslCerts=true, webStorageEnabled=true, locationContextEnabled=true, browserName=firefox, takesScreenshot=true, javascriptEnabled=true, cssSelectorsEnabled=true}]
+Session ID: 2437aa2e-fa78-c940-a543-f0a8d4c10a4c
+*** Element info: {Using=css selector, value=div[class=cirqle-outer-button]}
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62)
+	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
+	at java.lang.reflect.Constructor.newInstance(Constructor.java:408)
+	at org.openqa.selenium.remote.ErrorHandler.createThrowable(ErrorHandler.java:204)
+	at org.openqa.selenium.remote.ErrorHandler.throwIfResponseFailed(ErrorHandler.java:156)
+	at org.openqa.selenium.remote.RemoteWebDriver.execute(RemoteWebDriver.java:599)
+	at org.openqa.selenium.remote.RemoteWebDriver.findElement(RemoteWebDriver.java:352)
+	at org.openqa.selenium.remote.RemoteWebDriver.findElementByCssSelector(RemoteWebDriver.java:441)
+	at org.openqa.selenium.By$ByCssSelector.findElement(By.java:426)
+	at org.openqa.selenium.remote.RemoteWebDriver.findElement(RemoteWebDriver.java:344)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:483)
+	at org.openqa.selenium.support.events.EventFiringWebDriver$2.invoke(EventFiringWebDriver.java:101)
+	at com.sun.proxy.$Proxy1.findElement(Unknown Source)
+	at org.openqa.selenium.support.events.EventFiringWebDriver.findElement(EventFiringWebDriver.java:184)
+	at org.openqa.selenium.remote.server.handler.FindElement.call(FindElement.java:47)
+	at org.openqa.selenium.remote.server.handler.FindElement.call(FindElement.java:1)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:266)
+	at org.openqa.selenium.remote.server.DefaultSession$1.run(DefaultSession.java:168)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+	at java.lang.Thread.run(Thread.java:745)
+Caused by: org.openqa.selenium.NoSuchElementException: Unable to locate element: {"method":"css selector","selector":"div[class=cirqle-outer-button]"}
+For documentation on this error, please visit: http://seleniumhq.org/exceptions/no_such_element.html
+Build info: version: '2.45.0', revision: '5017cb8', time: '2015-02-26 23:59:50'
+System info: host: 'Bran.local', ip: '192.168.1.2', os.name: 'Mac OS X', os.arch: 'x86_64', os.version: '10.10.3', java.version: '1.8.0_31'
+Driver info: driver.version: unknown
+	at <anonymous class>.FirefoxDriver.prototype.findElementInternal_(file:///var/folders/yf/hf1w40qj64j16wjxkxn9cd_40000gp/T/anonymous8863287667072153705webdriver-profile/extensions/fxdriver@googlecode.com/components/driver-component.js:10271)
+	at <anonymous class>.FirefoxDriver.prototype.findElement(file:///var/folders/yf/hf1w40qj64j16wjxkxn9cd_40000gp/T/anonymous8863287667072153705webdriver-profile/extensions/fxdriver@googlecode.com/components/driver-component.js:10280)
+	at <anonymous class>.DelayedCommand.prototype.executeInternal_/h(file:///var/folders/yf/hf1w40qj64j16wjxkxn9cd_40000gp/T/anonymous8863287667072153705webdriver-profile/extensions/fxdriver@googlecode.com/components/command-processor.js:12274)
+	at <anonymous class>.DelayedCommand.prototype.executeInternal_(file:///var/folders/yf/hf1w40qj64j16wjxkxn9cd_40000gp/T/anonymous8863287667072153705webdriver-profile/extensions/fxdriver@googlecode.com/components/command-processor.js:12279)
+	at <anonymous class>.DelayedCommand.prototype.execute/<(file:///var/folders/yf/hf1w40qj64j16wjxkxn9cd_40000gp/T/anonymous8863287667072153705webdriver-profile/extensions/fxdriver@googlecode.com/components/command-processor.js:12221)
+22:23:46.615 WARN - Exception: Unable to locate element: {"method":"css selector","selector":"div[class=cirqle-outer-button]"}
+For documentation on this error, please visit: http://seleniumhq.org/exceptions/no_such_element.html
+Build info: version: '2.45.0', revision: '5017cb8', time: '2015-02-26 23:59:50'
+System info: host: 'Bran.local', ip: '192.168.1.2', os.name: 'Mac OS X', os.arch: 'x86_64', os.version: '10.10.3', java.version: '1.8.0_31'
+Driver info: driver.version: unknown
+22:23:47.380 INFO - Executing: [find element: By.cssSelector: div[class=cirqle-outer-button]])
+22:23:47.887 WARN - Exception thrown
+org.openqa.selenium.NoSuchElementException: Unable to locate element: {"method":"css selector","selector":"div[class=cirqle-outer-button]"}
+Command duration or timeout: 8 milliseconds
+For documentation on this error, please visit: http://seleniumhq.org/exceptions/no_such_element.html
+Build info: version: '2.45.0', revision: '5017cb8', time: '2015-02-26 23:59:50'
+System info: host: 'Bran.local', ip: '192.168.1.2', os.name: 'Mac OS X', os.arch: 'x86_64', os.version: '10.10.3', java.version: '1.8.0_31'
+Driver info: org.openqa.selenium.firefox.FirefoxDriver
+Capabilities [{applicationCacheEnabled=true, rotatable=false, handlesAlerts=true, databaseEnabled=true, version=37.0.1, platform=MAC, nativeEvents=false, acceptSslCerts=true, webStorageEnabled=true, locationContextEnabled=true, browserName=firefox, takesScreenshot=true, javascriptEnabled=true, cssSelectorsEnabled=true}]
+Session ID: 2437aa2e-fa78-c940-a543-f0a8d4c10a4c
+*** Element info: {Using=css selector, value=div[class=cirqle-outer-button]}
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62)
+	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
+	at java.lang.reflect.Constructor.newInstance(Constructor.java:408)
+	at org.openqa.selenium.remote.ErrorHandler.createThrowable(ErrorHandler.java:204)
+	at org.openqa.selenium.remote.ErrorHandler.throwIfResponseFailed(ErrorHandler.java:156)
+	at org.openqa.selenium.remote.RemoteWebDriver.execute(RemoteWebDriver.java:599)
+	at org.openqa.selenium.remote.RemoteWebDriver.findElement(RemoteWebDriver.java:352)
+	at org.openqa.selenium.remote.RemoteWebDriver.findElementByCssSelector(RemoteWebDriver.java:441)
+	at org.openqa.selenium.By$ByCssSelector.findElement(By.java:426)
+	at org.openqa.selenium.remote.RemoteWebDriver.findElement(RemoteWebDriver.java:344)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:483)
+	at org.openqa.selenium.support.events.EventFiringWebDriver$2.invoke(EventFiringWebDriver.java:101)
+	at com.sun.proxy.$Proxy1.findElement(Unknown Source)
+	at org.openqa.selenium.support.events.EventFiringWebDriver.findElement(EventFiringWebDriver.java:184)
+	at org.openqa.selenium.remote.server.handler.FindElement.call(FindElement.java:47)
+	at org.openqa.selenium.remote.server.handler.FindElement.call(FindElement.java:1)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:266)
+	at org.openqa.selenium.remote.server.DefaultSession$1.run(DefaultSession.java:168)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+	at java.lang.Thread.run(Thread.java:745)
+Caused by: org.openqa.selenium.NoSuchElementException: Unable to locate element: {"method":"css selector","selector":"div[class=cirqle-outer-button]"}
+For documentation on this error, please visit: http://seleniumhq.org/exceptions/no_such_element.html
+Build info: version: '2.45.0', revision: '5017cb8', time: '2015-02-26 23:59:50'
+System info: host: 'Bran.local', ip: '192.168.1.2', os.name: 'Mac OS X', os.arch: 'x86_64', os.version: '10.10.3', java.version: '1.8.0_31'
+Driver info: driver.version: unknown
+	at <anonymous class>.FirefoxDriver.prototype.findElementInternal_(file:///var/folders/yf/hf1w40qj64j16wjxkxn9cd_40000gp/T/anonymous8863287667072153705webdriver-profile/extensions/fxdriver@googlecode.com/components/driver-component.js:10271)
+	at <anonymous class>.FirefoxDriver.prototype.findElement(file:///var/folders/yf/hf1w40qj64j16wjxkxn9cd_40000gp/T/anonymous8863287667072153705webdriver-profile/extensions/fxdriver@googlecode.com/components/driver-component.js:10280)
+	at <anonymous class>.DelayedCommand.prototype.executeInternal_/h(file:///var/folders/yf/hf1w40qj64j16wjxkxn9cd_40000gp/T/anonymous8863287667072153705webdriver-profile/extensions/fxdriver@googlecode.com/components/command-processor.js:12274)
+	at <anonymous class>.DelayedCommand.prototype.executeInternal_(file:///var/folders/yf/hf1w40qj64j16wjxkxn9cd_40000gp/T/anonymous8863287667072153705webdriver-profile/extensions/fxdriver@googlecode.com/components/command-processor.js:12279)
+	at <anonymous class>.DelayedCommand.prototype.execute/<(file:///var/folders/yf/hf1w40qj64j16wjxkxn9cd_40000gp/T/anonymous8863287667072153705webdriver-profile/extensions/fxdriver@googlecode.com/components/command-processor.js:12221)
+22:23:47.893 WARN - Exception: Unable to locate element: {"method":"css selector","selector":"div[class=cirqle-outer-button]"}
+For documentation on this error, please visit: http://seleniumhq.org/exceptions/no_such_element.html
+Build info: version: '2.45.0', revision: '5017cb8', time: '2015-02-26 23:59:50'
+System info: host: 'Bran.local', ip: '192.168.1.2', os.name: 'Mac OS X', os.arch: 'x86_64', os.version: '10.10.3', java.version: '1.8.0_31'
+Driver info: driver.version: unknown
+22:23:48.663 INFO - Executing: [find element: By.cssSelector: div[class=cirqle-outer-button]])
+22:23:49.152 WARN - Exception thrown
+org.openqa.selenium.NoSuchElementException: Unable to locate element: {"method":"css selector","selector":"div[class=cirqle-outer-button]"}
+Command duration or timeout: 8 milliseconds
+For documentation on this error, please visit: http://seleniumhq.org/exceptions/no_such_element.html
+Build info: version: '2.45.0', revision: '5017cb8', time: '2015-02-26 23:59:50'
+System info: host: 'Bran.local', ip: '192.168.1.2', os.name: 'Mac OS X', os.arch: 'x86_64', os.version: '10.10.3', java.version: '1.8.0_31'
+Driver info: org.openqa.selenium.firefox.FirefoxDriver
+Capabilities [{applicationCacheEnabled=true, rotatable=false, handlesAlerts=true, databaseEnabled=true, version=37.0.1, platform=MAC, nativeEvents=false, acceptSslCerts=true, webStorageEnabled=true, locationContextEnabled=true, browserName=firefox, takesScreenshot=true, javascriptEnabled=true, cssSelectorsEnabled=true}]
+Session ID: 2437aa2e-fa78-c940-a543-f0a8d4c10a4c
+*** Element info: {Using=css selector, value=div[class=cirqle-outer-button]}
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62)
+	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
+	at java.lang.reflect.Constructor.newInstance(Constructor.java:408)
+	at org.openqa.selenium.remote.ErrorHandler.createThrowable(ErrorHandler.java:204)
+	at org.openqa.selenium.remote.ErrorHandler.throwIfResponseFailed(ErrorHandler.java:156)
+	at org.openqa.selenium.remote.RemoteWebDriver.execute(RemoteWebDriver.java:599)
+	at org.openqa.selenium.remote.RemoteWebDriver.findElement(RemoteWebDriver.java:352)
+	at org.openqa.selenium.remote.RemoteWebDriver.findElementByCssSelector(RemoteWebDriver.java:441)
+	at org.openqa.selenium.By$ByCssSelector.findElement(By.java:426)
+	at org.openqa.selenium.remote.RemoteWebDriver.findElement(RemoteWebDriver.java:344)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:483)
+	at org.openqa.selenium.support.events.EventFiringWebDriver$2.invoke(EventFiringWebDriver.java:101)
+	at com.sun.proxy.$Proxy1.findElement(Unknown Source)
+	at org.openqa.selenium.support.events.EventFiringWebDriver.findElement(EventFiringWebDriver.java:184)
+	at org.openqa.selenium.remote.server.handler.FindElement.call(FindElement.java:47)
+	at org.openqa.selenium.remote.server.handler.FindElement.call(FindElement.java:1)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:266)
+	at org.openqa.selenium.remote.server.DefaultSession$1.run(DefaultSession.java:168)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+	at java.lang.Thread.run(Thread.java:745)
+Caused by: org.openqa.selenium.NoSuchElementException: Unable to locate element: {"method":"css selector","selector":"div[class=cirqle-outer-button]"}
+For documentation on this error, please visit: http://seleniumhq.org/exceptions/no_such_element.html
+Build info: version: '2.45.0', revision: '5017cb8', time: '2015-02-26 23:59:50'
+System info: host: 'Bran.local', ip: '192.168.1.2', os.name: 'Mac OS X', os.arch: 'x86_64', os.version: '10.10.3', java.version: '1.8.0_31'
+Driver info: driver.version: unknown
+	at <anonymous class>.FirefoxDriver.prototype.findElementInternal_(file:///var/folders/yf/hf1w40qj64j16wjxkxn9cd_40000gp/T/anonymous8863287667072153705webdriver-profile/extensions/fxdriver@googlecode.com/components/driver-component.js:10271)
+	at <anonymous class>.FirefoxDriver.prototype.findElement(file:///var/folders/yf/hf1w40qj64j16wjxkxn9cd_40000gp/T/anonymous8863287667072153705webdriver-profile/extensions/fxdriver@googlecode.com/components/driver-component.js:10280)
+	at <anonymous class>.DelayedCommand.prototype.executeInternal_/h(file:///var/folders/yf/hf1w40qj64j16wjxkxn9cd_40000gp/T/anonymous8863287667072153705webdriver-profile/extensions/fxdriver@googlecode.com/components/command-processor.js:12274)
+	at <anonymous class>.DelayedCommand.prototype.executeInternal_(file:///var/folders/yf/hf1w40qj64j16wjxkxn9cd_40000gp/T/anonymous8863287667072153705webdriver-profile/extensions/fxdriver@googlecode.com/components/command-processor.js:12279)
+	at <anonymous class>.DelayedCommand.prototype.execute/<(file:///var/folders/yf/hf1w40qj64j16wjxkxn9cd_40000gp/T/anonymous8863287667072153705webdriver-profile/extensions/fxdriver@googlecode.com/components/command-processor.js:12221)
+22:23:49.160 WARN - Exception: Unable to locate element: {"method":"css selector","selector":"div[class=cirqle-outer-button]"}
+For documentation on this error, please visit: http://seleniumhq.org/exceptions/no_such_element.html
+Build info: version: '2.45.0', revision: '5017cb8', time: '2015-02-26 23:59:50'
+System info: host: 'Bran.local', ip: '192.168.1.2', os.name: 'Mac OS X', os.arch: 'x86_64', os.version: '10.10.3', java.version: '1.8.0_31'
+Driver info: driver.version: unknown
+22:23:49.931 INFO - Executing: [find element: By.cssSelector: div[class=cirqle-outer-button]])
+22:23:50.467 WARN - Exception thrown
+org.openqa.selenium.NoSuchElementException: Unable to locate element: {"method":"css selector","selector":"div[class=cirqle-outer-button]"}
+Command duration or timeout: 7 milliseconds
+For documentation on this error, please visit: http://seleniumhq.org/exceptions/no_such_element.html
+Build info: version: '2.45.0', revision: '5017cb8', time: '2015-02-26 23:59:50'
+System info: host: 'Bran.local', ip: '192.168.1.2', os.name: 'Mac OS X', os.arch: 'x86_64', os.version: '10.10.3', java.version: '1.8.0_31'
+Driver info: org.openqa.selenium.firefox.FirefoxDriver
+Capabilities [{applicationCacheEnabled=true, rotatable=false, handlesAlerts=true, databaseEnabled=true, version=37.0.1, platform=MAC, nativeEvents=false, acceptSslCerts=true, webStorageEnabled=true, locationContextEnabled=true, browserName=firefox, takesScreenshot=true, javascriptEnabled=true, cssSelectorsEnabled=true}]
+Session ID: 2437aa2e-fa78-c940-a543-f0a8d4c10a4c
+*** Element info: {Using=css selector, value=div[class=cirqle-outer-button]}
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62)
+	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
+	at java.lang.reflect.Constructor.newInstance(Constructor.java:408)
+	at org.openqa.selenium.remote.ErrorHandler.createThrowable(ErrorHandler.java:204)
+	at org.openqa.selenium.remote.ErrorHandler.throwIfResponseFailed(ErrorHandler.java:156)
+	at org.openqa.selenium.remote.RemoteWebDriver.execute(RemoteWebDriver.java:599)
+	at org.openqa.selenium.remote.RemoteWebDriver.findElement(RemoteWebDriver.java:352)
+	at org.openqa.selenium.remote.RemoteWebDriver.findElementByCssSelector(RemoteWebDriver.java:441)
+	at org.openqa.selenium.By$ByCssSelector.findElement(By.java:426)
+	at org.openqa.selenium.remote.RemoteWebDriver.findElement(RemoteWebDriver.java:344)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:483)
+	at org.openqa.selenium.support.events.EventFiringWebDriver$2.invoke(EventFiringWebDriver.java:101)
+	at com.sun.proxy.$Proxy1.findElement(Unknown Source)
+	at org.openqa.selenium.support.events.EventFiringWebDriver.findElement(EventFiringWebDriver.java:184)
+	at org.openqa.selenium.remote.server.handler.FindElement.call(FindElement.java:47)
+	at org.openqa.selenium.remote.server.handler.FindElement.call(FindElement.java:1)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:266)
+	at org.openqa.selenium.remote.server.DefaultSession$1.run(DefaultSession.java:168)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+	at java.lang.Thread.run(Thread.java:745)
+Caused by: org.openqa.selenium.NoSuchElementException: Unable to locate element: {"method":"css selector","selector":"div[class=cirqle-outer-button]"}
+For documentation on this error, please visit: http://seleniumhq.org/exceptions/no_such_element.html
+Build info: version: '2.45.0', revision: '5017cb8', time: '2015-02-26 23:59:50'
+System info: host: 'Bran.local', ip: '192.168.1.2', os.name: 'Mac OS X', os.arch: 'x86_64', os.version: '10.10.3', java.version: '1.8.0_31'
+Driver info: driver.version: unknown
+	at <anonymous class>.FirefoxDriver.prototype.findElementInternal_(file:///var/folders/yf/hf1w40qj64j16wjxkxn9cd_40000gp/T/anonymous8863287667072153705webdriver-profile/extensions/fxdriver@googlecode.com/components/driver-component.js:10271)
+	at <anonymous class>.FirefoxDriver.prototype.findElement(file:///var/folders/yf/hf1w40qj64j16wjxkxn9cd_40000gp/T/anonymous8863287667072153705webdriver-profile/extensions/fxdriver@googlecode.com/components/driver-component.js:10280)
+	at <anonymous class>.DelayedCommand.prototype.executeInternal_/h(file:///var/folders/yf/hf1w40qj64j16wjxkxn9cd_40000gp/T/anonymous8863287667072153705webdriver-profile/extensions/fxdriver@googlecode.com/components/command-processor.js:12274)
+	at <anonymous class>.DelayedCommand.prototype.executeInternal_(file:///var/folders/yf/hf1w40qj64j16wjxkxn9cd_40000gp/T/anonymous8863287667072153705webdriver-profile/extensions/fxdriver@googlecode.com/components/command-processor.js:12279)
+	at <anonymous class>.DelayedCommand.prototype.execute/<(file:///var/folders/yf/hf1w40qj64j16wjxkxn9cd_40000gp/T/anonymous8863287667072153705webdriver-profile/extensions/fxdriver@googlecode.com/components/command-processor.js:12221)
+22:23:50.473 WARN - Exception: Unable to locate element: {"method":"css selector","selector":"div[class=cirqle-outer-button]"}
+For documentation on this error, please visit: http://seleniumhq.org/exceptions/no_such_element.html
+Build info: version: '2.45.0', revision: '5017cb8', time: '2015-02-26 23:59:50'
+System info: host: 'Bran.local', ip: '192.168.1.2', os.name: 'Mac OS X', os.arch: 'x86_64', os.version: '10.10.3', java.version: '1.8.0_31'
+Driver info: driver.version: unknown
+22:23:50.745 INFO - Executing: [delete session: b0e59ec4-936a-4039-b5ef-0ee6bb642a15])
+22:23:50.826 INFO - Done: [delete session: b0e59ec4-936a-4039-b5ef-0ee6bb642a15]
+22:23:51.844 INFO - Executing: [new session: Capabilities [{acceptSslCerts=true, name=Wordpress, browserName=firefox, javascriptEnabled=true, platform=ANY}]])
+22:23:51.844 INFO - Creating a new session for Capabilities [{acceptSslCerts=true, name=Wordpress, browserName=firefox, javascriptEnabled=true, platform=ANY}]
+22:23:53.990 INFO - Done: [new session: Capabilities [{acceptSslCerts=true, name=Wordpress, browserName=firefox, javascriptEnabled=true, platform=ANY}]]
+22:23:53.993 INFO - Executing: [get: http://localhost:8888/wordpress.html])
+22:23:55.320 INFO - Done: [get: http://localhost:8888/wordpress.html]
+22:23:55.323 INFO - Executing: [find element: By.cssSelector: body])
+22:23:55.416 INFO - Done: [find element: By.cssSelector: body]
+22:23:55.419 INFO - Executing: [is displayed: 0 [[FirefoxDriver: firefox on MAC (874600c4-41cd-8f4f-8a2b-d6fd76e19557)] -> css selector: body]])
+22:23:55.468 INFO - Done: [is displayed: 0 [[FirefoxDriver: firefox on MAC (874600c4-41cd-8f4f-8a2b-d6fd76e19557)] -> css selector: body]]
+22:23:55.471 INFO - Executing: [find element: By.cssSelector: img[class=mockimage]])
+22:23:55.927 WARN - Exception thrown
+org.openqa.selenium.NoSuchElementException: Unable to locate element: {"method":"css selector","selector":"img[class=mockimage]"}
+Command duration or timeout: 34 milliseconds
+For documentation on this error, please visit: http://seleniumhq.org/exceptions/no_such_element.html
+Build info: version: '2.45.0', revision: '5017cb8', time: '2015-02-26 23:59:50'
+System info: host: 'Bran.local', ip: '192.168.1.2', os.name: 'Mac OS X', os.arch: 'x86_64', os.version: '10.10.3', java.version: '1.8.0_31'
+Driver info: org.openqa.selenium.firefox.FirefoxDriver
+Capabilities [{applicationCacheEnabled=true, rotatable=false, handlesAlerts=true, databaseEnabled=true, version=37.0.1, platform=MAC, nativeEvents=false, acceptSslCerts=true, webStorageEnabled=true, locationContextEnabled=true, browserName=firefox, takesScreenshot=true, javascriptEnabled=true, cssSelectorsEnabled=true}]
+Session ID: 874600c4-41cd-8f4f-8a2b-d6fd76e19557
 *** Element info: {Using=css selector, value=img[class=mockimage]}
 	at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
 	at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62)
@@ -350,7 +491,7 @@ Session ID: 0186425b-721b-b04a-965d-1a228ecc61f5
 	at org.openqa.selenium.remote.RemoteWebDriver.findElementByCssSelector(RemoteWebDriver.java:441)
 	at org.openqa.selenium.By$ByCssSelector.findElement(By.java:426)
 	at org.openqa.selenium.remote.RemoteWebDriver.findElement(RemoteWebDriver.java:344)
-	at sun.reflect.GeneratedMethodAccessor18.invoke(Unknown Source)
+	at sun.reflect.GeneratedMethodAccessor17.invoke(Unknown Source)
 	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
 	at java.lang.reflect.Method.invoke(Method.java:483)
 	at org.openqa.selenium.support.events.EventFiringWebDriver$2.invoke(EventFiringWebDriver.java:101)
@@ -368,30 +509,30 @@ For documentation on this error, please visit: http://seleniumhq.org/exceptions/
 Build info: version: '2.45.0', revision: '5017cb8', time: '2015-02-26 23:59:50'
 System info: host: 'Bran.local', ip: '192.168.1.2', os.name: 'Mac OS X', os.arch: 'x86_64', os.version: '10.10.3', java.version: '1.8.0_31'
 Driver info: driver.version: unknown
-	at <anonymous class>.FirefoxDriver.prototype.findElementInternal_(file:///var/folders/yf/hf1w40qj64j16wjxkxn9cd_40000gp/T/anonymous194710194139670383webdriver-profile/extensions/fxdriver@googlecode.com/components/driver-component.js:10271)
-	at <anonymous class>.FirefoxDriver.prototype.findElement(file:///var/folders/yf/hf1w40qj64j16wjxkxn9cd_40000gp/T/anonymous194710194139670383webdriver-profile/extensions/fxdriver@googlecode.com/components/driver-component.js:10280)
-	at <anonymous class>.DelayedCommand.prototype.executeInternal_/h(file:///var/folders/yf/hf1w40qj64j16wjxkxn9cd_40000gp/T/anonymous194710194139670383webdriver-profile/extensions/fxdriver@googlecode.com/components/command-processor.js:12274)
-	at <anonymous class>.DelayedCommand.prototype.executeInternal_(file:///var/folders/yf/hf1w40qj64j16wjxkxn9cd_40000gp/T/anonymous194710194139670383webdriver-profile/extensions/fxdriver@googlecode.com/components/command-processor.js:12279)
-	at <anonymous class>.DelayedCommand.prototype.execute/<(file:///var/folders/yf/hf1w40qj64j16wjxkxn9cd_40000gp/T/anonymous194710194139670383webdriver-profile/extensions/fxdriver@googlecode.com/components/command-processor.js:12221)
-23:33:36.731 WARN - Exception: Unable to locate element: {"method":"css selector","selector":"img[class=mockimage]"}
+	at <anonymous class>.FirefoxDriver.prototype.findElementInternal_(file:///var/folders/yf/hf1w40qj64j16wjxkxn9cd_40000gp/T/anonymous1815244664785845555webdriver-profile/extensions/fxdriver@googlecode.com/components/driver-component.js:10271)
+	at <anonymous class>.FirefoxDriver.prototype.findElement(file:///var/folders/yf/hf1w40qj64j16wjxkxn9cd_40000gp/T/anonymous1815244664785845555webdriver-profile/extensions/fxdriver@googlecode.com/components/driver-component.js:10280)
+	at <anonymous class>.DelayedCommand.prototype.executeInternal_/h(file:///var/folders/yf/hf1w40qj64j16wjxkxn9cd_40000gp/T/anonymous1815244664785845555webdriver-profile/extensions/fxdriver@googlecode.com/components/command-processor.js:12274)
+	at <anonymous class>.DelayedCommand.prototype.executeInternal_(file:///var/folders/yf/hf1w40qj64j16wjxkxn9cd_40000gp/T/anonymous1815244664785845555webdriver-profile/extensions/fxdriver@googlecode.com/components/command-processor.js:12279)
+	at <anonymous class>.DelayedCommand.prototype.execute/<(file:///var/folders/yf/hf1w40qj64j16wjxkxn9cd_40000gp/T/anonymous1815244664785845555webdriver-profile/extensions/fxdriver@googlecode.com/components/command-processor.js:12221)
+22:23:55.932 WARN - Exception: Unable to locate element: {"method":"css selector","selector":"img[class=mockimage]"}
 For documentation on this error, please visit: http://seleniumhq.org/exceptions/no_such_element.html
 Build info: version: '2.45.0', revision: '5017cb8', time: '2015-02-26 23:59:50'
 System info: host: 'Bran.local', ip: '192.168.1.2', os.name: 'Mac OS X', os.arch: 'x86_64', os.version: '10.10.3', java.version: '1.8.0_31'
 Driver info: driver.version: unknown
-23:33:37.291 INFO - Executing: [find element: By.cssSelector: img[class=mockimage]])
-23:33:40.739 INFO - Done: [find element: By.cssSelector: img[class=mockimage]]
-23:33:40.742 INFO - Executing: [find element: By.cssSelector: div[class=cirqle-outer-button]])
-23:33:40.805 INFO - Done: [find element: By.cssSelector: div[class=cirqle-outer-button]]
-23:33:40.807 INFO - Executing: [is displayed: 2 [[FirefoxDriver: firefox on MAC (0186425b-721b-b04a-965d-1a228ecc61f5)] -> css selector: div[class=cirqle-outer-button]]])
-23:33:40.851 INFO - Done: [is displayed: 2 [[FirefoxDriver: firefox on MAC (0186425b-721b-b04a-965d-1a228ecc61f5)] -> css selector: div[class=cirqle-outer-button]]]
-23:33:40.854 INFO - Executing: [find element: By.cssSelector: div[class=cirqle-outer-button]])
-23:33:40.902 INFO - Done: [find element: By.cssSelector: div[class=cirqle-outer-button]]
-23:33:40.904 INFO - Executing: [click: 2 [[FirefoxDriver: firefox on MAC (0186425b-721b-b04a-965d-1a228ecc61f5)] -> css selector: div[class=cirqle-outer-button]]])
-23:33:41.026 INFO - Done: [click: 2 [[FirefoxDriver: firefox on MAC (0186425b-721b-b04a-965d-1a228ecc61f5)] -> css selector: div[class=cirqle-outer-button]]]
-23:33:41.932 INFO - Executing: [find element: By.cssSelector: div[id=cq-shopwindow]])
-23:33:41.942 INFO - Done: [find element: By.cssSelector: div[id=cq-shopwindow]]
-23:33:41.944 INFO - Executing: [is displayed: 3 [[FirefoxDriver: firefox on MAC (0186425b-721b-b04a-965d-1a228ecc61f5)] -> css selector: div[id=cq-shopwindow]]])
-23:33:41.992 INFO - Done: [is displayed: 3 [[FirefoxDriver: firefox on MAC (0186425b-721b-b04a-965d-1a228ecc61f5)] -> css selector: div[id=cq-shopwindow]]]
-23:33:44.996 INFO - Executing: [delete session: 4c1e060f-e80a-493f-936c-c4d8307f5e1d])
-23:33:45.075 INFO - Done: [delete session: 4c1e060f-e80a-493f-936c-c4d8307f5e1d]
-23:33:45.092 INFO - Shutting down...
+22:23:56.595 INFO - Executing: [find element: By.cssSelector: img[class=mockimage]])
+22:23:59.604 INFO - Done: [find element: By.cssSelector: img[class=mockimage]]
+22:23:59.607 INFO - Executing: [find element: By.cssSelector: div[class=cirqle-outer-button]])
+22:23:59.669 INFO - Done: [find element: By.cssSelector: div[class=cirqle-outer-button]]
+22:23:59.672 INFO - Executing: [is displayed: 2 [[FirefoxDriver: firefox on MAC (874600c4-41cd-8f4f-8a2b-d6fd76e19557)] -> css selector: div[class=cirqle-outer-button]]])
+22:23:59.716 INFO - Done: [is displayed: 2 [[FirefoxDriver: firefox on MAC (874600c4-41cd-8f4f-8a2b-d6fd76e19557)] -> css selector: div[class=cirqle-outer-button]]]
+22:23:59.719 INFO - Executing: [find element: By.cssSelector: div[class=cirqle-outer-button]])
+22:23:59.763 INFO - Done: [find element: By.cssSelector: div[class=cirqle-outer-button]]
+22:23:59.767 INFO - Executing: [click: 2 [[FirefoxDriver: firefox on MAC (874600c4-41cd-8f4f-8a2b-d6fd76e19557)] -> css selector: div[class=cirqle-outer-button]]])
+22:23:59.898 INFO - Done: [click: 2 [[FirefoxDriver: firefox on MAC (874600c4-41cd-8f4f-8a2b-d6fd76e19557)] -> css selector: div[class=cirqle-outer-button]]]
+22:24:00.807 INFO - Executing: [find element: By.cssSelector: div[id=cq-shopwindow]])
+22:24:00.814 INFO - Done: [find element: By.cssSelector: div[id=cq-shopwindow]]
+22:24:00.816 INFO - Executing: [is displayed: 3 [[FirefoxDriver: firefox on MAC (874600c4-41cd-8f4f-8a2b-d6fd76e19557)] -> css selector: div[id=cq-shopwindow]]])
+22:24:01.081 INFO - Done: [is displayed: 3 [[FirefoxDriver: firefox on MAC (874600c4-41cd-8f4f-8a2b-d6fd76e19557)] -> css selector: div[id=cq-shopwindow]]]
+22:24:04.089 INFO - Executing: [delete session: 9f0c19cd-b1b9-4c02-8755-9a27b732dd5a])
+22:24:04.173 INFO - Done: [delete session: 9f0c19cd-b1b9-4c02-8755-9a27b732dd5a]
+22:24:04.197 INFO - Shutting down...
