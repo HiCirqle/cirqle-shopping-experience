@@ -47,7 +47,7 @@
   $$('#start-test').click(function(){
     var url = $$('#input-url').val();
     console.log(url);
-    $$.getJSON('http://localhost:9000/api/scrape?url='+url).then(function(data){
+    $$.getJSON('@@apiHost/api/scrape?url='+url).then(function(data){
       var doc = $$("#myFrame")[0].contentWindow.document;
       doc.open();
       doc.write(data);

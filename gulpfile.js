@@ -24,7 +24,19 @@ var gulp = require('gulp'),
     nightwatch = require('gulp-nightwatch'),
     exit = require('gulp-exit');
     through2 = require('through2'),
-    es = require('event-stream');
+    es = require('event-stream'),
+    replace = require('gulp-replace-task'),
+    argv = require('yargs').argv;
+
+var config = require('./config');
+var env = argv.env || "development";
+var patterns = [];
+for(var match in config[env]){
+  var pattern = {};
+  pattern[match] = config[env][match];
+  patterns.push({json:pattern});
+}
+console.log(patterns);
 
 var getBundleName = function () {
   var version = require('./package.json').version;
@@ -58,6 +70,7 @@ gulp.task('browserify', function (cb) {
         .pipe(jshint('.jshintrc'))
         .pipe(jshint.reporter('default'))
         .pipe(buffer())
+        .pipe(replace({patterns:patterns}))
         .pipe(uglify())
         .pipe(sourcemaps.init({loadMaps: true}))
         .pipe(sourcemaps.write('./map'))
@@ -110,6 +123,12 @@ gulp.task('nightwatch:chrome', ['watch'], function(){
 
 });
 
+gulp.task('page', function(){
+  gulp.src('./page/preview.html')
+    .pipe(replace({patterns:patterns}))
+    .pipe(gulp.dest('./server'));
+});
+
 gulp.task('test', ['clean', 'nightwatch:chrome']);
 
-gulp.task('default', ['clean', 'watch']);
+gulp.task('default', ['clean', 'page', 'watch']);
