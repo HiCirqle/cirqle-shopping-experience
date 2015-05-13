@@ -131,4 +131,6 @@ gulp.task('page', function(){
 
 gulp.task('test', ['clean', 'nightwatch:chrome']);
 
+gulp.task('build', ['clean', 'page', 'browserify']);
+
 gulp.task('default', ['clean', 'page', 'watch']);
