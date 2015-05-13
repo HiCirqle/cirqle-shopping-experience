@@ -30,6 +30,7 @@ var gulp = require('gulp'),
 
 var config = require('./config');
 var env = argv.env || "development";
+console.log(env);
 var patterns = [];
 for(var match in config[env]){
   var pattern = {};
@@ -64,9 +65,8 @@ gulp.task('browserify', function (cb) {
         })
         .transform(babelify)
         .bundle()
-        .pipe(plumber(plumberErrorCb))
         .pipe(source(entry))
-        .pipe(changed('dist', {hasChanged: changed.compareSha1Digest}))
+        // .pipe(changed('dist', {hasChanged: changed.compareSha1Digest}))
         .pipe(jshint('.jshintrc'))
         .pipe(jshint.reporter('default'))
         .pipe(buffer())
@@ -77,7 +77,7 @@ gulp.task('browserify', function (cb) {
         .pipe(gulp.dest('./dist'));
       });
 
-  return es.merge.apply(null, tasks);
+  return es.merge.apply(null, tasks).pipe(plumber());
 });
 
 gulp.task('clean', function(cb) {
@@ -94,13 +94,12 @@ gulp.task('watch', ['browserify'], function() {
       server.stop();
     });
 
-    gulp.watch('./dist/*.js', function(event){
+    gulp.watch(['./dist/*.js', './server/*.html'], function(event){
       console.log('dist change', event);
       server.notify(event);
     });
-    gulp.watch('./server/*.html', function(event){
-      server.notify(event);
-    });
+
+    gulp.watch(['./page/*.html'], ['page']);
 });
 
 
