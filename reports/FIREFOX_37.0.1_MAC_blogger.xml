@@ -9,22 +9,22 @@
     tests="4" time="" timestamp="">
     
     
-      <testcase name="Element &lt;body&gt; was visible after 274 milliseconds.">
+      <testcase name="Element &lt;body&gt; was visible after 152 milliseconds.">
         
         
       </testcase>
     
-      <testcase name="Element &lt;img[class=mockimage]&gt; was present after 121 milliseconds.">
+      <testcase name="Element &lt;img[class=mockimage]&gt; was present after 38 milliseconds.">
         
         
       </testcase>
     
-      <testcase name="Element &lt;div[class=cirqle-outer-button]&gt; was visible after 154 milliseconds.">
+      <testcase name="Element &lt;div[class=cirqle-outer-button]&gt; was visible after 75 milliseconds.">
         
         
       </testcase>
     
-      <testcase name="Element &lt;div[id=cq-shopwindow]&gt; was visible after 2608 milliseconds.">
+      <testcase name="Element &lt;div[id=cq-shopwindow]&gt; was visible after 2380 milliseconds.">
         
         
       </testcase>

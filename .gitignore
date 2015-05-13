@@ -3,3 +3,5 @@ dist
 test/reports/*
 test/lib/*
 test/selenium-debug.log
+selenium-debug.log
+reports/*

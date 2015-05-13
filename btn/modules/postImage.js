@@ -2,17 +2,10 @@ var cqjq = require('jquery');
 var _ = require('lodash');
 require('webPolyfill')(window);
 var scope = document;
-
-class ImageElement{
-  constructor(element, url){
-    this.element = element
-    this.url = url
-  }
-}
+var ImageElement = require('imageElement');
 
 class PostImage{
   constructor(){}
-
 }
 
 function setScope(sc){

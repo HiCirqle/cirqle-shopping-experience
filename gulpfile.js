@@ -24,7 +24,19 @@ var gulp = require('gulp'),
     nightwatch = require('gulp-nightwatch'),
     exit = require('gulp-exit');
     through2 = require('through2'),
-    es = require('event-stream');
+    es = require('event-stream'),
+    replace = require('gulp-replace-task'),
+    argv = require('yargs').argv;
+
+var config = require('./config');
+var env = argv.env || "development";
+var patterns = [];
+for(var match in config[env]){
+  var pattern = {};
+  pattern[match] = config[env][match];
+  patterns.push({json:pattern});
+}
+console.log(patterns);
 
 var getBundleName = function () {
   var version = require('./package.json').version;
@@ -41,7 +53,8 @@ gulp.task('browserify', function (cb) {
   var files = [
     'cirqle-on-wordpress.js',
     'cirqle-on-tumblr.js',
-    'cirqle-on-blogger.js'
+    'cirqle-on-blogger.js',
+    'cirqle-preview.js'
     ];
 
   var tasks = files.map(function(entry){
@@ -57,6 +70,7 @@ gulp.task('browserify', function (cb) {
         .pipe(jshint('.jshintrc'))
         .pipe(jshint.reporter('default'))
         .pipe(buffer())
+        .pipe(replace({patterns:patterns}))
         .pipe(uglify())
         .pipe(sourcemaps.init({loadMaps: true}))
         .pipe(sourcemaps.write('./map'))
@@ -74,7 +88,7 @@ gulp.task('watch', ['browserify'], function() {
     var server = gls.static(['./server', './dist'], 8888);
     server.start();
 
-    gulp.watch(['./btn/cirqle-on-*.js', './btn/modules/*.js'], ['browserify'])
+    gulp.watch(['./btn/cirqle-on-*.js', './btn/cirqle-preview.js', './btn/modules/*.js'], ['browserify'])
     .on('error', function(event){
       console.log('error', event);
       server.stop();
@@ -109,6 +123,14 @@ gulp.task('nightwatch:chrome', ['watch'], function(){
 
 });
 
+gulp.task('page', function(){
+  gulp.src('./page/preview.html')
+    .pipe(replace({patterns:patterns}))
+    .pipe(gulp.dest('./server'));
+});
+
 gulp.task('test', ['clean', 'nightwatch:chrome']);
 
-gulp.task('default', ['clean', 'watch']);
+gulp.task('build', ['clean', 'page', 'browserify']);
+
+gulp.task('default', ['clean', 'page', 'watch']);
