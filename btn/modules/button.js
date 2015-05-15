@@ -136,7 +136,7 @@ class Button {
     var css_url = config.get('css_url')
     if(cq_config.customCss &&
       typeof cq_config.customCss === "string"
-      && _.includes(cq_config.customCss, "cdn.cirqle.nl")
+      // && _.includes(cq_config.customCss, "cdn.cirqle.nl")
       ){
       css_url = cq_config.customCss;
     }

@@ -1,7 +1,7 @@
 var gulp = require('gulp'),
     plumber = require('gulp-plumber'),
     babel = require('gulp-babel'),
-    babelify = require("babelify"),
+    babelify = require('babelify'),
     // sass = require('gulp-ruby-sass'),
     // autoprefixer = require('gulp-autoprefixer'),
     // imagemin = require('gulp-imagemin'),
@@ -74,7 +74,7 @@ gulp.task('browserify', function (cb) {
         // .pipe(uglify())
         .pipe(sourcemaps.init({loadMaps: true}))
         .pipe(sourcemaps.write('./map'))
-        .pipe(gulp.dest('./dist'));
+        .pipe(gulp.dest('./dist/button1'));
       });
 
   return es.merge.apply(null, tasks).pipe(plumber());
@@ -123,14 +123,14 @@ gulp.task('nightwatch:chrome', ['watch'], function(){
 });
 
 gulp.task('page', function(){
-  gulp.src('./page/preview.html')
+  gulp.src('./page/*.html')
     .pipe(replace({patterns:patterns}))
     .pipe(gulp.dest('./server'));
 });
 
 gulp.task('style', function(){
   gulp.src('./style/*.css')
-    .pipe(gulp.dest('./server'));
+    .pipe(gulp.dest('./server/button1'));
 });
 
 gulp.task('test', ['clean', 'nightwatch:chrome']);
