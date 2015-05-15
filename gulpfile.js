@@ -94,7 +94,7 @@ gulp.task('watch', ['browserify'], function() {
       server.stop();
     });
 
-    gulp.watch(['./dist/*.js', './server/*.html'], function(event){
+    gulp.watch(['./dist/**', './server/*.html'], function(event){
       console.log('dist change', event);
       server.notify(event);
     });

@@ -52,6 +52,7 @@ function trackPageViewWithButtonLoaded(){
   var action = 'pageviewed';
   var label = domainName;
   __cqgaTracker('blogTracker.send', 'event', category, action, label);
+  console.log("Page with button viewedd", label);
 }
 
 function trackShopButtonClick(){
@@ -60,6 +61,7 @@ function trackShopButtonClick(){
   var action = 'click';
   var label = domainName;
   __cqgaTracker('blogTracker.send', 'event', category, action, label);
+  console.log("Button clicked");
 }
 
 function trackShopButtonShow(){
@@ -68,6 +70,7 @@ function trackShopButtonShow(){
   var action = 'show';
   var label = domainName;
   __cqgaTracker('blogTracker.send', 'event', category, action, label);
+  console.log("Button shown");
 }
 
 function trackEvent(category, action, label, property){
@@ -84,6 +87,8 @@ function trackEvent(category, action, label, property){
   // ga('set', 'dimension1', dimensionValue);
   if(category, action, label)
     __cqgaTracker('blogTracker.send', 'event', category, action, label);
+
+  console.log("Event tracked");
 }
 
 module.exports = {

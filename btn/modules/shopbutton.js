@@ -258,9 +258,9 @@ function embedButton(imgNode, imgUrl, ifrmScope){
   }
 
   try{
-    if(!isButtonLoaded){
+    if(!thisModule.config.get('isButtonLoaded')){
       thisModule.GATrack.trackPageViewWithButtonLoaded();
-      isButtonLoaded = true;
+      thisModule.config.set('isButtonLoaded', true);
     }
     thisModule.GATrack.trackShopButtonShow();
   }catch(e){}
