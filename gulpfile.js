@@ -71,7 +71,7 @@ gulp.task('browserify', function (cb) {
         .pipe(jshint.reporter('default'))
         .pipe(buffer())
         .pipe(replace({patterns:patterns}))
-        .pipe(uglify())
+        // .pipe(uglify())
         .pipe(sourcemaps.init({loadMaps: true}))
         .pipe(sourcemaps.write('./map'))
         .pipe(gulp.dest('./dist'));
@@ -128,8 +128,13 @@ gulp.task('page', function(){
     .pipe(gulp.dest('./server'));
 });
 
+gulp.task('style', function(){
+  gulp.src('./style/*.css')
+    .pipe(gulp.dest('./server'));
+});
+
 gulp.task('test', ['clean', 'nightwatch:chrome']);
 
-gulp.task('build', ['clean', 'page', 'browserify']);
+gulp.task('build', ['clean', 'page', 'browserify', 'style']);
 
-gulp.task('default', ['clean', 'page', 'watch']);
+gulp.task('default', ['clean', 'page', 'watch', 'style']);

@@ -134,9 +134,14 @@ class Button {
 
     // set up cirqle button environment. eg load css file
     var css_url = config.get('css_url')
-    if(cq_config.customCss && typeof cq_config.customCss === "string" && _.includes(cq_config.customCss, "cdn.cirqle.nl")){
+    if(cq_config.customCss &&
+      typeof cq_config.customCss === "string"
+      && _.includes(cq_config.customCss, "cdn.cirqle.nl")
+      ){
       css_url = cq_config.customCss;
     }
+    console.log(cq_config);
+    console.log(css_url);
     this.setCirqleCss(document, css_url);
 
     // send tracking of blog view with cirqle button embedded
