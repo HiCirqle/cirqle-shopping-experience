@@ -26,7 +26,8 @@ var gulp = require('gulp'),
     through2 = require('through2'),
     es = require('event-stream'),
     replace = require('gulp-replace-task'),
-    argv = require('yargs').argv;
+    argv = require('yargs').argv,
+    sass = require('gulp-sass');
 
 var config = require('./config');
 var env = argv.env || "development";
@@ -94,12 +95,13 @@ gulp.task('watch', ['browserify'], function() {
       server.stop();
     });
 
-    gulp.watch(['./dist/**', './server/*.html'], function(event){
+    gulp.watch(['./dist/**', './server/*.html', './server/**'], function(event){
       console.log('dist change', event);
       server.notify(event);
     });
 
     gulp.watch(['./page/*.html'], ['page']);
+    gulp.watch(['./style/*.scss'], ['style']);
 });
 
 
@@ -129,7 +131,8 @@ gulp.task('page', function(){
 });
 
 gulp.task('style', function(){
-  gulp.src('./style/*.css')
+  gulp.src('./style/*.scss')
+    .pipe(sass().on('error', sass.logError))
     .pipe(gulp.dest('./server/button1'));
 });
 

@@ -103,12 +103,13 @@ class Button {
   }
 
   cirqle_init (b_id, customConfig){
+    console.log(customConfig);
     var pathName = document.location.pathname;
     cq_config = customConfig || {};
 
     //overwirte showOnHover = false when on mobile
     if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) || /Mobile/i.test(navigator.userAgent)) {
-      cq_config = {showOnHover:false};
+      cq_config['showOnHover'] = false;
     }
 
     config.setBlogId(b_id); // set blog id to config module
@@ -140,8 +141,7 @@ class Button {
       ){
       css_url = cq_config.customCss;
     }
-    console.log(cq_config);
-    console.log(css_url);
+
     this.setCirqleCss(document, css_url);
 
     // send tracking of blog view with cirqle button embedded
