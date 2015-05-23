@@ -35,6 +35,7 @@ function embedBox(product){
       'omission': ''
     });
     var template = '<div id="shopbox" class="sticky"><div class="dialog"><a id="shopboxClose" href="#" class="close-thin"></a></div><div class="photo" style="background-image:url(\'{{productImageUrl}}\')"></div><div class="text"><div class="name">{{name}}</div><div>From <span class="price">{{currencyAndPrice}}</span></div></div><div class="callToAction"><div class="shopbox-btn btn-orange btn"><a id="shopboxButton" href="#">Shop Now</a></div></div></div>';
+    var template = '<div id="shopbox" class="sticky"><div class="dialog"><a id="shopboxClose" href="#" class="close-thin"></a></div><div class="photo">      <img src="{{productImageUrl}}" alt="" /></div><div class="text"><div class="name">{{name}}</div><div>From <span class="price">{{currencyAndPrice}}</span></div></div><div class="callToAction"><div class="shopbox-btn btn-orange btn"><a id="shopboxButton" href="#">Shop Now</a></div></div></div>';
     _.templateSettings.interpolate = /{{([\s\S]+?)}}/g;
     var compiled = _.template(template);
     var result = compiled(product);

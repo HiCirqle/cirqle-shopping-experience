@@ -5,4 +5,5 @@ test/lib/*
 test/selenium-debug.log
 selenium-debug.log
 reports/*.xml
-server/*
+server/**
+server/*.html
