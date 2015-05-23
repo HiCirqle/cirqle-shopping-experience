@@ -10,6 +10,7 @@ $boxheight: $imageheight;
     right: 0%;
   }
 
+  text-align: left !important;
   z-index: 2147483001;
   position: fixed;
   bottom: 2%;
@@ -27,7 +28,7 @@ $boxheight: $imageheight;
     right: 5px;
     top: 0px;
     z-index: 2;
-    
+
     [class*='close-'] {
       color: #777;
       font: 28px/100% arial, sans-serif;
@@ -70,6 +71,7 @@ $boxheight: $imageheight;
     }
 
     .name {
+      line-height: 20px !important;
       overflow: hidden;
       font-size: 17px;
       color: rgb(0, 0, 0);
@@ -91,10 +93,12 @@ $boxheight: $imageheight;
       a {
         color: #FDFDFD;
         text-decoration: none;
+        text-shadow: none !important;
       }
     }
 
     .btn {
+      border-radius: 0px !important;
       display: inline-block;
       border: 1px #000 solid;
       padding: 10px;
