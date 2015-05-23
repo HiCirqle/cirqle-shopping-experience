@@ -42,7 +42,7 @@ class Button {
   }
 
   cirqle_mockbutton(b_id){
-    mockbutton(b_id);
+    mockbutton(b_id, 2);
   }
 
   embedButtonOnLoad(scope){
