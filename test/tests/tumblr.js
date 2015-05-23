@@ -10,7 +10,7 @@ module.exports = {
       .waitForElementVisible('div[id=cq-shopwindow]', 10000)
       .pause(3000)
 
-      .waitForElementVisible('a[id=shopboxButton]', 10000)
+      .waitForElementVisible('a[id=shopboxButton]', 12000)
       .click('a[id=shopboxButton]')
       .pause(900)
       .waitForElementVisible('div[id=cq-shopwindow]', 10000)

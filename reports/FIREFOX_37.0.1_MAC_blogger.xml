@@ -1,40 +1,32 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <testsuites name="blogger"
              errors="0"
-             failures="0"
-             tests="6">
+             failures="1"
+             tests="10">
   
-  <testsuite errors="0" failures="0" hostname="" id=""
-    name="blogger button e2e" package="blogger" skipped="0"
-    tests="6" time="" timestamp="">
+  <testsuite errors="0" failures="1" hostname="" id=""
+    name="blogger button e2e" package="blogger" skipped="6"
+    tests="10" time="" timestamp="">
     
     
-      <testcase name="Element &lt;body&gt; was visible after 133 milliseconds.">
+      <testcase name="Element &lt;body&gt; was visible after 125 milliseconds.">
         
         
       </testcase>
     
-      <testcase name="Element &lt;img[class=mockimage]&gt; was present after 4988 milliseconds.">
+      <testcase name="Element &lt;img[class=mockimage]&gt; was present after 4393 milliseconds.">
         
         
       </testcase>
     
-      <testcase name="Element &lt;div[class=cirqle-outer-button]&gt; was visible after 89 milliseconds.">
+      <testcase name="Element &lt;div[class=cirqle-outer-button]&gt; was visible after 96 milliseconds.">
         
         
       </testcase>
     
-      <testcase name="Element &lt;div[id=cq-shopwindow]&gt; was visible after 4247 milliseconds.">
+      <testcase name="Timed out while waiting for element &lt;div[id=cq-shopwindow]&gt; to be present for 10000 milliseconds.">
         
-        
-      </testcase>
-    
-      <testcase name="Element &lt;a[id=shopboxButton]&gt; was visible after 62 milliseconds.">
-        
-        
-      </testcase>
-    
-      <testcase name="Element &lt;div[id=cq-shopwindow]&gt; was visible after 217 milliseconds.">
+          <failure message="Expected &quot;visible&quot; but got: &quot;not found&quot;"></failure>
         
         
       </testcase>
