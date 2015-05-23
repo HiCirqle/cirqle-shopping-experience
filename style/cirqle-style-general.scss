@@ -1,0 +1,93 @@
+//colors
+$color_hippie_green_approx: #5b9144;
+$color_apple_approx: #5f9847;
+$color_chelsea_cucumber_approx: #78b45e;
+$black:  black;
+$color_romance_approx: #fdfdfd;
+$white_20: rgba(255, 255, 255, 0.2);
+$color_romance_80_approx: rgba(253, 253, 253, 0.8);
+$color_mantis_approx: #81b969;
+$color_olivine_approx: #86bc70;
+$color_asparagus_approx: #66a24c;
+$black_50: rgba(0, 0, 0, 0.5);
+
+//fonts
+$font_0: sans-serif;
+
+.cirqle-hover {
+	width: 30px;
+	position: absolute;
+	top: 600px;
+	left: 440px;
+	z-index: 60;
+	&.cirqle-hover-2 {
+		left: 900px;
+	}
+}
+.cirqle-btn {
+	float: right;
+	position: relative;
+	border: 1px $color_hippie_green_approx solid;
+	margin: 0;
+	padding: 0;
+	width: 77px;
+	height: 30px;
+	overflow: hidden;
+	background: $color_apple_approx;
+	background: linear-gradient($color_chelsea_cucumber_approx, $color_apple_approx);
+	font-family: $font_0;
+	font-size: 12px;
+	font-weight: bold;
+	//Instead of the line below you could use @includetext-shadow($shadow-1, $shadow-2, $shadow-3, $shadow-4, $shadow-5, $shadow-6, $shadow-7, $shadow-8, $shadow-9, $shadow-10)
+	text-shadow: 0 0 1px $black;
+	line-height: 29px;
+	color: $color_romance_approx;
+	cursor: pointer;
+	//Instead of the line below you could use @includebox-shadow($shadow-1, $shadow-2, $shadow-3, $shadow-4, $shadow-5, $shadow-6, $shadow-7, $shadow-8, $shadow-9, $shadow-10)
+	box-shadow: inset 0 1px 1px 0 $white_20;
+	//Instead of the line below you could use @includeborder-radius($radius, $vertical-radius)
+	border-radius: 2px;
+	//Instead of the line below you could use @includebox-sizing($bs)
+	box-sizing: content-box !important;
+	&:hover {
+		background: $color_mantis_approx;
+		background: linear-gradient($color_olivine_approx, $color_asparagus_approx);
+	}
+	&:active {
+		background: $color_asparagus_approx;
+		background: linear-gradient($color_mantis_approx, $color_asparagus_approx);
+		//Instead of the line below you could use @includebox-shadow($shadow-1, $shadow-2, $shadow-3, $shadow-4, $shadow-5, $shadow-6, $shadow-7, $shadow-8, $shadow-9, $shadow-10)
+		box-shadow: inset 0 1px 2px 0 $black_50;
+	}
+}
+@media only screen and(min-width: 40.063em) {
+	.cirqle-btn {
+		width: 132px;
+	}
+}
+.cirqle-btn-icon {
+	float: left;
+	border-right: 1px $color_romance_80_approx solid;
+	width: 30px;
+	height: 30px;
+	svg {
+		float: left;
+		display: block;
+		margin: 5px 0 0 5px;
+		width: 18px;
+		height: 18px;
+		//Instead of the line below you could use @includebox-sizing($bs)
+		box-sizing: content-box !important;
+		path {
+			fill: $color_romance_approx;
+		}
+	}
+}
+.cirqle-btn-copy {
+	line-height: 29px !important;
+	position: absolute;
+	top: 0.5px;
+	left: 40px;
+	//Instead of the line below you could use @includebox-sizing($bs)
+	box-sizing: content-box !important;
+}

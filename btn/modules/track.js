@@ -88,7 +88,7 @@ function trackEvent(category, action, label, property){
   if(category, action, label)
     __cqgaTracker('blogTracker.send', 'event', category, action, label);
 
-  console.log("Event tracked");
+  // console.log("Event tracked", category, action, label, property);
 }
 
 module.exports = {

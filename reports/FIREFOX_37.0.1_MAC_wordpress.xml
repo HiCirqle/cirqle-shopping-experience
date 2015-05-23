@@ -2,29 +2,39 @@
 <testsuites name="wordpress"
              errors="0"
              failures="0"
-             tests="4">
+             tests="6">
   
   <testsuite errors="0" failures="0" hostname="" id=""
     name="wordpress button e2e" package="wordpress" skipped="0"
-    tests="4" time="" timestamp="">
+    tests="6" time="" timestamp="">
     
     
-      <testcase name="Element &lt;body&gt; was visible after 148 milliseconds.">
+      <testcase name="Element &lt;body&gt; was visible after 126 milliseconds.">
         
         
       </testcase>
     
-      <testcase name="Element &lt;img[class=mockimage]&gt; was present after 4136 milliseconds.">
+      <testcase name="Element &lt;img[class=mockimage]&gt; was present after 35 milliseconds.">
         
         
       </testcase>
     
-      <testcase name="Element &lt;div[class=cirqle-outer-button]&gt; was visible after 112 milliseconds.">
+      <testcase name="Element &lt;div[class=cirqle-outer-button]&gt; was visible after 93 milliseconds.">
         
         
       </testcase>
     
-      <testcase name="Element &lt;div[id=cq-shopwindow]&gt; was visible after 278 milliseconds.">
+      <testcase name="Element &lt;div[id=cq-shopwindow]&gt; was visible after 335 milliseconds.">
+        
+        
+      </testcase>
+    
+      <testcase name="Element &lt;a[id=shopboxButton]&gt; was visible after 103 milliseconds.">
+        
+        
+      </testcase>
+    
+      <testcase name="Element &lt;div[id=cq-shopwindow]&gt; was visible after 329 milliseconds.">
         
         
       </testcase>

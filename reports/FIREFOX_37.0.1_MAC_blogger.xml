@@ -2,19 +2,19 @@
 <testsuites name="blogger"
              errors="0"
              failures="0"
-             tests="4">
+             tests="6">
   
   <testsuite errors="0" failures="0" hostname="" id=""
     name="blogger button e2e" package="blogger" skipped="0"
-    tests="4" time="" timestamp="">
+    tests="6" time="" timestamp="">
     
     
-      <testcase name="Element &lt;body&gt; was visible after 164 milliseconds.">
+      <testcase name="Element &lt;body&gt; was visible after 133 milliseconds.">
         
         
       </testcase>
     
-      <testcase name="Element &lt;img[class=mockimage]&gt; was present after 39 milliseconds.">
+      <testcase name="Element &lt;img[class=mockimage]&gt; was present after 4988 milliseconds.">
         
         
       </testcase>
@@ -24,7 +24,17 @@
         
       </testcase>
     
-      <testcase name="Element &lt;div[id=cq-shopwindow]&gt; was visible after 385 milliseconds.">
+      <testcase name="Element &lt;div[id=cq-shopwindow]&gt; was visible after 4247 milliseconds.">
+        
+        
+      </testcase>
+    
+      <testcase name="Element &lt;a[id=shopboxButton]&gt; was visible after 62 milliseconds.">
+        
+        
+      </testcase>
+    
+      <testcase name="Element &lt;div[id=cq-shopwindow]&gt; was visible after 217 milliseconds.">
         
         
       </testcase>

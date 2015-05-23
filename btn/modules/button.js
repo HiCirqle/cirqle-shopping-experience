@@ -9,7 +9,8 @@ analytics.identity();
 require('webPolyfill')(window);
 var postImage = require('postImage');
 var config = require('config');
-var cirqleButton = require('shopbutton');
+var shopbutton = require('shopbutton');
+var shopbox = require('shopbox');
 var browserHelper = require('browserHelper');
 var attachHandler = browserHelper.attachHandler;
 var _ = require('lodash');
@@ -27,7 +28,7 @@ class Button {
   constructor(){}
 
   embedButton(imgElm, imgUrl){
-    cirqleButton.embedButton(imgElm, imgUrl);
+    shopbutton.embedButton(imgElm, imgUrl);
   }
 
   setCirqleCss(scope, css){
@@ -113,21 +114,47 @@ class Button {
     }
 
     config.setBlogId(b_id); // set blog id to config module
-    cirqleButton.setConfig({
+    var configBundle = {
       config:config,
       GATrack:GATrack,
       analytics:analytics,
       customConfig:cq_config,
       buttonSingleton:buttonCache
-    }); // set blog id to config module
-    cirqleButton.setScope(document);
+    };
+    shopbutton.setConfig(configBundle);
+    shopbox.setConfig(configBundle);
+
+    shopbutton.setScope(document);
 
     var blog_id = config.get('blog_id');
     var cirqle_getpost_by_url = config.get('cirqle_getpost_by_url');
 
     buttonCache.init(cirqle_getpost_by_url);
     buttonSingleton = buttonCache;
-    buttonSingleton.getTaggedImg();
+
+    function shopboxInit(imgUrls){
+      var rand = _.random(0, imgUrls.length-1);
+      var imgUrl = imgUrls[rand];
+      shopbutton.getPostImageInfo(imgUrl).then(function(img){
+        var productIds = img[0].productIds;
+        // randomly select product and get product info from SOLR
+        rand = _.random(0, productIds.length-1);
+        // show the shopbox
+        shopbox.embed(productIds[rand]).then((button)=>{
+          if(!button) return shopboxInit(imgUrls);
+          shopbutton.setButtonClickEvent(button, imgUrl, {
+            category:'showbox',
+            action:'click',
+            label:document.domain,
+            property:{productId:productIds[rand], postUrl:window.location.href}
+          });
+        });
+      });
+    };
+
+    buttonSingleton.getTaggedImg().then(function(imgUrls){
+      shopboxInit(imgUrls)
+    });
 
     if(cq_config.buttonText && typeof cq_config.buttonText === "string"){
       config.set('buttonText', cq_config.buttonText);
@@ -143,6 +170,9 @@ class Button {
     }
 
     this.setCirqleCss(document, css_url);
+
+    var shopbox_css_url = config.get('shopbox_css_url')
+    this.setCirqleCss(document, shopbox_css_url);
 
     // send tracking of blog view with cirqle button embedded
     analytics.track("blogView", {
@@ -223,7 +253,7 @@ class Button {
         if(message.action == 'affiliateClick'){
           // GA
           if(message.blogDomain && message.productId && message.postUrl)
-            GATrack.trackEvent('affiliateLink', 'click', message.blogDomain, {productId:message.productId, postUrl:message.postUrl})
+            GATrack.trackEvent('affiliateLink', 'click', message.blogDomain, {productId:message.productId, postUrl:message.postUrl});
         }
 
       }

@@ -51,6 +51,7 @@ function getPostImageInfo(imgurl){
     defer.resolve(JSON.parse(localStorage.getItem(imgurl)));
   }
   else{
+    console.log('api post');
     var url = thisModule.config.get('apiDomain') + "/api/1/posts/products?url="+imgurl+"&blogId="+thisModule.config.get('blog_id');
     cqjq.getJSON(url).then(function(data){
       if(localStorage){
@@ -174,8 +175,37 @@ function embedButton(imgNode, imgUrl, ifrmScope){
     })()
   };
 
+  setButtonClickEvent(button, imgUrl);
+
+        // save button for repositioning when viewport changed
+  var imgPos = getNodePosition(el);
+  el.absoluteTop = imgPos[0];
+  el.absoluteLeft = imgPos[1];
+  el.previousHeight = el.height;
+  el.previousWidth = el.width;
+  thisModule.buttonSingleton.saveButton({img:el, btn:button, uuid:uuid});
+  // var isButtonCovered =  isCovered(el);
+  var isImageHidden =  isHidden(el);
+  // console.log(isImageHidden, isButtonCovered);
+  if(isImageHidden){
+    cqjq(button).hide();
+  }
+
+  try{
+    if(!thisModule.config.get('isButtonLoaded')){
+      thisModule.GATrack.trackPageViewWithButtonLoaded();
+      thisModule.config.set('isButtonLoaded', true);
+    }
+    thisModule.GATrack.trackShopButtonShow();
+  }catch(e){}
+}
+
+function setButtonClickEvent(button, imgUrl, options){
   attachHandler(button, "click", function(e) {
     try{
+      if(options && options.category && options.action && options.label && options.property){
+        thisModule.GATrack.trackEvent(options.category, options.action, options.label, options.property);
+      }
       thisModule.GATrack.trackShopButtonClick();
     }catch(e){}
 
@@ -242,32 +272,12 @@ function embedButton(imgNode, imgUrl, ifrmScope){
     return false;
 
   }, true); // set true for even capturing instead of bubbling
-
-        // save button for repositioning when viewport changed
-  var imgPos = getNodePosition(el);
-  el.absoluteTop = imgPos[0];
-  el.absoluteLeft = imgPos[1];
-  el.previousHeight = el.height;
-  el.previousWidth = el.width;
-  thisModule.buttonSingleton.saveButton({img:el, btn:button, uuid:uuid});
-  // var isButtonCovered =  isCovered(el);
-  var isImageHidden =  isHidden(el);
-  // console.log(isImageHidden, isButtonCovered);
-  if(isImageHidden){
-    cqjq(button).hide();
-  }
-
-  try{
-    if(!thisModule.config.get('isButtonLoaded')){
-      thisModule.GATrack.trackPageViewWithButtonLoaded();
-      thisModule.config.set('isButtonLoaded', true);
-    }
-    thisModule.GATrack.trackShopButtonShow();
-  }catch(e){}
 }
 
 module.exports = {
   setConfig:setConfig,
   setScope:setScope,
-  embedButton:embedButton
+  embedButton:embedButton,
+  getPostImageInfo:getPostImageInfo,
+  setButtonClickEvent:setButtonClickEvent
 }

@@ -1,27 +1,40 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <testsuites name="tumblr"
              errors="0"
-             failures="1"
-             tests="8">
+             failures="0"
+             tests="6">
   
-  <testsuite errors="0" failures="1" hostname="" id=""
-    name="tumblr button e2e" package="tumblr" skipped="5"
-    tests="8" time="" timestamp="">
+  <testsuite errors="0" failures="0" hostname="" id=""
+    name="tumblr button e2e" package="tumblr" skipped="0"
+    tests="6" time="" timestamp="">
     
     
-      <testcase name="Element &lt;body&gt; was visible after 977 milliseconds.">
+      <testcase name="Element &lt;body&gt; was visible after 141 milliseconds.">
         
         
       </testcase>
     
-      <testcase name="Element &lt;img[class=mockimage]&gt; was present after 365 milliseconds.">
+      <testcase name="Element &lt;img[class=mockimage]&gt; was present after 37 milliseconds.">
         
         
       </testcase>
     
-      <testcase name="Timed out while waiting for element &lt;div[class=cirqle-outer-button]&gt; to be present for 10000 milliseconds.">
+      <testcase name="Element &lt;div[class=cirqle-outer-button]&gt; was visible after 75 milliseconds.">
         
-          <failure message="Expected &quot;visible&quot; but got: &quot;not found&quot;"></failure>
+        
+      </testcase>
+    
+      <testcase name="Element &lt;div[id=cq-shopwindow]&gt; was visible after 180 milliseconds.">
+        
+        
+      </testcase>
+    
+      <testcase name="Element &lt;a[id=shopboxButton]&gt; was visible after 105 milliseconds.">
+        
+        
+      </testcase>
+    
+      <testcase name="Element &lt;div[id=cq-shopwindow]&gt; was visible after 121 milliseconds.">
         
         
       </testcase>

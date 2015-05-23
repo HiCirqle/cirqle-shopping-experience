@@ -1,19 +1,27 @@
-var cq_getproduct_url = "http://54.217.202.215:8080/api/1/posts/products/full";
+// var domain = "http://54.73.226.47:9090"
+var domain = "https://api.cirqle.nl:8443";
+var cq_getproduct_url = domain + "/api/1/posts/products/full";
 
 function updateProduct(data){
+  if(!data || (data&&data instanceof Array&&data.length < 1)){
+    var emptyProductTemplate = '<div class="product"><div class="product__content"><h3 class="product__title" style="padding: 63px;font-weight: 900;font-size: 20px;text-align: center;">Sorry, the product is not available at the moment</h3></div></div>';
+    $('#product_container').html(emptyProductTemplate);
+    return;
+  }
+
 // href="http://www.facebook.com/sharer.php?u={$url}&media={$imgPath}&description={$desc}
 
     var fb_share = 'http://www.facebook.com/sharer.php?u='+postUrl;
-    var tweet = 'https://twitter.com/intent/tweet?status='+encodeURI('Come shop with us! '+postUrl);
-    var mailto = 'mailto:?Subject='+encodeURI('Come shop with us!')+'&body='+encodeURI('Come shop with us! '+postUrl);
+    var tweet = 'https://twitter.com/intent/tweet?status='+encodeURI('Come shop with @HiCirqle! '+postUrl);
+    var mailto = 'mailto:?Subject='+encodeURI('Come shop with Cirqle!')+'&body='+encodeURI('Come shop with Cirqle! '+postUrl);
 
-    var productTemplate = "{{#products}}<div class=product><div class=product__img style=background-image:url({{imageSmallUrl}})></div><div class=product__share><ul class=js><li><a class=clicker href='javascript:void(0);'>Share</a><ul style='display:none'><li><a href='"+fb_share+"' target=_blank>Facebook</a></li><li><a href='"+tweet+"'  target=_blank>Twitter</a></li><li><a href='"+mailto+"'>Mail</a></li></ul></li></ul></div><div class=product__desc><h3 class=product__title><a href=#>{{name}}</a></h3><h4 class=product__brand>{{brand}}</h4><p>{{description}}</p></div><div class=product__footer><div class=product__price>{{#checkCurrency}} {{currency}} {{/checkCurrency}} {{#checkPrice}} {{price}} {{/checkPrice}}</div><a class=product__btn href={{productUrl}} target='_blank' data-advertiserid={{advertiserId}} data-productid={{productId}}>{{#shortenTitle}} {{brand}} {{/shortenTitle}}</a></div></div>{{/products}}";
+    var productTemplate = "{{#products}}<div class=product><div class=product__content><div class=product__img style=background-image:url({{imageSmallUrl}})>{{#showProductImpressionUrl}}{{/showProductImpressionUrl}}</div><div class=product__desc><h3 class=product__title><a href=#>{{name}}</a></h3><h4 class=product__brand>{{brand}}</h4><p>{{description}}</p></div></div><div class=product__footer><div class=product__share><a href='"+fb_share+"' target=_blank><div class='icon fb'></div></a> <a href='"+tweet+"' target=_blank><div class='icon twitter'></div></a></div><div class=price__buy><div class=product__price>{{#checkCurrency}}  {{/checkCurrency}} {{#checkPrice}}  {{/checkPrice}}</div><a class='product__btn {{#availabilityClass}}{{/availabilityClass}}' href={{productUrl}} target=_blank data-advertiserid={{advertiserId}} data-id={{id}}><div class='shop__btn__label {{#availabilityClass}}{{/availabilityClass}}'>{{#shortenTitle}} {{brand}} {{/shortenTitle}}</div></a></div></div></div>{{/products}}";
 
 	var mainProduct = {products:data};
 
 	mainProduct.checkCurrency = function(){
         return function (text, render) {
-            var currency = this.currency;
+            var currency = this.preferredCurrency || this.currency;
             if(!this.price && currency){
                 currency = "";
             }
@@ -23,45 +31,57 @@ function updateProduct(data){
 
 			return currency;
 		}
-	};			
+	};
 
 	mainProduct.checkPrice = function(){
 		return function (text, render) {
-            var price = this.price || "";
+            var price = String(parseFloat(this.priceInPreferredCurrency).toFixed(2)) || this.price || "";
             var currency = this.currency || "";
 
-            price = price.replace(currency, "");
-			return price;	
+            price = price.replace(currency, "").replace(".", ",");
+			return price;
 		}
 	};
 
+  mainProduct.availabilityClass = function(){
+  		return function (text, render) {
+        console.log(this.expired);
+        if(typeof this.expired === "boolean" && this.expired === true) return render("unavailable");
+  		}
+  }
+
 	mainProduct.shortenTitle = function(){
 		return function (text, render) {
-			
-			var button_title = (this.brand) ? "Buy at <strong>" + String(this.brand).toUpperCase() + "</strong>" : "Buy";
+
+			// var button_title = (this.brand) ? "Buy at <strong>" + String(this.brand).toUpperCase() + "</strong>" : "Buy";
+			var button_title = "<strong>Shop product</strong>";
+      if(typeof this.expired === "boolean" && this.expired === true)
+        button_title = "<strong>Out of stock</strong>";
 			return render(button_title);
 		}
 	};
 
+	mainProduct.showProductImpressionUrl = function(){
+		return function (text, render) {
+      var impressionUrl = this.productUrl;
+      if(typeof this.productViewUrl !== "undefined"){
+        impressionUrl = this.productViewUrl;
+      }else{
+        if(impressionUrl.indexOf('ad.zanox.com/ppc') > -1)
+          impressionUrl = impressionUrl.replace('ad.zanox.com/ppc', 'ad.zanox.com/ppv');
+      }
+			var impressionPixel = "<img src='"+impressionUrl+"' style='display:none'>";
+			return render(impressionPixel);
+		}
+	};
+
 	var html = Mustache.render(productTemplate, mainProduct);
-    $('#product_container').html(html);
-    // $('body').on('click', 'a.product__btn', function(e) {
-    //     // Create link in memory
-    //     var a = window.document.createElement("a");
-    //     a.target = '_blank';
-    //     a.href = $(this).attr('href');
-
-    //     // Dispatch fake click
-    //     var e = window.document.createEvent("MouseEvents");
-    //     e.initMouseEvent("click", true, true, window, 0, 0, 0, 0, 0, false, false, false, false, 0, null);
-    //     a.dispatchEvent(e);
-    // });
-
-    // if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
-    // }
-
+  $('#product_container').html(html);
     //track product view
-    trackProductView(data.id, postId);
+  data.forEach(function(p){
+    console.log(p.id);
+    trackProductView(p.id, postId);
+  })
 
 }
 
@@ -70,7 +90,7 @@ function shortenString(str, limit, trailling){
     limit = limit || str.length;
 
     if(limit > trailling.length){
-       limit = limit-trailling.length; 
+       limit = limit-trailling.length;
     }else{
         return trailling;
     }
@@ -80,10 +100,11 @@ function shortenString(str, limit, trailling){
 
 var trackProductView = function(productId, postId){
     var message = JSON.stringify({
-        productId: productId, 
+        action: 'productView',
+        productId: productId,
         postId: postId
     });
-
+    console.log(message);
     parent.postMessage(message, "*");
 }
 
@@ -102,7 +123,7 @@ function attachHandler(element, event, handler, isCapture) {
 function getUrlParameters(parameter, staticURL, decode){
    /*
     Function: getUrlParameters
-    Description: Get the value of URL parameters either from 
+    Description: Get the value of URL parameters either from
                  current URL or static URL
     Author: Tirumal
     URL: www.code-tricks.com
@@ -110,23 +131,23 @@ function getUrlParameters(parameter, staticURL, decode){
    var currLocation = (staticURL.length)? staticURL : window.location.search,
        parArr = currLocation.split("?")[1].split("&"),
        returnBool = true;
-   
+
    for(var i = 0; i < parArr.length; i++){
         parr = parArr[i].split("=");
         if(parr[0] == parameter){
             return (decode) ? decodeURIComponent(parr[1]) : parr[1];
             returnBool = true;
         }else{
-            returnBool = false;            
+            returnBool = false;
         }
    }
-   
-   if(!returnBool) return false;  
+
+   if(!returnBool) return false;
 }
 
 function getProducts(imgurl, cb){
 
-    var url = cq_getproduct_url+"?url="+imgurl+"&maxResults=20"+"&postId="+postId;
+    var url = cq_getproduct_url+"?url="+imgurl+"&postId="+postId+'&callback=?';
 
     $.ajax({
         url: url,
@@ -138,7 +159,7 @@ function getProducts(imgurl, cb){
             console.log(status)
             cb([]);
         }
-    });  
+    });
 }
 
 function getHashes(data){
@@ -146,42 +167,77 @@ function getHashes(data){
 
     return jQuery.when.apply(jQuery, promises).then(function(/* posts... */) {
         return jQuery.makeArray(arguments);
+    })
+    .progress(function(data){
+      console.log('progrss', data);
     });
 }
 
 function getHash(data){
-    var url = "http://54.217.202.215:8080/tracking/generate?productId="+data.productId+"&advertiserId="+data.advertiserId+"&postId="+postId+"&imageUrl="+encodeURIComponent(imageUrl)+"&blogId="+blogId+"&bloggerId="+bloggerId;
-    return $.getJSON(url).then(function(hash){
-        data.productUrl = data.productUrl+"&memberId="+hash.code+"&clickref="+hash.code;
+    var url = domain + "/tracking/generate?productId="+data.id+"&advertiserId="+data.advertiserId+"&postId="+postId+"&imageUrl="+encodeURIComponent(imageUrl)+"&blogId="+blogId+"&bloggerId="+bloggerId;
+    return $.getJSON(url+'&callback=?').then(function(hash){
+        data.productUrl = data.productUrl+"&memberId="+hash.code+"&clickref="+hash.code+"&zpar0="+hash.code+"&u1="+hash.code;
         return data;
     });
 }
 
-function generateHash(bloggerId,blogId,imageUrl,postId,advertiserId,productId){
-    var url = "http://54.217.202.215:8080/tracking/generate?productId="+productId+"&advertiserId="+advertiserId+"&postId="+postId+"&imageUrl="+encodeURIComponent(imageUrl)+"&blogId="+blogId+"&bloggerId="+bloggerId;
-    return $.getJSON(url);
+function generateHash(bloggerId,blogId,imageUrl,postId,advertiserId,id){
+    var url = domain + "/tracking/generate?productId="+id+"&advertiserId="+advertiserId+"&postId="+postId+"&imageUrl="+encodeURIComponent(imageUrl)+"&blogId="+blogId+"&bloggerId="+bloggerId;
+    return $.getJSON(url+'&callback=?');
 }
 
 function sendBuyTrack(trackObj){
-	// eg. http://54.217.202.215:8080/api/1/blogs/clicked?hash=a60d9e27
-    var url = "http://54.217.202.215:8080/api/1/blogs/clicked?hash="+trackObj.hash;
-    return $.getJSON(url);
+	// eg domain + /api/1/blogs/clicked?hash=a60d9e27
+    var url = domain + "/api/1/blogs/clicked?hash="+trackObj.hash;
+    return $.getJSON(url+'&callback=?');
 }
 
-function buyTrack(bloggerId, blogId, imageUrl, postId, advertiserId, productId){
-    generateHash(bloggerId, blogId, imageUrl, postId, advertiserId, productId).then(function(data){
+function buyTrack(bloggerId, blogId, imageUrl, postId, advertiserId, id, blogDomain, postUrl){
+    generateHash(bloggerId, blogId, imageUrl, postId, advertiserId, id).then(function(data){
         var obj = {
-            hash: data.code, 
-            blogId: blogId, 
+            hash: data.code,
+            blogId: blogId,
             imageUrl: imageUrl
         }
         sendBuyTrack(obj).done(function(){
             console.log("buy action tracked");
         })
     });
+
+    var message = JSON.stringify({
+        action: 'affiliateClick',
+        blogDomain: blogDomain,
+        productId: id,
+        postUrl: postUrl
+    });
+    console.log(message);
+    parent.postMessage(message, "*");
 }
 
 $(document).ready(function() {
+  var opts = {
+    lines: 13, // The number of lines to draw
+    length: 12, // The length of each line
+    width: 9, // The line thickness
+    radius: 25, // The radius of the inner circle
+    corners: 1, // Corner roundness (0..1)
+    rotate: 0, // The rotation offset
+    direction: 1, // 1: clockwise, -1: counterclockwise
+    color: '#000', // #rgb or #rrggbb or array of colors
+    speed: 0.8, // Rounds per second
+    trail: 83, // Afterglow percentage
+    shadow: false, // Whether to render a shadow
+    hwaccel: false, // Whether to use hardware acceleration
+    // className: 'spinner', // The CSS class to assign to the spinner
+    zIndex: 2e9, // The z-index (defaults to 2000000000)
+    top: '50%', // Top position relative to parent
+    left: '50%' // Left position relative to parent
+  };
+  var target = document.getElementById('spinner');
+  var spinner = new Spinner(opts).spin(target);
+
+  // return;
+
 	var closeBtn = document.getElementById("closeBtn");
 	attachHandler(closeBtn, "click", function(){
 		//ask parent to close the shopwindow
@@ -204,15 +260,15 @@ $(document).ready(function() {
     blogDomain = getUrlParameters("blogdomain", "", true);
     postUrl = getUrlParameters("posturl", "", true);
 
-    console.log(postId);
+    console.log(postUrl);
 
     $('#blogName').html(blogName);
     $('#blogDomain').html(blogDomain);
 
     $('body').on('click', 'a.product__btn', function() {
     	var advertiserId = $(this).data('advertiserid');
-    	var productId = $(this).data('productid');
-        buyTrack(bloggerId,blogId,imageUrl,postId,advertiserId,productId);
+    	var id = $(this).data('id');
+        buyTrack(bloggerId,blogId,imageUrl,postId,advertiserId,id, blogDomain, postUrl);
     });
 
 
@@ -239,7 +295,3 @@ $(document).ready(function() {
     });
 
 });
-
-
-
-

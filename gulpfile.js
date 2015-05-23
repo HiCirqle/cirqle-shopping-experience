@@ -72,7 +72,7 @@ gulp.task('browserify', function (cb) {
         .pipe(jshint.reporter('default'))
         .pipe(buffer())
         .pipe(replace({patterns:patterns}))
-        // .pipe(uglify())
+        .pipe(uglify())
         .pipe(sourcemaps.init({loadMaps: true}))
         .pipe(sourcemaps.write('./map'))
         .pipe(gulp.dest('./dist/button1'));
@@ -86,7 +86,7 @@ gulp.task('clean', function(cb) {
 });
 
 gulp.task('watch', ['browserify'], function() {
-    var server = gls.static(['./server', './dist'], 8888);
+    var server = gls.static(['./server', './dist', './shopwindow'], 8888);
     server.start();
 
     gulp.watch(['./btn/cirqle-on-*.js', './btn/cirqle-preview.js', './btn/modules/*.js'], ['browserify'])
