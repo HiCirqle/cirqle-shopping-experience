@@ -136,11 +136,13 @@ class Button {
       var rand = _.random(0, imgUrls.length-1);
       var imgUrl = imgUrls[rand];
       shopbutton.getPostImageInfo(imgUrl).then(function(img){
+        //embed post or product
+        console.log(img);
         var productIds = img[0].productIds;
         // randomly select product and get product info from SOLR
         rand = _.random(0, productIds.length-1);
         // show the shopbox
-        shopbox.embed(productIds[rand]).then((button)=>{
+        shopbox.embedProduct(productIds[rand]).then((button)=>{
           if(!button) return shopboxInit(imgUrls);
           shopbutton.setButtonClickEvent(button, imgUrl, {
             category:'showbox',
@@ -154,7 +156,7 @@ class Button {
 
     buttonSingleton.getTaggedImg().then(function(imgUrls){
       if(typeof cq_config.shopbox !== 'undefined' && cq_config.shopbox === false) return;
-      if(imgUrls && imgUrls.length > 0) shopboxInit(imgUrls);
+      // if(imgUrls && imgUrls.length > 0) shopboxInit(imgUrls);
     });
 
     if(cq_config.buttonText && typeof cq_config.buttonText === "string"){
