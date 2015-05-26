@@ -72,7 +72,7 @@ gulp.task('browserify', function (cb) {
         .pipe(jshint.reporter('default'))
         .pipe(buffer())
         .pipe(replace({patterns:patterns}))
-        .pipe(uglify())
+        // .pipe(uglify())
         .pipe(sourcemaps.init({loadMaps: true}))
         .pipe(sourcemaps.write('./map'))
         .pipe(gulp.dest('./dist/button1'));
@@ -100,8 +100,8 @@ gulp.task('watch', ['browserify'], function() {
       server.notify(event);
     });
 
-    gulp.watch(['./page/*.html'], ['page']);
-    gulp.watch(['./style/*.scss'], ['style']);
+    gulp.watch(['./pages/*.html'], ['pages']);
+    gulp.watch(['./styles/*.scss'], ['styles']);
 });
 
 
@@ -124,20 +124,26 @@ gulp.task('nightwatch:chrome', ['watch'], function(){
 
 });
 
-gulp.task('page', function(){
-  gulp.src('./page/*.html')
+gulp.task('pages', function(){
+  gulp.src('./pages/*.html')
     .pipe(replace({patterns:patterns}))
     .pipe(gulp.dest('./server'));
 });
 
-gulp.task('style', function(){
-  gulp.src('./style/*.scss')
+gulp.task('styles', function(){
+  gulp.src('./styles/*.scss')
     .pipe(sass().on('error', sass.logError))
     .pipe(gulp.dest('./server/button1'));
 });
 
+gulp.task('shopwindow', function(){
+  gulp.src('./shopwindow/styles/*.scss')
+    .pipe(sass().on('error', sass.logError))
+    .pipe(gulp.dest('./shopwindow/styles'));
+});
+
 gulp.task('test', ['clean', 'nightwatch:chrome']);
 
-gulp.task('build', ['clean', 'page', 'browserify', 'style']);
+gulp.task('build', ['clean', 'pages', 'browserify', 'styles']);
 
-gulp.task('default', ['clean', 'page', 'watch', 'style']);
+gulp.task('default', ['clean', 'pages', 'shopwindow', 'watch', 'styles']);
