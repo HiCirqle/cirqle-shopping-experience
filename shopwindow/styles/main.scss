@@ -90,23 +90,6 @@ body {
 	font-weight: 400;
 	color: $black;
 }
-@media only screen and(min-width: 40.063em) {
-	body {
-		background: $black_80;
-	}
-	.shopping-holder {
-		margin: 15px auto;
-		overflow: hidden;
-		background: $white;
-		//Instead of the line below you could use @includeborder-radius($radius, $vertical-radius)
-		border-radius: 3px;
-		//Instead of the line below you could use @includebox-shadow($shadow-1, $shadow-2, $shadow-3, $shadow-4, $shadow-5, $shadow-6, $shadow-7, $shadow-8, $shadow-9, $shadow-10)
-		box-shadow: 0 0 0 1px $black_30,0 0 3px 0 $black_30;
-	}
-	.footer {
-		padding-bottom: 30px;
-	}
-}
 p {
 	margin: 0;
 	padding: 0;
@@ -305,16 +288,18 @@ ol {
 			margin-bottom: 20px;
 			font-weight: 600;
 			line-height: 34px;
+			@media only screen and(min-width: 64.063em) {
+				margin-left:20px;
+			}
 		}
 		.product__btn {
 			margin-right: 15px;
 			float: right;
 			display: inline-block;
-			border: 1px $color_pelorous_approx solid;
 			padding: 0 20px;
 			width: auto;
 			height: 32px;
-			background: $color_pelorous_80_approx;
+			background:#ff6e40;
 			font-size: 11px;
 			text-align: center;
 			text-transform: uppercase;
@@ -323,15 +308,15 @@ ol {
 			color: $white;
 			//Instead of the line below you could use @includeborder-radius($radius, $vertical-radius)
 			border-radius: 2px;
+			&:hover {
+				background:#ff815a;
+			}
 			&:active {
-				background: $black_90;
-				//Instead of the line below you could use @includebox-shadow($shadow-1, $shadow-2, $shadow-3, $shadow-4, $shadow-5, $shadow-6, $shadow-7, $shadow-8, $shadow-9, $shadow-10)
-				box-shadow: inset 0 1px 1px 0 $black_90;
+				background:#ff6e40;
 			}
 			&.unavailable {
-				border: 1px $color_nobel_approx solid;
-				background: $color_nobel_80_approx;
-				color: $color_dove_gray_approx;
+				background:#ccc;
+				color:#fff;
 			}
 		}
 	}
@@ -367,7 +352,7 @@ ol {
 .footer {
 	position: relative;
 	border-top: 1px $color_gallery_approx solid;
-	padding: 30px 15px 75px;
+	padding: 30px 15px 30px;
 	background: $concrete;
 }
 .cirqle-logo {
@@ -389,4 +374,22 @@ ol {
 	font-size: 21px;
 	font-weight: 600;
 	color: $black;
+}
+
+@media only screen and(min-width: 40.063em) {
+	body {
+		background: $black_80;
+	}
+	.shopping-holder {
+		margin: 30px auto;
+		overflow: hidden;
+		background: $white;
+		//Instead of the line below you could use @includeborder-radius($radius, $vertical-radius)
+		border-radius: 3px;
+		//Instead of the line below you could use @includebox-shadow($shadow-1, $shadow-2, $shadow-3, $shadow-4, $shadow-5, $shadow-6, $shadow-7, $shadow-8, $shadow-9, $shadow-10)
+		box-shadow: 0 0 0 1px $black_30,0 0 3px 0 $black_30;
+	}
+	.footer {
+		padding-bottom: 30px;
+	}
 }
