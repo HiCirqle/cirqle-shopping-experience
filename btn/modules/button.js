@@ -156,7 +156,7 @@ class Button {
 
     buttonSingleton.getTaggedImg().then(function(imgUrls){
       if(typeof cq_config.shopbox !== 'undefined' && cq_config.shopbox === false) return;
-      // if(imgUrls && imgUrls.length > 0) shopboxInit(imgUrls);
+      if(imgUrls && imgUrls.length > 0) shopboxInit(imgUrls);
     });
 
     if(cq_config.buttonText && typeof cq_config.buttonText === "string"){
