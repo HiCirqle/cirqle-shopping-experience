@@ -102,6 +102,7 @@ gulp.task('watch', ['browserify'], function() {
 
     gulp.watch(['./pages/*.html'], ['pages']);
     gulp.watch(['./styles/*.scss'], ['styles']);
+    gulp.watch(['./shopwindow/styles/*.scss'], ['shopwindow']);
 });
 
 
