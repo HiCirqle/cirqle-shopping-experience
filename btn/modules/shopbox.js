@@ -40,11 +40,13 @@ function embedProductBox(product){
     product.productImageUrl = product.imageLargeUrl && product.imageLargeUrl[0] || product.imageSmallUrl && product.imageSmallUrl[0];
     product.currencyAndPrice = product.preferredCurrency + " " + product.priceInPreferredCurrency || product.currency + " " + product.price;
     product.name = _.trunc(product.name, {
-      'length': 45,
+      'length': 50,
       'separator': ' ',
       'omission': ''
     });
-    var template = '<div id="shopbox" class="sticky"><div class="dialog"><a id="shopboxClose" href="#" class="close-thin"></a></div><div class="photo" style="background-image:url(\'{{productImageUrl}}\')"></div><div class="text"><div class="name">{{name}}</div><div>From <span class="price">{{currencyAndPrice}}</span></div></div><div class="callToAction"><div class="shopbox-btn btn-orange btn"><a id="shopboxButton" href="#">Shop Now</a></div></div></div>';
+
+    var template = '<div id="shopbox" class="sticky"><div class="dialog"><a id="shopboxClose" href="#" class="close-thin"></a></div><div class="photo" style="background-image:url(\'{{productImageUrl}}\')"></div><div class="text"><div class="name">{{name}}</div><div><span class="price">{{currencyAndPrice}}</span></div></div><div class="callToAction"><div class="shopbox-btn btn-orange btn"><a id="shopboxButton" href="#">Shop Now</a></div></div></div>';
+
     _.templateSettings.interpolate = /{{([\s\S]+?)}}/g;
     var compiled = _.template(template);
     var result = compiled(product);
@@ -73,6 +75,7 @@ function embedPostBox(photos){
       'omission': ''
     });
     var template = '<div id="shopbox" class="sticky"><div class="dialog"><a id="shopboxClose" href="#" class="close-thin"></a></div><div class="photo" style="background-image:url(\'{{imageurl}}\')"></div><div class="text"><div class="name">{{resources}}</div></div><div class="callToAction"><div class="shopbox-btn btn-orange btn"><a id="shopboxButton" href="{{url}}" target="_blank">Read More</a></div></div></div>';
+
     _.templateSettings.interpolate = /{{([\s\S]+?)}}/g;
     var compiled = _.template(template);
     var result = compiled(photo);
