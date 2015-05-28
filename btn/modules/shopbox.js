@@ -10,12 +10,26 @@ function getProduct(product_id){
 
     cqjq.getJSON(url).then((data)=>{
       if(!data.products || data.products.length === 0) return resolve({});
-      console.log(resolve);
       console.log(data);
       resolve(data.products[0]);
     })
     .fail(function(e) {
       resolve({});
+    })
+  });
+}
+
+function getPost(post_id){
+  return Q.Promise((resolve, reject, notify)=>{
+    var url = "@@apiHost/api/shopping/post/"+post_id;
+
+    cqjq.getJSON(url).then((data)=>{
+      if(!data || data.length === 0) return resolve([]);
+      console.log(data);
+      resolve(data);
+    })
+    .fail(function(e) {
+      resolve([]);
     })
   });
 }
@@ -31,7 +45,6 @@ function embedProductBox(product){
       'omission': ''
     });
     var template = '<div id="shopbox" class="sticky"><div class="dialog"><a id="shopboxClose" href="#" class="close-thin"></a></div><div class="photo" style="background-image:url(\'{{productImageUrl}}\')"></div><div class="text"><div class="name">{{name}}</div><div>From <span class="price">{{currencyAndPrice}}</span></div></div><div class="callToAction"><div class="shopbox-btn btn-orange btn"><a id="shopboxButton" href="#">Shop Now</a></div></div></div>';
-    var template = '<div id="shopbox" class="sticky"><div class="dialog"><a id="shopboxClose" href="#" class="close-thin"></a></div><div class="photo">      <img src="{{productImageUrl}}" alt="" /></div><div class="text"><div class="name">{{name}}</div><div>From <span class="price">{{currencyAndPrice}}</span></div></div><div class="callToAction"><div class="shopbox-btn btn-orange btn"><a id="shopboxButton" href="#">Shop Now</a></div></div></div>';
     _.templateSettings.interpolate = /{{([\s\S]+?)}}/g;
     var compiled = _.template(template);
     var result = compiled(product);
@@ -43,21 +56,26 @@ function embedProductBox(product){
     return cqjq('#shopboxButton')[0];
 }
 
-function embedPostBox(product){
-    console.log(product, _.isEmpty(product));
-    if(_.isEmpty(product)) return null;
-    product.productImageUrl = product.imageLargeUrl && product.imageLargeUrl[0] || product.imageSmallUrl && product.imageSmallUrl[0];
-    product.currencyAndPrice = product.preferredCurrency + " " + product.priceInPreferredCurrency || product.currency + " " + product.price;
-    product.name = _.trunc(product.name, {
+function embedPostBox(photos){
+    console.log(photos, _.isEmpty(photos));
+    if(_.isEmpty(photos)) return null;
+
+    var photo = photos[0];
+    if(photos.length > 1){
+      var rand = _.random(0, photos.length-1);
+      photo = photos[rand];
+    }
+
+    photo.currencyAndPrice = photo.preferredCurrency + " " + photo.priceInPreferredCurrency || photo.currency + " " + photo.price;
+    photo.name = _.trunc(photo.name, {
       'length': 45,
       'separator': ' ',
       'omission': ''
     });
-    var template = '<div id="shopbox" class="sticky"><div class="dialog"><a id="shopboxClose" href="#" class="close-thin"></a></div><div class="photo" style="background-image:url(\'{{productImageUrl}}\')"></div><div class="text"><div class="name">{{name}}</div><div>From <span class="price">{{currencyAndPrice}}</span></div></div><div class="callToAction"><div class="shopbox-btn btn-orange btn"><a id="shopboxButton" href="#">Shop Now</a></div></div></div>';
-    var template = '<div id="shopbox" class="sticky"><div class="dialog"><a id="shopboxClose" href="#" class="close-thin"></a></div><div class="photo">      <img src="{{productImageUrl}}" alt="" /></div><div class="text"><div class="name">{{name}}</div><div>From <span class="price">{{currencyAndPrice}}</span></div></div><div class="callToAction"><div class="shopbox-btn btn-orange btn"><a id="shopboxButton" href="#">Shop Now</a></div></div></div>';
+    var template = '<div id="shopbox" class="sticky"><div class="dialog"><a id="shopboxClose" href="#" class="close-thin"></a></div><div class="photo" style="background-image:url(\'{{imageurl}}\')"></div><div class="text"><div class="name">{{resources}}</div></div><div class="callToAction"><div class="shopbox-btn btn-orange btn"><a id="shopboxButton" href="{{url}}" target="_blank">Read More</a></div></div></div>';
     _.templateSettings.interpolate = /{{([\s\S]+?)}}/g;
     var compiled = _.template(template);
-    var result = compiled(product);
+    var result = compiled(photo);
     cqjq(result).appendTo('body');
     cqjq('#shopboxClose').click((e)=>{
       e.preventDefault();
@@ -71,7 +89,7 @@ function embedProduct(product_id){
 }
 
 function embedPost(product_id){
-  return getProduct(product_id).then(embedPostBox);
+  return getPost(product_id).then(embedPostBox);
 }
 
 function setScope(sc){
@@ -87,5 +105,6 @@ function setConfig(config){
 module.exports = {
   setConfig:setConfig,
   setScope:setScope,
-  embedProduct:embedProduct
+  embedProduct:embedProduct,
+  embedPost:embedPost
 }

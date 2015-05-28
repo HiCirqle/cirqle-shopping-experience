@@ -10,7 +10,8 @@ var config = {
       "iframeSrcUrl": "/experience2/iframecontent.html"
   },
   "development":{
-      "apiHost": "http://localhost:9000",
+      // "apiHost": "http://localhost:9000",
+      "apiHost": "http://dashboardapi.cirqle.nl",
       "cdnHost": "http://localhost:8888",
       "iframeSrcUrl": "/iframecontent.html"
   }
