@@ -133,24 +133,49 @@ class Button {
     buttonSingleton = buttonCache;
 
     function shopboxInit(imgUrls){
+      var modes = ['product', 'post'];
       var rand = _.random(0, imgUrls.length-1);
       var imgUrl = imgUrls[rand];
+      var rand = _.random(0, modes.length-1);
+      var mode = modes[rand];
+      mode = modes[1];
+
       shopbutton.getPostImageInfo(imgUrl).then(function(img){
-        //embed post or product
         console.log(img);
-        var productIds = img[0].productIds;
-        // randomly select product and get product info from SOLR
-        rand = _.random(0, productIds.length-1);
-        // show the shopbox
-        shopbox.embedProduct(productIds[rand]).then((button)=>{
-          if(!button) return shopboxInit(imgUrls);
-          shopbutton.setButtonClickEvent(button, imgUrl, {
-            category:'showbox',
-            action:'click',
-            label:document.domain,
-            property:{productId:productIds[rand], postUrl:window.location.href}
-          });
-        });
+        //embed post or product
+        switch (mode) {
+          case 'product':
+            // randomly select product and get product info from SOLR
+            var productIds = img[0].productIds;
+            rand = _.random(0, productIds.length-1);
+            // show the shopbox
+            shopbox.embedProduct(productIds[rand]).then((button)=>{
+              if(!button) return shopboxInit(imgUrls);
+              shopbutton.setButtonClickEvent(button, imgUrl, {
+                category:'showbox',
+                action:'click',
+                label:document.domain,
+                property:{productId:productIds[rand], postUrl:window.location.href}
+              });
+            });
+
+            break;
+          case 'post':
+            var postId = img[0].postId;
+            shopbox.embedPost(postId).then((button)=>{
+              if(!button) return shopboxInit(imgUrls);
+              shopbutton.setButtonClickEvent(button, imgUrl, {
+                category:'showbox',
+                action:'click',
+                label:document.domain,
+                property:{productId:productIds[rand], postUrl:window.location.href}
+              });
+            });
+            break;
+          default:
+
+        }
+
       });
     };
 
