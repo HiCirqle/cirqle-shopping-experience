@@ -393,3 +393,80 @@ ol {
 		padding-bottom: 30px;
 	}
 }
+
+
+
+
+
+
+
+
+//http://tobiasahlin.com/spinkit/
+//colors
+$color_mine_shaft_approx: #333;
+
+//@extend-elements
+//original selectors
+//.dot1, .dot2
+%extend_2 {
+	width: 60%;
+	height: 60%;
+	display: inline-block;
+	position: absolute;
+	top: 0;
+	background-color: $color_mine_shaft_approx;
+	//Instead of the line below you could use @includeborder-radius($radius, $vertical-radius)
+	border-radius: 100%;
+	animation: bounce 2.0s infinite ease-in-out;
+}
+
+
+.spinner {
+	margin: 100px auto;
+	width: 40px;
+	height: 40px;
+	position: relative;
+	text-align: center;
+	animation: rotate 2.0s infinite linear;
+}
+.dot1 {
+	@extend %extend_2;
+}
+.dot2 {
+	@extend %extend_2;
+	top: auto;
+	bottom: 0;
+	animation-delay: -1.0s;
+}
+@-webkit-keyframes rotate {
+	100% {
+	}
+}
+@keyframes rotate {
+	100% {
+		//Instead of the line below you could use @includetransform($scale, $rotate, $transx, $transy, $skewx, $skewy, $originx, $originy)
+		transform: rotate(360deg);
+	}
+}
+@-webkit-keyframes bounce {
+	0% {
+	}
+	100% {
+	}
+	50% {
+	}
+}
+@keyframes bounce {
+	0% {
+		//Instead of the line below you could use @includetransform($scale, $rotate, $transx, $transy, $skewx, $skewy, $originx, $originy)
+		transform: scale(0.0);
+	}
+	100% {
+		//Instead of the line below you could use @includetransform($scale, $rotate, $transx, $transy, $skewx, $skewy, $originx, $originy)
+		transform: scale(0.0);
+	}
+	50% {
+		//Instead of the line below you could use @includetransform($scale, $rotate, $transx, $transy, $skewx, $skewy, $originx, $originy)
+		transform: scale(1.0);
+	}
+}

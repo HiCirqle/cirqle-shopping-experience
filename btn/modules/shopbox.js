@@ -1,6 +1,7 @@
 var cqjq = require('jquery');
 var _ = require('lodash');
 var Q = require('q');
+var highestZIndex = require('highestZIndex');
 var scope = document;
 var thisModule = {};
 
@@ -55,6 +56,9 @@ function embedProductBox(product){
       e.preventDefault();
       cqjq('#shopbox').fadeOut();
     });
+    var shopbox = cqjq('#shopbox');
+    var zindex = highestZIndex(0, shopbox);
+    shopbox.css('z-index', zindex);
     return cqjq('#shopboxButton')[0];
 }
 
@@ -68,8 +72,7 @@ function embedPostBox(photos){
       photo = photos[rand];
     }
 
-    photo.currencyAndPrice = photo.preferredCurrency + " " + photo.priceInPreferredCurrency || photo.currency + " " + photo.price;
-    photo.name = _.trunc(photo.name, {
+    photo.resources = _.trunc(photo.resources, {
       'length': 45,
       'separator': ' ',
       'omission': ''
@@ -84,6 +87,9 @@ function embedPostBox(photos){
       e.preventDefault();
       cqjq('#shopbox').fadeOut();
     });
+    var shopbox = cqjq('#shopbox');
+    var zindex = highestZIndex(0, shopbox);
+    shopbox.css('z-index', zindex);
     return cqjq('#shopboxButton')[0];
 }
 
