@@ -1,0 +1,472 @@
+//colors
+$black_80: rgba(0,0,0,0.8);
+$white: #fff;
+$black_30: rgba(0,0,0,0.3);
+$black: #000;
+$color_gallery_approx: #ededed;
+$black_10: rgba(0,0,0,0.1);
+$color_mine_shaft_approx: #333;
+$color_silver_chalice_approx: #aaa;
+$color_alto_approx: #dedede;
+$color_pelorous_approx: #3d98ca;
+$color_pelorous_80_approx: rgba(61,152,202,0.8);
+$black_90: rgba(0,0,0,0.9);
+$color_nobel_approx: #b5b5b5;
+$color_nobel_80_approx: rgba(181,181,181,0.8);
+$color_dove_gray_approx: #6b6b6b;
+$concrete: #f2f2f2;
+
+//fonts
+$font_0: Source Sans Pro;
+$font_1: sans-serif;
+$font_2: Georgia;
+$font_3: serif;
+
+//urls
+$url_0: url(../images/fb-icon.png);
+$url_1: url(../images/twitter-icon.png);
+$url_2: url(../images/cirqle.svg);
+
+//@extend-elements
+//original selectors
+//ul, ol
+%extend_1 {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+
+
+h1 {
+	margin: 0;
+	padding: 0;
+	font-weight: 400;
+}
+h2 {
+	margin: 0;
+	padding: 0;
+	font-weight: 400;
+}
+h3 {
+	margin: 0;
+	padding: 0;
+	font-weight: 400;
+}
+h4 {
+	margin: 0;
+	padding: 0;
+	font-weight: 400;
+}
+h5 {
+	margin: 0;
+	padding: 0;
+	font-weight: 400;
+}
+h6 {
+	margin: 0;
+	padding: 0;
+	font-weight: 400;
+}
+* {
+	//Instead of the line below you could use @includebox-sizing($bs)
+	box-sizing: inherit;
+}
+:before {
+	//Instead of the line below you could use @includebox-sizing($bs)
+	box-sizing: inherit;
+}
+:after {
+	//Instead of the line below you could use @includebox-sizing($bs)
+	box-sizing: inherit;
+}
+html {
+	//Instead of the line below you could use @includebox-sizing($bs)
+	box-sizing: border-box;
+}
+body {
+	background: $white;
+	font-family: $font_0, $font_1;
+	font-size: 15px;
+	font-weight: 400;
+	color: $black;
+}
+p {
+	margin: 0;
+	padding: 0;
+}
+a {
+	text-decoration: none;
+}
+ul {
+	@extend %extend_1;
+}
+ol {
+	@extend %extend_1;
+}
+.shopping-holder {
+	margin: 0 auto;
+	max-width: 660px;
+}
+.container {
+	margin: 0 auto;
+	padding: 0;
+}
+.header {
+	position: relative;
+	border-bottom: 1px $color_gallery_approx solid;
+	padding: 15px;
+	//Instead of the line below you could use @includebox-shadow($shadow-1, $shadow-2, $shadow-3, $shadow-4, $shadow-5, $shadow-6, $shadow-7, $shadow-8, $shadow-9, $shadow-10)
+	box-shadow: 0 0 2px 0 $black_10;
+	h1 {
+		margin: 0 45px 20px 0;
+		font-size: 20px;
+		font-weight: 400;
+		strong {
+			font-weight: 600;
+		}
+	}
+}
+@media only screen and(min-width: 64.063em) {
+	.header {
+		padding: 30px 15px;
+		h1 {
+			margin: 0 90px 20px 0;
+			font-size: 19px;
+		}
+	}
+	.header__close {
+		top: 30px;
+		width: 60px;
+		height: 60px;
+	}
+	.product {
+		padding: 30px 0 0;
+		padding: 15px 0 0;
+		min-height: 184px;
+	}
+	.product__content {
+		min-height: 145px;
+		.product__img {
+			top: 30px;
+			left: 0;
+			width: 145px;
+			height: 145px;
+		}
+		.product__desc {
+			padding: 0 20px;
+			margin-left: 145px;
+			p {
+				font-size: 14px;
+				line-height: 19px;
+			}
+		}
+	}
+	.product__footer {
+		.product__share {
+			width: 145px;
+			padding: 0 31px;
+			.icon {
+				margin: 12px 4px;
+			}
+		}
+		.price__buy {
+			padding: 12px 0 0;
+			left: 20px;
+			.product__btn {
+				padding: 0 40px;
+				margin-right: 20px;
+			}
+		}
+	}
+	.shop-details li {
+		margin-right: 40px;
+	}
+}
+.shop-details {
+	padding-bottom: 15px;
+	font-family: $font_2, $font_3;
+	font-size: 15px;
+	font-style: italic;
+	color: $color_mine_shaft_approx;
+	li {
+		float: left;
+		margin-right: 20px;
+	}
+	a {
+		text-decoration: underline;
+		color: $color_mine_shaft_approx;
+		&:hover {
+			color: $black;
+		}
+	}
+}
+.header__close {
+	display: block;
+	position: absolute;
+	top: 15px;
+	right: 15px;
+	width: 30px;
+	height: 30px;
+	font-size: 45px;
+	text-align: center;
+	color: $color_silver_chalice_approx;
+	cursor: pointer;
+	&:before {
+		display: block;
+		margin: -15px 0 0 -2px;
+		content: "\00d7";
+	}
+	&:hover {
+		color: $black;
+	}
+}
+.products {
+	padding: 0 15px;
+}
+.product {
+	position: relative;
+	border-bottom: 1px $color_gallery_approx solid;
+	padding: 15px 0 0;
+	min-height: 184px;
+	&:last-child {
+		border: 0;
+	}
+}
+.product__content {
+	min-height: 115px;
+	.product__img {
+		border: 1px $color_alto_approx solid;
+		float: left;
+		width: 115px;
+		height: 115px;
+		background-size: cover;
+		background-position: center center;
+		//Instead of the line below you could use @includeborder-radius($radius, $vertical-radius)
+		border-radius: 2px 2px 0 0;
+	}
+	.product__desc {
+		margin-left: 130px;
+		p {
+			font-size: 16px;
+			color: $color_mine_shaft_approx;
+		}
+	}
+}
+.product__footer {
+	padding-bottom: 15px;
+	.product__share {
+		float: left;
+		width: 115px;
+		font-size: 9px;
+		padding: 5px 15px;
+		height: 45px;
+		position: relative;
+		z-index: 11;
+		.icon {
+			height: 30px;
+			width: 30px;
+			background-size: cover;
+			background-position: center center;
+			float: left;
+			margin: 4px;
+		}
+		.fb {
+			background-image: $url_0;
+		}
+		.twitter {
+			background-image: $url_1;
+		}
+	}
+	.price__buy {
+		position: relative;
+		height: 45px;
+		padding-top: 10px;
+		left: 15px;
+		z-index: 10;
+		.product__price {
+			float: left;
+			margin-bottom: 20px;
+			font-weight: 600;
+			line-height: 34px;
+			@media only screen and(min-width: 64.063em) {
+				margin-left:20px;
+			}
+		}
+		.product__btn {
+			margin-right: 15px;
+			float: right;
+			display: inline-block;
+			padding: 0 20px;
+			width: auto;
+			height: 32px;
+			background:#ff6e40;
+			font-size: 11px;
+			text-align: center;
+			text-transform: uppercase;
+			letter-spacing: 1px;
+			line-height: 30px;
+			color: $white;
+			//Instead of the line below you could use @includeborder-radius($radius, $vertical-radius)
+			border-radius: 2px;
+			&:hover {
+				background:#ff815a;
+			}
+			&:active {
+				background:#ff6e40;
+			}
+			&.unavailable {
+				background:#ccc;
+				color:#fff;
+			}
+		}
+	}
+}
+@media only screen and(max-width: 22.5em) {
+	.product__footer {
+		.product__share {
+			padding: 10px 24px;
+			.icon {
+				height: 25px;
+				width: 25px;
+			}
+		}
+		.price__buy .product__btn {
+			padding: 0 4px;
+			.shop__btn__label {
+				width: 54px;
+				&.unavailable {
+					padding-top: 3px;
+					line-height: 12px;
+				}
+			}
+		}
+	}
+}
+.product__brand {
+	margin-bottom: 20px;
+	font-size: 13px;
+	text-transform: uppercase;
+	letter-spacing: 1px;
+	color: $color_mine_shaft_approx;
+}
+.footer {
+	position: relative;
+	border-top: 1px $color_gallery_approx solid;
+	padding: 30px 15px 30px;
+	background: $concrete;
+}
+.cirqle-logo {
+	width: 50px;
+	height: 50px;
+	background-image: $url_2;
+	background-size: contain;
+	background-repeat: no-repeat;
+}
+.cirqle-slogan {
+	position: absolute;
+	top: 46px;
+	left: 90px;
+	color: $black;
+}
+.product__title a {
+	display: block;
+	margin-bottom: 20px;
+	font-size: 21px;
+	font-weight: 600;
+	color: $black;
+}
+
+@media only screen and(min-width: 40.063em) {
+	body {
+		background: $black_80;
+	}
+	.shopping-holder {
+		margin: 30px auto;
+		overflow: hidden;
+		background: $white;
+		//Instead of the line below you could use @includeborder-radius($radius, $vertical-radius)
+		border-radius: 3px;
+		//Instead of the line below you could use @includebox-shadow($shadow-1, $shadow-2, $shadow-3, $shadow-4, $shadow-5, $shadow-6, $shadow-7, $shadow-8, $shadow-9, $shadow-10)
+		box-shadow: 0 0 0 1px $black_30,0 0 3px 0 $black_30;
+	}
+	.footer {
+		padding-bottom: 30px;
+	}
+}
+
+
+
+
+
+
+
+
+//http://tobiasahlin.com/spinkit/
+//colors
+$color_mine_shaft_approx: #333;
+
+//@extend-elements
+//original selectors
+//.dot1, .dot2
+%extend_2 {
+	width: 60%;
+	height: 60%;
+	display: inline-block;
+	position: absolute;
+	top: 0;
+	background-color: $color_mine_shaft_approx;
+	//Instead of the line below you could use @includeborder-radius($radius, $vertical-radius)
+	border-radius: 100%;
+	animation: bounce 2.0s infinite ease-in-out;
+}
+
+
+.spinner {
+	margin: 100px auto;
+	width: 40px;
+	height: 40px;
+	position: relative;
+	text-align: center;
+	animation: rotate 2.0s infinite linear;
+}
+.dot1 {
+	@extend %extend_2;
+}
+.dot2 {
+	@extend %extend_2;
+	top: auto;
+	bottom: 0;
+	animation-delay: -1.0s;
+}
+@-webkit-keyframes rotate {
+	100% {
+	}
+}
+@keyframes rotate {
+	100% {
+		//Instead of the line below you could use @includetransform($scale, $rotate, $transx, $transy, $skewx, $skewy, $originx, $originy)
+		transform: rotate(360deg);
+	}
+}
+@-webkit-keyframes bounce {
+	0% {
+	}
+	100% {
+	}
+	50% {
+	}
+}
+@keyframes bounce {
+	0% {
+		//Instead of the line below you could use @includetransform($scale, $rotate, $transx, $transy, $skewx, $skewy, $originx, $originy)
+		transform: scale(0.0);
+	}
+	100% {
+		//Instead of the line below you could use @includetransform($scale, $rotate, $transx, $transy, $skewx, $skewy, $originx, $originy)
+		transform: scale(0.0);
+	}
+	50% {
+		//Instead of the line below you could use @includetransform($scale, $rotate, $transx, $transy, $skewx, $skewy, $originx, $originy)
+		transform: scale(1.0);
+	}
+}

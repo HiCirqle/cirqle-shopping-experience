@@ -2,12 +2,12 @@ var config = {
   "production":{
       "apiHost": "http://dashboardapi.cirqle.nl",
       "cdnHost": "http://cdn.cirqle.nl",
-      "iframeSrcUrl": "/experience2/iframecontent.html"
+      "iframeSrcUrl": "/shopwindow/iframecontent.html"
   },
   "staging":{
       "apiHost": "http://dashboardapi-staging.cirqle.nl",
       "cdnHost": "http://cdn.cirqle.nl",
-      "iframeSrcUrl": "/experience2/iframecontent.html"
+      "iframeSrcUrl": "/shopwindow/iframecontent.html"
   },
   "development":{
       "apiHost": "http://localhost:9000",

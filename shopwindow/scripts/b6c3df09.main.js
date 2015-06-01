@@ -15,7 +15,7 @@ function updateProduct(data){
     var tweet = 'https://twitter.com/intent/tweet?status='+encodeURI('Come shop with @HiCirqle! '+postUrl);
     var mailto = 'mailto:?Subject='+encodeURI('Come shop with Cirqle!')+'&body='+encodeURI('Come shop with Cirqle! '+postUrl);
 
-    var productTemplate = "{{#products}}<div class=product><div class=product__content><div class=product__img style=background-image:url({{imageSmallUrl}})>{{#showProductImpressionUrl}}{{/showProductImpressionUrl}}</div><div class=product__desc><h3 class=product__title><a href=#>{{name}}</a></h3><h4 class=product__brand>{{brand}}</h4><p>{{description}}</p></div></div><div class=product__footer><div class=product__share><a href='"+fb_share+"' target=_blank><div class='icon fb'></div></a> <a href='"+tweet+"' target=_blank><div class='icon twitter'></div></a></div><div class=price__buy><div class=product__price>{{#checkCurrency}}  {{/checkCurrency}} {{#checkPrice}}  {{/checkPrice}}</div><a class='product__btn {{#availabilityClass}}{{/availabilityClass}}' href={{productUrl}} target=_blank data-advertiserid={{advertiserId}} data-id={{id}}><div class='shop__btn__label {{#availabilityClass}}{{/availabilityClass}}'>{{#shortenTitle}} {{brand}} {{/shortenTitle}}</div></a></div></div></div>{{/products}}";
+    var productTemplate = "{{#products}}<div class=product><div class=product__content><div class=product__img style=background-image:url(http://eot389e.cloudimg.io/s/resizeinbox/120x120/{{imageLargeUrl}})>{{#showProductImpressionUrl}}{{/showProductImpressionUrl}}</div><div class=product__desc><h3 class=product__title><a href=#>{{name}}</a></h3><h4 class=product__brand>{{brand}}</h4><p>{{description}}</p></div></div><div class=product__footer><div class=product__share><a href='"+fb_share+"' target=_blank><div class='icon fb'></div></a> <a href='"+tweet+"' target=_blank><div class='icon twitter'></div></a></div><div class=price__buy><div class=product__price>{{#checkCurrency}}  {{/checkCurrency}} {{#checkPrice}}  {{/checkPrice}}</div><a class='product__btn {{#availabilityClass}}{{/availabilityClass}}' href={{productUrl}} target=_blank data-advertiserid={{advertiserId}} data-id={{id}}><div class='shop__btn__label {{#availabilityClass}}{{/availabilityClass}}'>{{#shortenTitle}} {{brand}} {{/shortenTitle}}</div></a></div></div></div>{{/products}}";
 
 	var mainProduct = {products:data};
 
@@ -215,28 +215,6 @@ function buyTrack(bloggerId, blogId, imageUrl, postId, advertiserId, id, blogDom
 }
 
 $(document).ready(function() {
-  var opts = {
-    lines: 13, // The number of lines to draw
-    length: 12, // The length of each line
-    width: 9, // The line thickness
-    radius: 25, // The radius of the inner circle
-    corners: 1, // Corner roundness (0..1)
-    rotate: 0, // The rotation offset
-    direction: 1, // 1: clockwise, -1: counterclockwise
-    color: '#000', // #rgb or #rrggbb or array of colors
-    speed: 0.8, // Rounds per second
-    trail: 83, // Afterglow percentage
-    shadow: false, // Whether to render a shadow
-    hwaccel: false, // Whether to use hardware acceleration
-    // className: 'spinner', // The CSS class to assign to the spinner
-    zIndex: 2e9, // The z-index (defaults to 2000000000)
-    top: '50%', // Top position relative to parent
-    left: '50%' // Left position relative to parent
-  };
-  var target = document.getElementById('spinner');
-  var spinner = new Spinner(opts).spin(target);
-
-  // return;
 
 	var closeBtn = document.getElementById("closeBtn");
 	attachHandler(closeBtn, "click", function(){
