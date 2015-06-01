@@ -202,6 +202,7 @@ function embedButton(imgNode, imgUrl, ifrmScope){
 
 function setButtonClickEvent(button, imgUrl, options){
   attachHandler(button, "click", function(e) {
+    console.log(button, imgUrl, options);
     try{
       if(options && options.category && options.action && options.label && options.property){
         thisModule.GATrack.trackEvent(options.category, options.action, options.label, options.property);

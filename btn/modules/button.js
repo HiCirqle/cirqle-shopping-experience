@@ -132,31 +132,56 @@ class Button {
     buttonCache.init(cirqle_getpost_by_url);
     buttonSingleton = buttonCache;
 
-    function shopboxInit(imgUrls){
-      var rand = _.random(0, imgUrls.length-1);
-      var imgUrl = imgUrls[rand];
+    function shopboxInit(imgUrls, content){
+      var contents = ['product', 'post'],
+          rand = _.random(0, imgUrls.length-1),
+          imgUrl = imgUrls[rand];
+
+      rand = _.random(0, contents.length-1);
+      content = content || contents[rand];
+      // content = contents[1];
+
       shopbutton.getPostImageInfo(imgUrl).then(function(img){
-        //embed post or product
         console.log(img);
-        var productIds = img[0].productIds;
-        // randomly select product and get product info from SOLR
-        rand = _.random(0, productIds.length-1);
-        // show the shopbox
-        shopbox.embedProduct(productIds[rand]).then((button)=>{
-          if(!button) return shopboxInit(imgUrls);
-          shopbutton.setButtonClickEvent(button, imgUrl, {
-            category:'showbox',
-            action:'click',
-            label:document.domain,
-            property:{productId:productIds[rand], postUrl:window.location.href}
-          });
-        });
+        //embed post or product
+        switch (content) {
+          case 'product':
+            // randomly select product and get product info from SOLR
+            var productIds = img[0].productIds;
+            rand = _.random(0, productIds.length-1);
+            // show the shopbox
+            shopbox.embedProduct(productIds[rand]).then((button)=>{
+              if(!button) return shopboxInit(imgUrls);
+              shopbutton.setButtonClickEvent(button, imgUrl, {
+                category:'shopbox.product',
+                action:'click',
+                label:document.domain,
+                property:{productId:productIds[rand], postUrl:window.location.href}
+              });
+            });
+
+            break;
+          case 'post':
+            var postId = img[0].postId;
+            shopbox.embedPost(postId).then((button)=>{
+              cqjq(button).click((e)=>{
+                try{
+                  GATrack.trackEvent('shopbox.post', 'click', document.domain, {postUrl:window.location.href});
+                }catch(e){}
+              });
+
+            });
+            break;
+          default:
+
+        }
+
       });
     };
 
     buttonSingleton.getTaggedImg().then(function(imgUrls){
       if(typeof cq_config.shopbox !== 'undefined' && cq_config.shopbox === false) return;
-      // if(imgUrls && imgUrls.length > 0) shopboxInit(imgUrls);
+      if(imgUrls && imgUrls.length > 0) shopboxInit(imgUrls, cq_config.shopboxContent);
     });
 
     if(cq_config.buttonText && typeof cq_config.buttonText === "string"){
