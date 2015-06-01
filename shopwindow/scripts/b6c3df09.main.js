@@ -15,12 +15,21 @@ function updateProduct(data){
     var tweet = 'https://twitter.com/intent/tweet?status='+encodeURI('Come shop with @HiCirqle! '+postUrl);
     var mailto = 'mailto:?Subject='+encodeURI('Come shop with Cirqle!')+'&body='+encodeURI('Come shop with Cirqle! '+postUrl);
 
-    var productTemplate = "{{#products}}<div class=product><div class=product__content><div class=product__img style=background-image:url(http://eot389e.cloudimg.io/s/resizeinbox/120x120/{{imageLargeUrl}})>{{#showProductImpressionUrl}}{{/showProductImpressionUrl}}</div><div class=product__desc><h3 class=product__title><a href=#>{{name}}</a></h3><h4 class=product__brand>{{brand}}</h4><p>{{description}}</p></div></div><div class=product__footer><div class=product__share><a href='"+fb_share+"' target=_blank><div class='icon fb'></div></a> <a href='"+tweet+"' target=_blank><div class='icon twitter'></div></a></div><div class=price__buy><div class=product__price>{{#checkCurrency}}  {{/checkCurrency}} {{#checkPrice}}  {{/checkPrice}}</div><a class='product__btn {{#availabilityClass}}{{/availabilityClass}}' href={{productUrl}} target=_blank data-advertiserid={{advertiserId}} data-id={{id}}><div class='shop__btn__label {{#availabilityClass}}{{/availabilityClass}}'>{{#shortenTitle}} {{brand}} {{/shortenTitle}}</div></a></div></div></div>{{/products}}";
+    var productTemplate = "{{#products}}<div class=product><div class=product__content><div class=product__img style=background-image:url({{#productImageUrl}}{{/productImageUrl}})>{{#showProductImpressionUrl}}{{/showProductImpressionUrl}}</div><div class=product__desc><h3 class=product__title><a href=#>{{name}}</a></h3><h4 class=product__brand>{{brand}}</h4><p>{{description}}</p></div></div><div class=product__footer><div class=product__share><a href='"+fb_share+"' target=_blank><div class='icon fb'></div></a> <a href='"+tweet+"' target=_blank><div class='icon twitter'></div></a></div><div class=price__buy><div class=product__price>{{#checkCurrency}}  {{/checkCurrency}} {{#checkPrice}}  {{/checkPrice}}</div><a class='product__btn {{#availabilityClass}}{{/availabilityClass}}' href={{productUrl}} target=_blank data-advertiserid={{advertiserId}} data-id={{id}}><div class='shop__btn__label {{#availabilityClass}}{{/availabilityClass}}'>{{#shortenTitle}} {{brand}} {{/shortenTitle}}</div></a></div></div></div>{{/products}}";
 
 	var mainProduct = {products:data};
 
+	mainProduct.productImageUrl = function(){
+    return function (text, render) {
+            var imageUrl = this.imageLargeUrl || this.imageSmallUrl;
+            imageUrl = 'http://eot389e.cloudimg.io/s/resizeinbox/120x120/'+encodeURI(imageUrl);
+
+			return imageUrl;
+		}
+	};
+
 	mainProduct.checkCurrency = function(){
-        return function (text, render) {
+    return function (text, render) {
             var currency = this.preferredCurrency || this.currency;
             if(!this.price && currency){
                 currency = "";
