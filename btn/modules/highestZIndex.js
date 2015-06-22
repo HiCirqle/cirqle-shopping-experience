@@ -7,7 +7,7 @@ function highestZIndex(defaultIndex, btn){
 
   highest = Math.max.apply(null,cqjq.map(cqjq('body *'), function(e,n){
       var current = cqjq(e).css("z-index");
-      current = parseInt(Number(current), 10);
+      current = Number(current);
 
       var position = cqjq(e).css("position");
       var isVisible = cqjq(e).is(":visible");

@@ -91,3 +91,7 @@ $font_0: sans-serif;
 	//Instead of the line below you could use @includebox-sizing($bs)
 	box-sizing: content-box !important;
 }
+
+#cq-shopwindow {
+	z-index: 21474836471;
+}
