@@ -18,9 +18,8 @@ function highestZIndex(defaultIndex, btn){
         if (!btn) {
           return current;
         }
-        cqjq(btn).hide();
+
         var intersect = findIntersector(e, btn);
-        cqjq(btn).show();
         if(intersect.length > 0){
             // console.log("highestZIndex",current);
             return current;

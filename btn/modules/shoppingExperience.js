@@ -56,7 +56,7 @@ function showWindow(img, timer, trackTraits){
   iframeDiv.appendChild(iframe);
 
   document.getElementsByTagName("body")[0].appendChild(iframeDiv);
-  iframeDiv.style.zIndex = highestZIndex(0, iframeDiv)+101; // button is +1
+  iframeDiv.style.zIndex = highestZIndex(0)+101; // button is +1
 }
 
 function toogleParentScrollY(){
