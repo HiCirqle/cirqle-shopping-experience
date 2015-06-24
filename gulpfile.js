@@ -72,7 +72,7 @@ gulp.task('browserify', function (cb) {
         .pipe(jshint.reporter('default'))
         .pipe(buffer())
         .pipe(replace({patterns:patterns}))
-        // .pipe(uglify())
+        .pipe(uglify())
         .pipe(sourcemaps.init({loadMaps: true}))
         .pipe(sourcemaps.write('./map'))
         .pipe(gulp.dest('./dist/button1'));

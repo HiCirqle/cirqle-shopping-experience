@@ -1,5 +1,6 @@
 var cqjq = require('jquery');
-var _ = require('lodash');
+var _includes = require('lodash/collection/includes');
+var _reduce = require('lodash/collection/reduce');
 require('webPolyfill')(window);
 var scope = document;
 var ImageElement = require('imageElement');
@@ -31,15 +32,15 @@ function findBackgroundImage(urls){
   // console.log(typeof all);
   all = makeArray(all);
   // console.log(typeof all);
-  // console.log(typeof []);
-  return _.reduce(all, function(prev, e) {
+  console.log(_reduce);
+  return _reduce(all, function(prev, e) {
     var backgroundImage = removeUrlParam(getElementBackgroundImageValue(e));
-    // console.log(_.includes(joinedUrls, backgroundImage));
+    // console.log(_includes(joinedUrls, backgroundImage));
     // var index = _.indexOf(urls, backgroundImage);
     // if(index > 0){
     //   prev.push(new ImageElement(e, urls[index]));
     // }
-    if(_.includes(joinedUrls, backgroundImage) && backgroundImage !== ""){
+    if(_includes(joinedUrls, backgroundImage) && backgroundImage !== ""){
       prev.push(new ImageElement(e, backgroundImage));
     }
     return prev;
@@ -66,7 +67,7 @@ function removeUrlDomain(url){
 
 function getTumblrImageId(imageURL){
   // media.tumblr.com
-  if(_.includes(imageURL, "media.tumblr.com") > -1){
+  if(_includes(imageURL, "media.tumblr.com") > -1){
     imageURL  = imageURL.substring(0, imageURL.lastIndexOf("/"));
     return imageURL.substring(imageURL.lastIndexOf("/")+1);
   }

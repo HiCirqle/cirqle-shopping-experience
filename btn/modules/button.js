@@ -13,7 +13,7 @@ var shopbutton = require('shopbutton');
 var shopbox = require('shopbox');
 var browserHelper = require('browserHelper');
 var attachHandler = browserHelper.attachHandler;
-var _ = require('lodash');
+var _random = require('lodash/number/random');
 var buttonSingleton;
 var cq_config;
 var position = require('position');
@@ -133,14 +133,14 @@ class Button {
     buttonSingleton = buttonCache;
 
     function shopboxInit(imgUrls){
-      var rand = _.random(0, imgUrls.length-1);
+      var rand = _random(0, imgUrls.length-1);
       var imgUrl = imgUrls[rand];
       shopbutton.getPostImageInfo(imgUrl).then(function(img){
         //embed post or product
         console.log(img);
         var productIds = img[0].productIds;
         // randomly select product and get product info from SOLR
-        rand = _.random(0, productIds.length-1);
+        rand = _random(0, productIds.length-1);
         // show the shopbox
         shopbox.embedProduct(productIds[rand]).then((button)=>{
           if(!button) return shopboxInit(imgUrls);
@@ -167,7 +167,7 @@ class Button {
     var css_url = config.get('css_url')
     if(cq_config.customCss &&
       typeof cq_config.customCss === "string"
-      // && _.includes(cq_config.customCss, "cdn.cirqle.nl")
+      // && _includes(cq_config.customCss, "cdn.cirqle.nl")
       ){
       css_url = cq_config.customCss;
     }
