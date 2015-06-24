@@ -28,7 +28,10 @@ function findBackgroundImage(urls){
   var all = scope.querySelectorAll('body div,span');
   var joinedUrls = urls.join(',');
   // all = Object.keys(all).map(function (key) {return all[key]});
+  // console.log(typeof all);
   all = makeArray(all);
+  // console.log(typeof all);
+  // console.log(typeof []);
   return _.reduce(all, function(prev, e) {
     var backgroundImage = removeUrlParam(getElementBackgroundImageValue(e));
     // console.log(_.includes(joinedUrls, backgroundImage));
