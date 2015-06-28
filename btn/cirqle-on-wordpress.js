@@ -5,8 +5,8 @@ class WordpressButton extends Button {
   }
 
   findPostImages(imgUrls, scope){
-    return super.findPostImages(imgUrls, scope);
     console.log("wordpress findPostImages");
+    return super.findPostImages(imgUrls, scope);
   }
   // findImages(scope){
   //   super.findImages(scope);

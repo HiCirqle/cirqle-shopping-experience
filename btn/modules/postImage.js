@@ -31,8 +31,6 @@ function findBackgroundImage(urls){
   // all = Object.keys(all).map(function (key) {return all[key]});
   // console.log(typeof all);
   all = makeArray(all);
-  // console.log(typeof all);
-  console.log(_reduce);
   return _reduce(all, function(prev, e) {
     var backgroundImage = removeUrlParam(getElementBackgroundImageValue(e));
     // console.log(_includes(joinedUrls, backgroundImage));

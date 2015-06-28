@@ -76,7 +76,6 @@ class Button {
       // postImage.setScope(scope);
       // var imgElmObjs = postImage.findImages(imgUrls);
       var imgElmObjs = self.findPostImages(imgUrls, scope);
-      console.log(imgElmObjs);
 
       for(var j = imgElmObjs.length-1; j >=0; j--){
         var imgElm = imgElmObjs[j].element;
@@ -86,14 +85,12 @@ class Button {
             if(imgElm.height == 0 || imgElm.width == 0){
               cqjq("<img/>")
               .load(function() {
-                // embeddShopButton(imgElm, imgUrl);
                 self.embedButton(imgElm, imgUrl);
               })
               .error(function() {})
               .attr("src", imgElm.src);
             }
             else{
-              // embeddShopButton(imgElm, imgUrl);
               self.embedButton(imgElm, imgUrl);
             }
 
@@ -104,9 +101,9 @@ class Button {
   }
 
   cirqle_init (b_id, customConfig){
-    console.log(customConfig);
     var pathName = document.location.pathname;
     cq_config = customConfig || {};
+    /*console.log(customConfig);*/
 
     //overwirte showOnHover = false when on mobile
     if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) || /Mobile/i.test(navigator.userAgent)) {
@@ -138,7 +135,7 @@ class Button {
       shopbutton.getPostImageInfo(imgUrl).then(function(img){
         //embed post or product
         console.log(img);
-        var productIds = img[0].productIds;
+        var productIds = img.productIds || [];
         // randomly select product and get product info from SOLR
         rand = _random(0, productIds.length-1);
         // show the shopbox
@@ -231,7 +228,8 @@ class Button {
     observer.observe(body, observerConfig);
 
     function doneChanging(){
-      var adjustZIndex = false;
+      // adjustZIndex for button for when there's changes to the layout
+      var adjustZIndex = true;
       repositionButton(buttonSingleton, adjustZIndex);
     }
 

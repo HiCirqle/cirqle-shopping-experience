@@ -44,20 +44,40 @@ function setScope(sc){
   scope = sc;
 }
 
+function isExpired(item){
+  var limit = 600000; // 10 minutes = 600000 miliseconds;
+  /*var limit = 5000; // 5 seconds = 5000 miliseconds;*/
+  var now = new Date().getTime();
+  var diff = (item && item.timestamp) ? now - item.timestamp : null;
+  console.log(typeof item)
+  console.log(item && item.timestamp)
+  return (!item || diff === null || diff > limit);
+}
+
 function getPostImageInfo(imgurl){
   var defer = cqjq.Deferred();
+  var item = JSON.parse(localStorage.getItem(imgurl));
+  var isItemExpired = isExpired(item);
+  /*console.log(item, isItemExpired);*/
   //caching here
-  if(localStorage && localStorage.getItem(imgurl)){
-    defer.resolve(JSON.parse(localStorage.getItem(imgurl)));
+  if(localStorage && item && !isItemExpired){
+    console.log('getPostImageInfo - local', imgurl);
+    defer.resolve(item);
   }
   else{
-    console.log('api post');
     var url = thisModule.config.get('apiDomain') + "/api/1/posts/products?url="+imgurl+"&blogId="+thisModule.config.get('blog_id');
     cqjq.getJSON(url).then(function(data){
-      if(localStorage){
-        localStorage.setItem(imgurl,JSON.stringify(data));
+      /*console.log(url, data);*/
+      if(localStorage && data.length > 0){
+        localStorage.removeItem(imgurl);
+        data[0]['timestamp'] = new Date().getTime();
+        console.log('getPostImageInfo - api', imgurl);
+        localStorage.setItem(imgurl,JSON.stringify(data[0]));
       }
-      defer.resolve(data);
+      else{
+        data.push({url:imgurl})
+      }
+      defer.resolve(data[0]);
     });
   }
   return defer;
@@ -122,10 +142,11 @@ function embedButton(imgNode, imgUrl, ifrmScope){
       catch(err) {}
       return;
   }
-
+  /*console.log(imgNode);*/
   getPostImageInfo(imgUrl).then(function(data){
-    if(data.length > 0){
-      var imgObj = data[0];
+    if(data){
+      if(!data.postId) data.postId = 0;
+      var imgObj = data;
       dataset(imgNode, "postId", imgObj.postId);
     }
   });
@@ -157,8 +178,9 @@ function embedButton(imgNode, imgUrl, ifrmScope){
       attachHandler(imgHover, "mouseleave", function(e) {
         timer.end(function(duration){
           getPostImageInfo(imgUrl).then(function(data){
-            if(data.length > 0){
-              var imgObj = data[0];
+            if(data){
+              if(!data.postId) data.postId = 0;
+              var imgObj = data;
               var trackTraits = {
                 blogId: thisModule.config.get('blog_id'),
                 postId: imgObj.postId,
@@ -202,6 +224,8 @@ function embedButton(imgNode, imgUrl, ifrmScope){
 
 function setButtonClickEvent(button, imgUrl, options){
   attachHandler(button, "click", function(e) {
+    /*console.log(options);*/
+    // option only applicable to shopbox
     try{
       if(options && options.category && options.action && options.label && options.property){
         thisModule.GATrack.trackEvent(options.category, options.action, options.label, options.property);
@@ -212,24 +236,25 @@ function setButtonClickEvent(button, imgUrl, options){
     e.stopPropagation();
 
     var timer = new Timer();
-
     getPostImageInfo(imgUrl).then(function(data){
-      if(data.length > 0){
-        var imgObj = data[0];
-        var trackTraits = {
+      var imgObj, trackTraits;
+      if(data){
+        if(!data.postId) data.postId = 0;
+        imgObj = data;
+        trackTraits = {
           blogId: thisModule.config.get('blog_id'),
           postId: imgObj.postId,
           imageUrl: imgObj.url
         };
-        // append iframe window here
-        showWindow(imgObj, timer, trackTraits);
-        // hide parent page scrollbar
-        toogleParentScrollY();
-        //show positioned iframe
-        tooglePurchaseDialog(timer, trackTraits);
-        // track clicked rate through segment IO
-        analytics.track("shopbuttonClicked", trackTraits);
       }
+      // append iframe window here
+      showWindow(imgObj, timer, trackTraits);
+      // hide parent page scrollbar
+      toogleParentScrollY();
+      //show positioned iframe
+      tooglePurchaseDialog(timer, trackTraits);
+      // track clicked rate through segment IO
+      analytics.track("shopbuttonClicked", trackTraits);
     });
 
     function closeiframelistener(event){
@@ -243,8 +268,9 @@ function setButtonClickEvent(button, imgUrl, options){
 
       if(message == "cqCloseShopWindow"){
         getPostImageInfo(imgUrl).then(function(data){
-          if(data.length > 0){
-            var imgObj = data[0];
+          if(data){
+            if(!data.postId) data.postId = 0;
+            var imgObj = data;
             var trackTraits = {
               blogId: thisModule.config.get('blog_id'),
               postId: imgObj.postId,

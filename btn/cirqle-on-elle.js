@@ -185,8 +185,7 @@ var GATrack = require('./modules/track');
 
             for(var j=0; j < addedNodes.length; j++){
               if(!addedNodes[j].querySelectorAll){continue;}
-
-                var img = addedNodes[j].querySelectorAll('img');
+              var img = addedNodes[j].querySelectorAll('img');
                 if(img.length > 0){
                   mutated = true;
                   break;
@@ -717,7 +716,7 @@ var GATrack = require('./modules/track');
           if(isHidden(el)){
             cqjq(button).hide();
           }
-          
+
           try{
             if(!isButtonLoaded){
               GATrack.trackPageViewWithButtonLoaded();
