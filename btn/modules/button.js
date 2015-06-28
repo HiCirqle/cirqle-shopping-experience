@@ -183,6 +183,7 @@ class Button {
     var body = document.getElementsByTagName('body')[0];
     var id;
 
+    console.log('MutationObserver', MutationObserver)
     // create an observer instance
     var observer = new MutationObserver(function(mutations) {
       var mutated = false;
@@ -197,6 +198,7 @@ class Button {
           if(!addedNodes[j].querySelectorAll) continue;
           var img = addedNodes[j].querySelectorAll('img');
           if(img.length > 0){
+            console.log('added img');
             mutated = true;
             break;
           }
@@ -205,6 +207,16 @@ class Button {
         try{
           var img = target.querySelectorAll('img');
           if(img.length > 0){
+            console.log('img change');
+            /*buttonSingleton.getTaggedImg().then(function(data){
+              img.map(function(i){
+                  if(data.indexOf(i.src) > -1){
+                    console.log(i.src)
+                    clearTimeout(id);
+                    id = setTimeout(doneChanging, 1000);
+                  }
+              });
+            });*/
             mutated = true;
           }
         }catch(e){}
@@ -213,11 +225,10 @@ class Button {
           break;
         }
       }
-
       if(mutated){
-        // console.log(addedNodes);
+        console.log('mutation', mutated);
         clearTimeout(id);
-        id = setTimeout(doneChanging, 1000);
+        id = setTimeout(doneChanging, 200);
       }
     });
 
@@ -228,6 +239,7 @@ class Button {
     observer.observe(body, observerConfig);
 
     function doneChanging(){
+      console.log('doneChanging')
       // adjustZIndex for button for when there's changes to the layout
       var adjustZIndex = true;
       repositionButton(buttonSingleton, adjustZIndex);
