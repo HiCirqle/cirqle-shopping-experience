@@ -56,6 +56,7 @@ function positionButtonAbsolute(imgNode, btnNode, adjustZIndex){
     /*console.log('positionButtonAbsolute', zIndex);*/
     // zIndex+=100;
     if(zIndex === 0) zIndex = highestZIndex(0, imgNode);
+    if(zIndex === 0) zIndex = 1; // if it's still zero
     btnNode.style.zIndex = zIndex;
   }
 
