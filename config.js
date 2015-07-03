@@ -1,17 +1,17 @@
 var config = {
   "production":{
-      "apiHost": "http://dashboardapi.cirqle.nl",
-      "cdnHost": "http://cdn.cirqle.nl",
+      "apiHost": "//dashboardapi.cirqle.nl",
+      "cdnHost": "//cdn.cirqle.nl",
       "iframeSrcUrl": "/shopwindow/iframecontent.html"
   },
   "staging":{
-      "apiHost": "http://dashboardapi-staging.cirqle.nl",
-      "cdnHost": "http://cdn.cirqle.nl",
+      "apiHost": "//dashboardapi-staging.cirqle.nl",
+      "cdnHost": "//cdn.cirqle.nl",
       "iframeSrcUrl": "/shopwindow/iframecontent.html"
   },
   "development":{
-      "apiHost": "http://localhost:9000",
-      "cdnHost": "http://localhost:8888",
+      "apiHost": "//localhost:9000",
+      "cdnHost": "//localhost:8888",
       "iframeSrcUrl": "/iframecontent.html"
   }
 }

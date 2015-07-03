@@ -259,8 +259,10 @@ function setButtonClickEvent(button, imgUrl, options){
 
     function closeiframelistener(event){
       console.log(event);
-      console.log(event.origin, thisModule.config.get('iframe_origin'));
-      if ( event.origin !== thisModule.config.get('iframe_origin') ){
+      var origin = event.origin.replace(/.*?:\/\//g, "");
+      var iframe_origin = thisModule.config.get('iframe_origin').replace(/.*?\/\//g, "");
+      console.log(origin, iframe_origin);
+      if ( origin !== iframe_origin){
         return;
       }
 
