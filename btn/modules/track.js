@@ -41,7 +41,7 @@ function trackView(){
     'path': path,
     'useBeacon': true,
     'hitCallback': function() {
-      console.log('pageview');
+      // console.log('pageview');
     }
   });
 }
@@ -52,7 +52,7 @@ function trackPageViewWithButtonLoaded(){
   var action = 'pageviewed';
   var label = domainName;
   __cqgaTracker('blogTracker.send', 'event', category, action, label);
-  console.log("Page with button viewedd", label);
+  // console.log("Page with button viewedd", label);
 }
 
 function trackShopButtonClick(){

@@ -76,7 +76,8 @@ class Button {
       // postImage.setScope(scope);
       // var imgElmObjs = postImage.findImages(imgUrls);
       var imgElmObjs = self.findPostImages(imgUrls, scope);
-
+      // console.log(imgUrls);
+      console.log(imgElmObjs);
       for(var j = imgElmObjs.length-1; j >=0; j--){
         var imgElm = imgElmObjs[j].element;
         var imgUrl = dataset(imgElm, "img") || imgElmObjs[j].url;
@@ -85,13 +86,13 @@ class Button {
             if(imgElm.height == 0 || imgElm.width == 0){
               cqjq("<img/>")
               .load(function() {
-                self.embedButton(imgElm, imgUrl);
+                if(imgElm.src === imgUrl) self.embedButton(imgElm, imgUrl);
               })
               .error(function() {})
               .attr("src", imgElm.src);
             }
             else{
-              self.embedButton(imgElm, imgUrl);
+              if(imgElm.src === imgUrl) self.embedButton(imgElm, imgUrl);
             }
 
           })(imgElm, imgUrl);
@@ -183,7 +184,7 @@ class Button {
     var body = document.getElementsByTagName('body')[0];
     var id;
 
-    console.log('MutationObserver', MutationObserver)
+    // console.log('MutationObserver', MutationObserver)
     // create an observer instance
     var observer = new MutationObserver(function(mutations) {
       var mutated = false;
@@ -207,7 +208,7 @@ class Button {
         try{
           var img = target.querySelectorAll('img');
           if(img.length > 0){
-            console.log('img change');
+            // console.log('img change');
             /*buttonSingleton.getTaggedImg().then(function(data){
               img.map(function(i){
                   if(data.indexOf(i.src) > -1){
@@ -226,7 +227,7 @@ class Button {
         }
       }
       if(mutated){
-        console.log('mutation', mutated);
+        // console.log('mutation', mutated);
         clearTimeout(id);
         id = setTimeout(doneChanging, 200);
       }
@@ -239,7 +240,7 @@ class Button {
     observer.observe(body, observerConfig);
 
     function doneChanging(){
-      console.log('doneChanging')
+      // console.log('doneChanging')
       // adjustZIndex for button for when there's changes to the layout
       var adjustZIndex = true;
       repositionButton(buttonSingleton, adjustZIndex);

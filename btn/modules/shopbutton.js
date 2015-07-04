@@ -49,8 +49,8 @@ function isExpired(item){
   /*var limit = 5000; // 5 seconds = 5000 miliseconds;*/
   var now = new Date().getTime();
   var diff = (item && item.timestamp) ? now - item.timestamp : null;
-  console.log(typeof item)
-  console.log(item && item.timestamp)
+  // console.log(typeof item)
+  // console.log(item && item.timestamp)
   return (!item || diff === null || diff > limit);
 }
 

@@ -88,10 +88,16 @@ function findImages(imgUrls){
     var elements = scope.querySelectorAll(selector);
     elements = makeArray(elements);
     elements = cqjq.map(elements, function(e){
-      return new ImageElement(e, imgUrls[i]);
+      if(e.src === imgUrls[i])
+        return new ImageElement(e, imgUrls[i]);
     });
     imgElementObjects = imgElementObjects.concat(elements);
   }
+  // imgElementObjects = imgElementObjects.filter(function(img){
+  //   console.log(img.url, img.element.src);
+  //   return img.url === img.element.src;
+  // });
+  // console.log(imgElementObjects);
   return imgElementObjects.concat(backgroundImgElmObject);
 }
 
