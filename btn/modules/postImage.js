@@ -88,8 +88,11 @@ function findImages(imgUrls){
     var elements = scope.querySelectorAll(selector);
     elements = makeArray(elements);
     elements = cqjq.map(elements, function(e){
-      if(e.src === imgUrls[i])
+      // console.log(removeUrlParam(e.src), removeUrlParam(imgUrls[i]));
+      // console.log(removeUrlParam(e.src) === removeUrlParam(imgUrls[i]));
+      if(removeUrlParam(e.src) === removeUrlParam(imgUrls[i])){
         return new ImageElement(e, imgUrls[i]);
+      }
     });
     imgElementObjects = imgElementObjects.concat(elements);
   }
@@ -121,5 +124,6 @@ function findTumblrImages(imgUrls){
 module.exports = {
   setScope:setScope,
   findImages:findImages,
-  findTumblrImages:findTumblrImages
+  findTumblrImages:findTumblrImages,
+  removeUrlParam:removeUrlParam
 }

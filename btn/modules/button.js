@@ -8,6 +8,7 @@ analytics.init('nfllvg24aq', window); // (id, window, disabled)
 analytics.identity();
 require('webPolyfill')(window);
 var postImage = require('postImage');
+var removeUrlParam = postImage.removeUrlParam;
 var config = require('config');
 var shopbutton = require('shopbutton');
 var shopbox = require('shopbox');
@@ -86,13 +87,15 @@ class Button {
             if(imgElm.height == 0 || imgElm.width == 0){
               cqjq("<img/>")
               .load(function() {
-                if(imgElm.src === imgUrl) self.embedButton(imgElm, imgUrl);
+                // console.log(removeUrlParam(imgElm.src) === removeUrlParam(imgUrl));
+                if(removeUrlParam(imgElm.src) === removeUrlParam(imgUrl)) self.embedButton(imgElm, removeUrlParam(imgUrl));
               })
               .error(function() {})
               .attr("src", imgElm.src);
             }
             else{
-              if(imgElm.src === imgUrl) self.embedButton(imgElm, imgUrl);
+              // console.log(removeUrlParam(imgElm.src) === removeUrlParam(imgUrl));
+              if(removeUrlParam(imgElm.src) === removeUrlParam(imgUrl)) self.embedButton(imgElm, removeUrlParam(imgUrl));
             }
 
           })(imgElm, imgUrl);
