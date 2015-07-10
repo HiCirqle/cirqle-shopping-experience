@@ -46,7 +46,7 @@ function findBackgroundImage(urls){
 }
 
 function removeUrlParam(url){
-  return url.split("?")[0].split("#")[0].replace(/https?:\/\//i, "");
+  return (url) ? url.split("?")[0].split("#")[0].replace(/https?:\/\//i, "") : url;
 }
 
 function removeUrlDomain(url){
