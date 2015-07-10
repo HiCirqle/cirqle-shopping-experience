@@ -7,7 +7,12 @@ function Timer(){
     if(!(this.startTime && this.startTime instanceof Date)){cb(false)};
 
     var end = new Date();
-    cb(end.getTime() - this.startTime.getTime());
+    var diff = 0;
+    try {
+      diff = end.getTime() - this.startTime.getTime();
+    } catch (e) {} finally {
+      cb(diff);
+    }
   };
 }
 
